@@ -925,7 +925,7 @@ local nice = {
     object_type = "Joker",
 	name = "cry-Nice",
 	key = "nice",
-    config = {extra = {chips = 420, sixcount = 0, ninecount = 0}},
+    config = {extra = {chips = 69420, sixcount = 0, ninecount = 0}},
 	pos = {x = 2, y = 3},
 	loc_txt = {
         name = 'Nice',
@@ -935,7 +935,7 @@ local nice = {
 	    "{C:inactive,s:0.8}Nice.{}"
         }
     },
-	rarity = 3,
+	rarity = 4,
 	cost = 6.9,
 	atlas = "atlasone",
     blueprint_compat = true,loc_vars = function(self, info_queue, center)
