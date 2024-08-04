@@ -2680,7 +2680,7 @@ local coin = {
 		if context.selling_card and context.card.ability.set == 'Joker' then
 			return {
 			    ease_dollars(card.ability.extra.money),
-			    message = localize('$')..card.ability.extra,
+			    message = localize('$')..card.ability.extra.money,
 			    colour = G.C.MONEY
 			}
 		end
