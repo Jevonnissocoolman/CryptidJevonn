@@ -2699,8 +2699,7 @@ local wheelhope = {
         name = 'Wheel of Hope',
         text = {
 			"This Joker gains",
-			"{X:mult,C:white} X#1# {} Mult when",
-			"when using",
+			"{X:mult,C:white} X#1# {} Mult when using",
 			"{C:attention}The Wheel of Fortune{}",
 			"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
 		}
