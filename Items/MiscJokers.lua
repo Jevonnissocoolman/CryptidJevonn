@@ -2709,7 +2709,7 @@ local wheelhope = {
 	perishable_compat = false,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, center)
-		info_queue[#info_queue+1] = G.P_CENTERS.c_wof
+		info_queue[#info_queue+1] = G.P_CENTERS.c_wheel_of_fortune
         	return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
     	end,
 	atlas = "atlasthree",
