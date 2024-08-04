@@ -2678,9 +2678,10 @@ local coin = {
 	atlas = "atlasone",
 	calculate = function(self, card, context)
 		if context.selling_card and context.card.ability.set == 'Joker' then
+			ease_dollars(card.ability.extra.money)
 			return {
-			    ease_dollars(card.ability.extra.money),
 			    message = localize('$')..card.ability.extra.money,
+			    dollars = card.ability.extra.money,
 			    colour = G.C.MONEY
 			}
 		end
