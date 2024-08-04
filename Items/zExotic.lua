@@ -338,8 +338,8 @@ local effarcire = {
         text = {
     		'Draw {C:green}full deck{} to hand',
     		'when {C:attention}Blind{} is selected',
-    		'{C:inactive,s:0.8}"If you can\'t handle me at my 1x"',
-    		'{C:inactive,s:0.8}"you don\'t deserve me at my 2x"'
+    		'{C:inactive,s:0.8}"If you can\'t handle me at my 1x,',
+    		'{C:inactive,s:0.8}you don\'t deserve me at my 2x"'
 	}
 	},
 	rarity = 3,
@@ -367,8 +367,8 @@ local crustulum = {
         name = 'Crustulum',
         text = {
             "This Joker gains {C:chips}+#2#{} Chips",
-            "per {C:attention}reroll{} in the shop,",
-            "{C:green}all rerolls are free{}",
+            "per {C:attention}reroll{} in the shop",
+            "{C:green}All rerolls are free{}",
             "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
         }
     	},
