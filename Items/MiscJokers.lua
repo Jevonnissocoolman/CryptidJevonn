@@ -2662,23 +2662,24 @@ local coin = {
 	name = "cry-coin",
 	key = "coin",
 	pos = {x = 0, y = 0},
-	config = {extra = {money = 2}},
+	config = {extra = {money = 1}},
 	loc_txt = {
         name = 'Crypto Coin',
         text = {
-			"Earn {C:money}$#1#{} for",
-			"each card {C:attention}sold{}",
+			"Earn between {C:money}$#1#{} and {C:money}$#2#{} for",
+			"each Joker {C:attention}sold{}",
 		}
     },
 	rarity = 1,
 	cost = 5,
 	blueprint_compat = true,loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.money}}
+        return {vars = {center.ability.extra.money, center.ability.extra.money*10}}
     end,
 	atlas = "atlasone",
 	calculate = function(self, card, context)
 		if context.selling_card and context.card.ability.set == 'Joker' then
-			ease_dollars(card.ability.extra.money)
+			local option = pseudorandom_element({ card.ability.extra.money, card.ability.extra.money*2, card.ability.extra.money*3, card.ability.extra.money*4, card.ability.extra.money*5, card.ability.extra.money*6, card.ability.extra.money*7, card.ability.extra.money*8, card.ability.extra.money*9, card.ability.extra.money*10 }, pseudoseed('coin'))
+			ease_dollars(option)
 			return {
 			    message = localize('$')..card.ability.extra.money,
 			    dollars = card.ability.extra.money,
