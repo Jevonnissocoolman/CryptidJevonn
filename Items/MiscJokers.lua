@@ -2707,8 +2707,10 @@ local wheelhope = {
 	rarity = 3,
 	cost = 7,
 	perishable_compat = false,
-	blueprint_compat = true,loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
+	blueprint_compat = true,
+	loc_vars = function(self, info_queue, center)
+		info_queue[#info_queue+1] = G.P_CENTERS.c_wof
+        	return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
     	end,
 	atlas = "atlasthree",
 	calculate = function(self, card, context)
