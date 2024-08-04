@@ -2666,7 +2666,8 @@ local coin = {
 	loc_txt = {
         name = 'Crypto Coin',
         text = {
-			"Earn between {C:money}$#1#{} and {C:money}$#2#{} for",
+			"Earn between",
+			"{C:money}$#1#{} and {C:money}$#2#{} for",
 			"each Joker {C:attention}sold{}",
 		}
     },
@@ -2681,13 +2682,65 @@ local coin = {
 			local option = pseudorandom_element({ card.ability.extra.money, card.ability.extra.money*2, card.ability.extra.money*3, card.ability.extra.money*4, card.ability.extra.money*5, card.ability.extra.money*6, card.ability.extra.money*7, card.ability.extra.money*8, card.ability.extra.money*9, card.ability.extra.money*10 }, pseudoseed('coin'))
 			ease_dollars(option)
 			return {
-			    message = localize('$')..card.ability.extra.money,
+			    message = localize('$')..card.ability.extra.money, --doesn't work :(
 			    dollars = card.ability.extra.money,
 			    colour = G.C.MONEY
 			}
 		end
 	end
 }
+local wheelhope = {
+	object_type = "Joker",
+	name = "cry-wheelhope",
+	key = "wheelhope",
+	pos = {x = 0, y = 0},
+	config = {extra = {extra = 0.5, x_mult = 1}},
+	loc_txt = {
+        name = 'Wheel of Hope',
+        text = {
+			"This Joker gains",
+			"{X:mult,C:white} X#1# {} Mult when",
+			"when using",
+			"{C:attention}The Wheel of Fortune{}",
+			"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+		}
+    	},
+	rarity = 3,
+	cost = 7,
+	perishable_compat = false,
+	blueprint_compat = true,loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
+    	end,
+	atlas = "atlasone",
+	calculate = function(self, card, context)
+        if context.cardarea == G.jokers and (card.ability.extra.x_mult > 1) and not context.before and not context.after then
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                Xmult_mod = card.ability.extra.x_mult
+            }
+        end
+		if context.using_consumeable and context.consumeable.ability.name == 'The Wheel of Fortune' and not context.blueprint then
+			card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.extra
+			return {
+					extra = {focus = card, message = localize('k_upgrade_ex')},
+					card = card,
+					colour = G.C.MULT
+				}
+		end
+	end
+}
+if JokerDisplay then
+    wheelhope.joker_display_definition = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                }
+            }
+        },
+    }
+end
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -2770,4 +2823,4 @@ return {name = "Misc. Jokers",
             end
 
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope}}
