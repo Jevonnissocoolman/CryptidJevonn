@@ -2287,7 +2287,7 @@ local spaceglobe = {
                             	for k, v in pairs(G.GAME.hands) do
                                 	if v.visible and k ~= card.ability.to_do_type then _type[#_type+1] = k end
                             	end
-                            	card.ability.extra.type = pseudorandom_element(_type, pseudoseed('to_do'))
+                            	card.ability.extra.type = pseudorandom_element(_type, pseudoseed('spaceglobe'))
                             	return true
                         	end
                     	}))
@@ -2657,6 +2657,35 @@ if JokerDisplay then
         end
     }
 end
+local coin = {
+	object_type = "Joker",
+	name = "cry-coin",
+	key = "coin",
+	pos = {x = 0, y = 0},
+	config = {extra = {money = 2}},
+	loc_txt = {
+        name = 'Crypto Coin',
+        text = {
+			"Earn {C:money}$#1#{} for",
+			"each card {C:attention}sold{}",
+		}
+    },
+	rarity = 1,
+	cost = 5,
+	blueprint_compat = true,loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.money}}
+    end,
+	atlas = "atlasone",
+	calculate = function(self, card, context)
+		if context.selling_card and card.ability.set = 'Joker' then
+			return {
+			    ease_dollars(card.ability.extra.money),
+			    message = localize('$')..card.ability.extra,
+			    colour = G.C.MONEY
+			}
+		end
+	end
+}
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -2739,4 +2768,4 @@ return {name = "Misc. Jokers",
             end
 
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust,}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin}}
