@@ -2721,11 +2721,8 @@ local wheelhope = {
         end
 		if context.using_consumeable and context.consumeable.ability.name == 'The Wheel of Fortune' and not context.blueprint then
 			card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.extra
-			return {
-					extra = {focus = card, message = localize('k_upgrade_ex')},
-					card = card,
-					colour = G.C.MULT
-				}
+			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}})
+			return {calculated = true}
 		end
 	end
 }
