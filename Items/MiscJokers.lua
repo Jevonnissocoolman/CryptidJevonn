@@ -2758,43 +2758,26 @@ local oldblueprint = {
     rarity = 1,
     cost = 5,
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
+        return {vars = {center.ability.extra.odds}}
     end,
     blueprint_compat = true,
-    generate_UIBox_ability_table = function(self)  -- Fixed function declaration
-        self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''
-        self.ability.blueprint_compat_check = nil
-        
-        local main_end = (self.area and self.area == G.jokers) and {
-            {n = G.UIT.C, config = {align = "bm", minh = 0.4}, nodes = {
-                {n = G.UIT.C, config = {ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes = {
-                    {n = G.UIT.T, config = {ref_table = self.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8}}
-                }}
-            }}
-        } or nil
-        loc_vars = {center.ability.extra.odds}
-        return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)
-    end,  -- End of function
-    
     atlas = "atlasthree",
     calculate = function(self, card, context)
         local other_joker = nil
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] == self then
+            if G.jokers.cards[i] == card then
                 other_joker = G.jokers.cards[i + 1]
-                break  -- Added break to exit the loop early once found
             end
         end
-        
         if other_joker and other_joker ~= self then
             context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-            context.blueprint_card = context.blueprint_card or self
+            context.blueprint_card = context.blueprint_card or card
             
             if context.blueprint > #G.jokers.cards + 1 then return end
             
             local other_joker_ret = other_joker:calculate_joker(context)
             if other_joker_ret then
-                other_joker_ret.card = context.blueprint_card or self
+                other_joker_ret.card = context.blueprint_card or card
                 other_joker_ret.colour = G.C.BLUE
                 return other_joker_ret
             end
