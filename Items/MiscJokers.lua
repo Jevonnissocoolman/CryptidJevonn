@@ -2772,8 +2772,7 @@ local oldblueprint = {
                 }}
             }}
         } or nil
-        
-        local loc_vars = {center.ability.extra.odds}
+        loc_vars = {center.ability.extra.odds}
         return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)
     end,  -- End of function
     
