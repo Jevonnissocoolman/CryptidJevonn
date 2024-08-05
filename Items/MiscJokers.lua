@@ -2814,45 +2814,6 @@ local oldblueprint = {
 	end
     end
 }
-if JokerDisplay then
-    oldblueprint.joker_display_definition = { 
-        calc_function = function(card)
-            local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
-            local changed = not (copied_joker == card.joker_display_values.blueprint_ability_joker) or
-                copied_joker and not (card.joker_display_values.blueprint_debuff == copied_joker.debuff)
-            card.joker_display_values.blueprint_ability_joker = copied_joker
-            card.joker_display_values.blueprint_ability_name = copied_joker and copied_joker.ability.name
-            card.joker_display_values.blueprint_ability_key = copied_joker and copied_joker.config.center.key
-            card.joker_display_values.blueprint_ability_name_ui = card.joker_display_values.blueprint_ability_key and
-                localize { type = 'name_text', key = card.joker_display_values.blueprint_ability_key, set = 'Joker' } or
-                "-"
-            card.joker_display_values.blueprint_compat = localize('k_' ..
-                (card.joker_display_values.blueprint_ability_name and "compatible" or "incompatible"))
-            card.joker_display_values.blueprint_debuff = copied_debuff or copied_joker and copied_joker.debuff
-
-            if changed or not card.joker_display_values.blueprint_loaded then
-                card.children.joker_display:remove_text()
-                card.children.joker_display:remove_reminder_text()
-                card.children.joker_display:remove_extra()
-                card.children.joker_display_small:remove_text()
-                card.children.joker_display_small:remove_reminder_text()
-                card.children.joker_display_small:remove_extra()
-                if copied_joker then
-                    if card.joker_display_values.blueprint_debuff then
-                        card.children.joker_display:add_text({ { text = "" .. localize("k_debuffed"), colour = G.C.UI.TEXT_INACTIVE } })
-                    elseif copied_joker.joker_display_values then
-                        copied_joker:initialize_joker_display(card)
-                        card.joker_display_values.blueprint_loaded = true
-                    else
-                        card.joker_display_values.blueprint_loaded = false
-                    end
-                else
-                    card.children.joker_display:add_reminder_text({ { text = "(" .. card.joker_display_values.blueprint_compat .. ")", colour = G.C.RED } })
-                end
-            end
-        end
-    }
-end
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -2932,40 +2893,6 @@ return {name = "Misc. Jokers",
                         obj.pos.y = obj.pos.y + 1
                     end
                 end
-            end
-	        JokerDisplay.find_joker_or_copy = function(name, non_debuff) --Make jokerdisplay worj with old blueprint (I hope)
-                local jokers = {}
-                if not G.jokers or not G.jokers.cards then return {} end
-                for k, v in pairs(G.jokers.cards) do
-                    if v and type(v) == 'table' and
-                        (v.ability.name == name or
-                            v.joker_display_values and v.joker_display_values.blueprint_ability_name and
-                            v.joker_display_values.blueprint_ability_name == name) and
-                        (non_debuff or not v.debuff) then
-                        table.insert(jokers, v)
-                    end
-                end
-                for k, v in pairs(G.consumeables.cards) do
-                    if v and type(v) == 'table' and
-                        (v.ability.name == name or
-                            v.joker_display_values and v.joker_display_values.blueprint_ability_name and
-                            v.joker_display_values.blueprint_ability_name == name) and
-                        (non_debuff or not v.debuff) then
-                        table.insert(jokers, v)
-                    end
-                end
-
-                local blueprint_count = 0
-                for k, v in pairs(jokers) do
-                    if v.ability.name == "Blueprint" or v.ability.name == "Brainstorm" or v.ability.name == "Old Blueprint" then
-                        blueprint_count = blueprint_count + 1
-                    end
-                end
-                if blueprint_count >= #jokers then
-                    return {}
-                end
-
-                return jokers
             end
         end,
         items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope, oldblueprint}}
