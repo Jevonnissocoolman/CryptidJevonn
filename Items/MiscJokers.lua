@@ -2761,6 +2761,7 @@ local oldblueprint = {
         return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds}}
     end,
     blueprint_compat = true,
+    eternal_compat = false,
     atlas = "atlasthree",
     calculate = function(self, card, context)
         local other_joker = nil
@@ -2782,7 +2783,7 @@ local oldblueprint = {
                 return other_joker_ret
             end
         end
-	if context.end_of_round and not context.blueprint and not context.retrigger_joker and not context.individual and not context.repetition then
+	if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
 		if pseudorandom('oldblueprint') < G.GAME.probabilities.normal/card.ability.extra.odds then
             		G.E_MANAGER:add_event(Event({
                     	func = function()
@@ -2801,14 +2802,14 @@ local oldblueprint = {
                     	end
                 	})) 
                 	return {
-                    	message = localize('k_eaten_ex'),
-                    	colour = G.C.FILTER
+                    		message = {"Extinct!"},
+                    		colour = G.C.FILTER
                 	}
 		else
-		return {
-                    message = {"-1 Round"},
-                    colour = G.C.FILTER
-                }
+			return {
+                    		message = {"Safe!"},
+                    		colour = G.C.FILTER
+                	}
 		end
 	end
     end
