@@ -2782,8 +2782,9 @@ local oldblueprint = {
                 other_joker_ret.colour = G.C.BLUE
                 return other_joker_ret
             end
-	elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
-		if pseudorandom('oldblueprint') < G.GAME.probabilities.normal/card.ability.extra.odds then
+	end
+	if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then --This only works if Old Blueprint is not copying other jokers
+		if pseudorandom('oldblueprint') < G.GAME.probabilities.normal/card.ability.extra.odds then --Which i get why and t makes sense, but ugh, I don't have the brainpower needed to make this work properly
             		G.E_MANAGER:add_event(Event({
                     	func = function()
                         	play_sound('tarot1')
