@@ -2782,8 +2782,7 @@ local oldblueprint = {
                 other_joker_ret.colour = G.C.BLUE
                 return other_joker_ret
             end
-        end
-	if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
+	elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
 		if pseudorandom('oldblueprint') < G.GAME.probabilities.normal/card.ability.extra.odds then
             		G.E_MANAGER:add_event(Event({
                     	func = function()
