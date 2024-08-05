@@ -2739,6 +2739,58 @@ if JokerDisplay then
         },
     }
 end
+local oldblueprint = {
+	object_type = "Joker",
+	name = "cry-oldblueprint",
+	key = "oldblueprint",
+	pos = {x = 1, y = 0},
+	config = {extra = {odds = 4}},
+	loc_txt = {
+        name = 'Old Blueprint',
+        text = {
+			"Copies ability of",
+			"Joker to the right",
+			"{C:green}1 in #1#{} chance this",
+			"card is destroyed",
+			"at end of round"
+		}
+    	},
+	rarity = 1,
+	cost = 5,
+	loc_vars = function(self, info_queue, center)
+        	return {vars = {center.ability.extra.extra, center.ability.extra.x_mult}}
+    	end,
+	blueprint_compat = true,
+	function Card:generate_UIBox_ability_table() --imagine this works (it won't)
+		self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+            	main_end = (self.area and self.area == G.jokers) and {
+                	{n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    	{n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                        	{n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                    	}}
+                	}}
+            	} or nil
+		loc_vars = {center.ability.extra.odds}
+	return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)
+	atlas = "atlasthree",
+	calculate = function(self, card, context)
+            local other_joker = nil
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == self then other_joker = G.jokers.cards[i+1] end
+            end
+            if other_joker and other_joker ~= self then
+                context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
+                context.blueprint_card = context.blueprint_card or self
+                if context.blueprint > #G.jokers.cards + 1 then return end
+                local other_joker_ret = other_joker:calculate_joker(context)
+                if other_joker_ret then 
+                    other_joker_ret.card = context.blueprint_card or self
+                    other_joker_ret.colour = G.C.BLUE
+                    return other_joker_ret
+                end
+            end
+	    
+}
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -2821,4 +2873,4 @@ return {name = "Misc. Jokers",
             end
 
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope, oldblueprint}}
