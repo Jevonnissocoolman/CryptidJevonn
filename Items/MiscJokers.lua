@@ -2758,7 +2758,7 @@ local oldblueprint = {
     rarity = 1,
     cost = 5,
     loc_vars = function(self, info_queue, center)
-        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds}}}
+        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds}}
     end,
     blueprint_compat = true,
     atlas = "atlasthree",
