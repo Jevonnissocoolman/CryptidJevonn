@@ -2750,7 +2750,7 @@ local oldblueprint = {
         text = {
             "Copies ability of",
             "Joker to the right",
-            "{C:green}1 in #1#{} chance this",
+            "{C:green}#1# in #2#{} chance this",
             "card is destroyed",
             "at end of round"
         }
@@ -2758,7 +2758,7 @@ local oldblueprint = {
     rarity = 1,
     cost = 5,
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.odds}}
+        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds}}}
     end,
     blueprint_compat = true,
     atlas = "atlasthree",
@@ -2782,6 +2782,35 @@ local oldblueprint = {
                 return other_joker_ret
             end
         end
+	if context.end_of_round and not context.blueprint and not context.retrigger_joker and not context.individual and not context.repetition then
+		if pseudorandom('oldblueprint') < G.GAME.probabilities.normal/card.ability.extra.odds then
+            		G.E_MANAGER:add_event(Event({
+                    	func = function()
+                        	play_sound('tarot1')
+                        	card.T.r = -0.2
+                     		card:juice_up(0.3, 0.4)
+                        	card.states.drag.is = true
+                        	card.children.center.pinch.x = true
+                        	G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                            		func = function()
+                                    		G.jokers:remove_card(card)
+                                    		card:remove()
+                                    		card = nil
+                                		return true; end})) 
+                        	return true
+                    	end
+                	})) 
+                	return {
+                    	message = localize('k_eaten_ex'),
+                    	colour = G.C.FILTER
+                	}
+		else
+		return {
+                    message = {"-1 Round"},
+                    colour = G.C.FILTER
+                }
+		end
+	end
     end
 }
 return {name = "Misc. Jokers", 
