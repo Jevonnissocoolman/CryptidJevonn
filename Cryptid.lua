@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman>=2.0.0-beta3, Steamodded>=1.0.0-ALPHA-0805d]
---- VERSION: 0.4.3g
+--- VERSION: 0.4.3h
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -709,7 +709,7 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
               card.cry_flipped = true
           end
       end
-      if _type == 'Joker' and not (G.GAME.modifiers.cry_force_edition and G.GAME.modifiers.cry_force_edition == 'random') then
+      if _type == 'Joker' and not G.GAME.modifiers.cry_force_edition then
           local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante)
           card:set_edition(edition)
           check_for_unlock({type = 'have_edition'})
