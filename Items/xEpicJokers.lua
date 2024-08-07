@@ -1127,9 +1127,9 @@ local bonusjoker = {
 						G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
 					end
                 			return {
-					message = localize('k_upgrade_ex'), --Something is making this not display it's text, I could have sworn this was working properly when i tested it...
+					extra = {focus = card, message = localize('k_upgrade_ex')},
 					card = card,
-					colour = G.C.CHIPS
+					colour = G.C.MONEY
 					}
 				end
         		end
@@ -1280,8 +1280,18 @@ local goldjoker = {
         	return {vars = {center.ability.extra.percent, center.ability.extra.percent_mod}}
     	end,
 	calculate = function(self, card, context)
+		if context.cardarea == G.play and context.individual and not context.blueprint then
+			if context.other_card.ability.effect == "Gold Card" then
+				card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod
+				return {
+					extra = {focus = card, message = localize('k_upgrade_ex')},
+					card = card,
+					colour = G.C.MONEY
+					}
+			end
+		end
 		if context.individual and context.cardarea == G.play then
-        		if context.other_card.ability.effect == "Gold Card" and not context.blueprint then
+        		if context.other_card.ability.effect == "Gold Card" then
 				card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod
                 		return {
 				message = localize('k_upgrade_ex'),
