@@ -2927,7 +2927,7 @@ local busdriver = {
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and (card.ability.extra.mult > 0) and not context.before and not context.after then
-	    if pseudorandom('busdriver') > G.GAME.probabilities.normal/card.ability.extra.odds * 3 then
+	    if pseudorandom('busdriver') < G.GAME.probabilities.normal/card.ability.extra.odds * 3 then
             	return {
                 	message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
                 	mult_mod = card.ability.extra.mult, 
@@ -2946,10 +2946,11 @@ local busdriver = {
 if JokerDisplay then
     busdriver.joker_display_definition = {
         text = {
-            { text = "+ or -" },
-            { ref_table = "card.ability.extra", ref_value = "mult" }
-        },
-        text_config = { colour = G.C.MULT },
+			{ text = "+",                       colour = G.C.MULT },
+			{ ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+			{ text = " or -",                      colour = G.C.MULT },
+			{ ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT },
+		},
     }
 end
 return {name = "Misc. Jokers", 
