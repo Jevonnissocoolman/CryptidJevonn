@@ -1282,8 +1282,8 @@ local goldjoker = {
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play then
         		if context.other_card.ability.effect == "Gold Card" and not context.blueprint then
+				card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod
                 		return {
-				card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod,
 				message = localize('k_upgrade_ex'),
 				card = card,
 				colour = G.C.CHIPS
