@@ -2915,19 +2915,19 @@ local busdriver = {
             "{C:green}#1# in 4{} chance",
 	    "for {C:mult}+#2#{} Mult",
 	    "{C:green}1 in 4{} chance",
-	    "for {C:mult}-#1#{} Mult"
+	    "for {C:mult}-#2#{} Mult"
         }
     },
     rarity = 3,
     cost = 7,
-    atlas = "atlasone",
+    atlas = "atlasthree",
     blueprint_compat = true,
     loc_vars = function(self, info_queue, center)
         return {vars = {''..((G.GAME and G.GAME.probabilities.normal or 1) * 3), center.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and (card.ability.extra.mult > 0) and not context.before and not context.after then
-	    if pseudorandom('busdriver') < (G.GAME.probabilities.normal / 3)/4 then
+	    if pseudorandom('busdriver') > (G.GAME.probabilities.normal / 3)/4 then
             	return {
                 	message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
                 	mult_mod = card.ability.extra.mult, 
