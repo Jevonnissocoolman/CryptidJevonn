@@ -2820,6 +2820,62 @@ local oldblueprint = { --unfinished, needs more work done later
 	end
     end
 }
+local night = {
+    	object_type = "Joker",
+	name = "cry-night",
+	key = "night",
+    	config = {extra = {mult = 3, check = false}},
+	pos = {x = 2, y = 0},
+	loc_txt = {
+        name = 'Night',
+        text = {
+            "{X:dark_edition,C:white}^#1#{} Mult on final",
+            "hand of round",
+	    "{E:2,C:red}self destructs{} on final",
+	    "hand of round"
+            }
+    	},
+	rarity = 3,
+	cost = 6,
+	eternal_compat = false,
+	atlas = "atlasthree",
+    	loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.mult}}
+    	end,
+    	calculate = function(self, card, context)
+        if context.cardarea == G.jokers and not context.before and not context.after and G.GAME.current_round.hands_left = 0 then
+		card.ability.extra.check = true
+		if card.ability.extra.mult > 1 then
+            		return {
+               		message = "^"..card.ability.extra.mult.." Mult",
+                	Emult_mod = card.ability.extra.mult,
+                	colour = G.C.DARK_EDITION
+            	}
+        end
+	if context.cardarea == G.jokers and context.after and card.ability.extra.check then
+		G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                            func = function()
+                                    G.jokers:remove_card(card)
+                                    card:remove()
+                                    card = nil
+                                return true; end})) 
+                        return true
+                    end
+                })) 
+                return {
+                    message = localize('k_extinct_ex'),
+                    colour = G.C.FILTER
+                }
+	end
+    end
+}
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -2901,4 +2957,4 @@ return {name = "Misc. Jokers",
                 end
             end
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope,}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope, night,}}
