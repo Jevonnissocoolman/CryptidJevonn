@@ -2900,7 +2900,8 @@ if JokerDisplay then
         },
         calc_function = function(card)
             card.joker_display_values.e_mult = (G.GAME and G.GAME.current_round.hands_left <= 1) and card.ability.extra.mult or 1
-	    card.joker_display_values.active = (G.GAME and G.GAME.current_round.hands_left <= 1) and localize("jdis_active") or localize("jdis_inactive")
+	    card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_left <= 1 and
+                localize("jdis_active") or localize("jdis_inactive")
         end
     }
 end
