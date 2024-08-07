@@ -2894,9 +2894,7 @@ if JokerDisplay then
             }
         },
         reminder_text = {
-            { text = "(" },
             { ref_table = "card.joker_display_values", ref_value = "localized_text" },
-            { text = ")" },
         },
         calc_function = function(card)
             card.joker_display_values.e_mult = (G.GAME and G.GAME.current_round.hands_left <= 1) and card.ability.extra.mult or 1
