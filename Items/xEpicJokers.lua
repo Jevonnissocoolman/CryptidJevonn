@@ -1098,7 +1098,7 @@ local bonusjoker = {
         name = 'Bonus Joker',
         text = {
 			"{C:green}#1# in #2#{} chance for each",
-			"played {C:attention}Bonus Card{} to increase",
+			"played {C:attention}Bonus{} card to increase",
 			"{C:attention}Joker{} or {C:attention}Consumable slots",
 			"by {C:dark_edition}1{} when scored",
 			"{C:red}Works twice per round",
@@ -1186,7 +1186,7 @@ local multjoker = {
         name = 'Mult Joker',
         text = {
 			"{C:green}#1# in #2#{} chance for each",
-			"played {C:attention}Mult Card{} to create",
+			"played {C:attention}Mult{} card to create",
 			"a {C:spectral}Cryptid{} card when scored",
 			"{C:inactive}(Must have room)"
 		}
@@ -1253,6 +1253,53 @@ if JokerDisplay then
             card.joker_display_values.odds = G.GAME and G.GAME.probabilities.normal or 1
         end
 	}
+end
+local goldjoker = {
+    object_type = "Joker",
+	name = "cry-goldjoker",
+	key = "goldjoker",
+    	config = {extra = {percent_mod = 1, percent = 0}},
+	pos = {x = 3, y = 3},
+	loc_txt = {
+        name = 'Gold Joker',
+        text = {
+		"Earn {C:money}#1#%{} of total money",
+            	"at end of round",
+            	"Payout increases by {C:money}#2#%{} when",
+            	"each played {C:attention}Gold{} card",
+		"is scored"
+        }
+    },
+	rarity = "cry_epic",
+	cost = 14,
+	perishable_compat = false,
+	atlas = "atlasepic",
+    	loc_vars = function(self, info_queue, center)
+		info_queue[#info_queue+1] = G.P_CENTERS.m_gold
+        	return {vars = {center.ability.extra.percent, center.ability.extra.percent_mod}}
+    	end,
+	card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod
+	calc_dollar_bonus = function(self, card)
+		local bonus = math.max(0,math.floor(0.01*card.ability.extra.percent*G.GAME.dollars))
+        if bonus > 0 then return bonus end
+	end
+}
+if JokerDisplay then
+    goldjoker.joker_display_definition = {
+        text = {
+            { text = "+$" },
+            { ref_table = "card.joker_display_values", ref_value = "dollars" },
+        },
+        text_config = { colour = G.C.GOLD },
+        reminder_text = {
+            { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+        },
+        calc_function = function(card)
+            local bonus = math.max(0, math.floor(0.01 * card.ability.extra.percent * G.GAME.dollars))
+            card.joker_display_values.dollars = bonus and bonus > 0 and bonus or 0
+            card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        end
+    }
 end
 return {name = "Epic Jokers", 
 		init = function()
