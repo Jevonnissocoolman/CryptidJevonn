@@ -1118,11 +1118,12 @@ local bonusjoker = {
     		if context.individual and context.cardarea == G.play then
         		if context.other_card.ability.effect == "Bonus Card" then
             			if pseudorandom('bonusjoker') < G.GAME.probabilities.normal / card.ability.extra.odds and card.ability.extra.check < 2 and not context.retrigger_joker then
-					if not context.blueprint then card.ability.extra.check = card.ability.extra.check + 1 end
 					local option = pseudorandom_element({1, 2}, pseudoseed('bonusjoker'))
 					if option == 1 then
+						if not context.blueprint then card.ability.extra.check = card.ability.extra.check + 1 end
                 				G.jokers.config.card_limit = G.jokers.config.card_limit + 1
 					else
+						if not context.blueprint then card.ability.extra.check = card.ability.extra.check + 1 end
 						G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
 					end
                 			return {
@@ -1133,7 +1134,7 @@ local bonusjoker = {
 				end
         		end
     		end
-		if context.end_of_round and not card.ability.extra.check ~= 0 and not context.blueprint and not context.retrigger_joker and not context.individual and not context.repetition then
+		if context.end_of_round and card.ability.extra.check ~= 0 and not context.blueprint and not context.retrigger_joker and not context.individual and not context.repetition then
 			card.ability.extra.check = 0
             		return {
                     	message = localize('k_reset'),
@@ -1278,7 +1279,18 @@ local goldjoker = {
 		info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         	return {vars = {center.ability.extra.percent, center.ability.extra.percent_mod}}
     	end,
-	card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+        		if context.other_card.ability.effect == "Gold Card" and not context.blueprint then
+                		return {
+				card.ability.extra.percent = card.ability.extra.percent + card.ability.extra.percent_mod,
+				message = localize('k_upgrade_ex'),
+				card = card,
+				colour = G.C.CHIPS
+				}
+        		end
+    		end
+	end,
 	calc_dollar_bonus = function(self, card)
 		local bonus = math.max(0,math.floor(0.01*card.ability.extra.percent*G.GAME.dollars))
         if bonus > 0 then return bonus end
