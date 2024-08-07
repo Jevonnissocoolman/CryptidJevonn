@@ -1264,11 +1264,11 @@ local goldjoker = {
 	loc_txt = {
         name = 'Gold Joker',
         text = {
-		"Earn {C:money}#1#%{} of total money",
-            	"at end of round",
-            	"Payout increases by {C:money}#2#%{} when",
-            	"each played {C:attention}Gold{} card",
-		"is scored"
+		"Earn {C:money}#1#%{} of total",
+            	"money at end of round",
+            	"Payout increases by {C:money}#2#%{}",
+            	"when each played {C:attention}Gold{}",
+		"card is scored"
         }
     },
 	rarity = "cry_epic",
