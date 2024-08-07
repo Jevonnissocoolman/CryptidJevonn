@@ -2843,7 +2843,7 @@ local night = {
         return {vars = {center.ability.extra.mult}}
     	end,
     	calculate = function(self, card, context)
-        if context.cardarea == G.jokers and not context.before and not context.after and G.GAME.current_round.hands_left = 0 then
+        if context.cardarea == G.jokers and not context.before and not context.after and G.GAME.current_round.hands_left == 0 then
 		card.ability.extra.check = true
 		if card.ability.extra.mult > 1 then
             		return {
