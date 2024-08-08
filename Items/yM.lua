@@ -1102,7 +1102,8 @@ local biggestm = {
 	object_type = "Joker",
 	name = "cry-biggestm",
 	key = "biggestm",
-	pos = {x = 2, y = 2},
+	pos = {x = 0, y = 5},
+	soul_pos = {x = 2, y = 5, extra = {x = 1, y = 5}},
 	config = {extra = {mult = 1.07, bonus = 0.07, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
 	loc_txt = {
 		name = 'M Prime',
@@ -1120,7 +1121,7 @@ local biggestm = {
 	rarity = 4,
 	cost = 50,
 	blueprint_compat = true,
-	atlas = "atlasone",
+	atlas = "atlasexotic",
 	perishable_compat = false,
 	calculate = function(self, card, context)
 		if context.selling_card and context.card.ability.name == "Jolly Joker" then
