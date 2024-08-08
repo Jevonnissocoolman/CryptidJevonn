@@ -1330,7 +1330,7 @@ local altgoogol = {
 	key = "altgoogol",
 	pos = {x = 4, y = 3},
 	loc_txt = {
-        name = 'Googol Play Card',
+        name = 'Alt Googol Play Card',
         text = {
 			"Sell this card to",
 			"create 2 copies",
@@ -1345,7 +1345,7 @@ local altgoogol = {
 	atlas = "atlasepic",
 	soul_pos = {x = 10, y = 0, extra = {x = 5, y = 3}},
 	calculate = function(self, card, context)
-		if context.selling_self and not context.blueprint and not context.retrigger_joker then
+		if context.setting_blind and not context.blueprint and not context.retrigger_joker then
 			local other_joker = nil
         		for i = 1, #G.jokers.cards do
             			if G.jokers.cards[i] == card and G.jokers.cards[i].ability.name ~= card.ability.name then
