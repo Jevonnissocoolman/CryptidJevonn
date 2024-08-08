@@ -1180,7 +1180,7 @@ local biggestm = {
 		card.ability.extra.check = true end
 	end
 }
-local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse}
+local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse,biggestm}
 return {name = "M Jokers", 
         init = function()
 	    --Make Kidnapping always cost 1$ regardless of edition
