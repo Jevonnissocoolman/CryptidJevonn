@@ -1332,11 +1332,10 @@ local altgoogol = {
 	loc_txt = {
         name = 'Alt Googol Play Card',
         text = {
-			"Sell this card to",
-			"create 2 copies",
-			"of the {C:attention}Joker{}",
-			"to the left",
-			"of this card"
+			"Sell this card to create",
+			"2 copies of the",
+			"{C:attention}leftmost{} Joker",
+			"{C:inactive,s:0.8}Does not copy Alt Googol Play Cards{}"
 		}
     },
 	rarity = "cry_epic",
@@ -1345,25 +1344,22 @@ local altgoogol = {
 	atlas = "atlasepic",
 	soul_pos = {x = 10, y = 0, extra = {x = 5, y = 3}},
 	calculate = function(self, card, context)
-		local other_joker = nil
-        	for i = 1, #G.jokers.cards do
-            		if G.jokers.cards[i] == card and G.jokers.cards[i].ability.name ~= card.ability.name then
-                		other_joker = G.jokers.cards[i + 1]
-            		end
-       		end
-		if context.setting_blind and not context.blueprint and not context.retrigger_joker then
-        		if other_joker ~= nil then
-				G.E_MANAGER:add_event(Event({
-                    			func = function() 
-                        			local card = copy_card(other_joker, nil)
-                        			card:add_to_deck()
-                        			G.jokers:emplace(card) 
-                        			return true
-                    			end}))
-                			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
-                			return {calculated = true}
-			end
-		end
+		if context.selling_self and not context.retrigger_joker then
+			if G.jokers.cards[1].ability.name ~= card.ability.name then
+				for i = 1, 2 do
+					 G.E_MANAGER:add_event(Event({
+                    				func = function() 
+                        				local card = copy_card(pseudorandom_element(eligibleJokers, pseudoseed('cry_speculo')), nil)
+                       					card:set_edition({negative = true}, true)
+                        				card:add_to_deck()
+                        				G.jokers:emplace(card) 
+                        				return true
+                    				end}))
+                				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+                				return {calculated = true}
+				end
+			else return {calculated = true} end
+        	end
 	end
 }
 return {name = "Epic Jokers", 
