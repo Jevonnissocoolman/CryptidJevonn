@@ -1098,6 +1098,88 @@ if JokerDisplay then
         end
     }
 end
+local biggestm = {
+	object_type = "Joker",
+	name = "cry-biggestm",
+	key = "biggestm",
+	pos = {x = 2, y = 2},
+	config = {extra = {mult = 1.07, bonus = 0.07, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
+	loc_txt = {
+		name = 'M Prime',
+		text = {
+			"Each {C:attention}Jolly Joker{} gives {X:dark_edition,C:white}^#1#{} Mult",
+			"Increase amount by {X:dark_edition,C:white}^#2#{} and",
+			"create an {C:legendary}M{} {C:red}once per round",
+			"when {C:attention}Jolly Joker{} is {C:attention}sold"
+		}
+	},
+	loc_vars = function(self, info_queue, center)
+		info_queue[#info_queue+1] = { set = 'Joker', key = 'j_jolly', specific_vars = {self.config.jolly.t_mult, self.config.jolly.type} }
+		return {vars = {center.ability.extra.mult, center.ability.extra.bonus}}
+	end,
+	rarity = 4,
+	cost = 50,
+	blueprint_compat = true,
+	atlas = "atlasone",
+	perishable_compat = false,
+	calculate = function(self, card, context)
+		if context.selling_card and context.card.ability.name == "Jolly Joker" then
+			if not context.blueprint then card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.bonus end
+			if card.ability.extra.check and not context.retrigger_joker then
+				card.ability.extra.check = false
+				local loyalservants = {
+            				"j_cry_jollysus",
+           				"j_cry_kidnap",
+            				"j_cry_bubblem",
+            				"j_cry_foodm",
+            				"j_cry_mneon",
+            				"j_cry_mstack",
+            				"j_cry_notebook",
+            				"j_cry_reverse",
+            				"j_cry_loopy",
+					"j_cry_morse",
+					"j_cry_bonk",
+					"j_cry_sacrifice",
+					"j_cry_scrabble",
+        				}
+        				if G.P_CENTERS.j_cry_m then loyalservants[#loyalservants+1] = "j_cry_m" end
+        				if G.P_CENTERS.j_cry_M then loyalservants[#loyalservants+1] = "j_cry_M" end
+					if G.P_CENTERS.j_cry_virgo then loyalservants[#loyalservants+1] = "j_cry_virgo" end
+        				if G.P_CENTERS.j_cry_doodlem then loyalservants[#loyalservants+1] = "j_cry_doodlem" end
+					if G.P_CENTERS.j_cry_smallestm then loyalservants[#loyalservants+1] = "j_cry_smallestm" end
+        				local card = create_card('Joker', G.jokers, nil, nil, nil, nil, pseudorandom_element(loyalservants,pseudoseed("cry_biggestm")))
+        				card:add_to_deck()
+					card:start_materialize()
+        				G.jokers:emplace(card)
+			end
+			return {
+                    		message = localize('k_upgrade_ex'),
+				colour = G.C.DARK_EDITION,
+                        	card = card,
+			}
+		end
+		if context.other_joker then
+			if context.other_joker and context.other_joker.ability.name == "Jolly Joker" then
+				if not Talisman.config_file.disable_anims then 
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							context.other_joker:juice_up(0.5, 0.5)
+							return true
+						end
+					})) 
+				end
+				return {
+                			message = "^"..card.ability.extra.mult.." Mult",
+                			Emult_mod = card.ability.extra.mult,
+                			colour = G.C.DARK_EDITION,
+                			card = card
+            			}
+			end
+		end
+		if context.end_of_round and not card.ability.extra.check and not context.blueprint and not context.retrigger_joker then
+		card.ability.extra.check = true end
+	end
+}
 local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse}
 return {name = "M Jokers", 
         init = function()
