@@ -1333,7 +1333,7 @@ local altgoogol = {
         name = 'Alt Googol Play Card',
         text = {
 			"Sell this card to create",
-			"2 copies of the",
+			"2 copies of the leftmost {C:attention}Joker{}",
 			"{C:attention}leftmost{} Joker",
 			"{C:inactive,s:0.8}Does not copy Alt Googol Play Cards{}"
 		}
@@ -1351,7 +1351,7 @@ local altgoogol = {
 				for i = 1, 2 do
 					 G.E_MANAGER:add_event(Event({
                     				func = function() 
-                        				local card = copy_card(spawn, nil)
+                        				local card = copy_card(pseudorandom_element(spawn, pseudoseed('cry_speculo')), nil)
                        					card:set_edition({negative = true}, true)
                         				card:add_to_deck()
                         				G.jokers:emplace(card) 
