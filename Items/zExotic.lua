@@ -331,8 +331,8 @@ local effarcire = {
 	name = "cry-Effarcire",
 	key = "effarcire",
 	config = {},
-	pos = {x = 0, y = 3},
-	soul_pos = {x = 1, y = 3, extra = {x = 2, y = 3}},
+	pos = {x = 0, y = 0},
+	soul_pos = {x = 1, y = 0, extra = {x = 2, y = 0}},
 	loc_txt = {
         name = 'Effarcire',
         text = {
@@ -344,7 +344,7 @@ local effarcire = {
 	},
 	rarity = 3,
 	cost = 50,
-	atlas = 'atlasexotic',
+	atlas = 'effarcire',
 	rarity = "cry_exotic",
 	calculate = function(self, card, context)
 		if not context.blueprint then
@@ -355,6 +355,13 @@ local effarcire = {
 			end
 		end
 	end
+}
+local effarcire_sprite = { 
+    object_type = "Atlas",
+    key = "effarcire",
+    path = "goofy.png",
+    px = 71,
+    py = 95
 }
 local crustulum = {
 	object_type = "Joker",
@@ -825,4 +832,4 @@ return {name = "Exotic Jokers",
                 end
             end
         end,
-        items = {gateway_sprite, gateway, iterum, universum, exponentia, speculo, redeo, tenebris, effarcire, crustulum, primus, scalae,}}
+        items = {gateway_sprite, effarcire_sprite, gateway, iterum, universum, exponentia, speculo, redeo, tenebris, effarcire, crustulum, primus, scalae,}}
