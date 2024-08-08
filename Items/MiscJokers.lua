@@ -2953,6 +2953,42 @@ if JokerDisplay then
 		},
     }
 end
+local soccer = {
+	object_type = "Joker",
+	name = "cry-soccer",
+	key = "soccer",
+	pos = {x = 5, y = 4},
+	config = {extra = {holygrail = 1}},
+	loc_txt = {
+        name = 'Unum Socors',
+        text = {
+			"{C:dark_edition}+#1#{C:attention} Joker{} slots"
+		}
+    },
+	rarity = 4,
+	cost = 20,
+	atlas = "atlastwo",
+	loc_vars = function(self, info_queue, center)
+		return {vars = {center.ability.extra.holygrail}}
+	end,
+	add_to_deck = function(self, card, from_debuff) --TODO: Card in booster packs, Voucher slots
+		card.ability.extra.holygrail = math.floor(card.ability.extra.holygrail)
+		G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.holygrail
+		G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.holygrail
+		G.hand:change_size((card.ability.extra.holygrail))
+		if not G.GAME.modifiers.cry_booster_packs then G.GAME.modifiers.cry_booster_packs = 2 end
+        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs + card.ability.extra.booster_slots
+		change_shop_size(card.ability.extra.holygrail)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.holygrail
+		G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.holygrail
+		G.hand:change_size((-card.ability.extra.holygrail))
+		if not G.GAME.modifiers.cry_booster_packs then G.GAME.modifiers.cry_booster_packs = 2 end
+        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs - card.ability.extra.booster_slots
+		change_shop_size(card.ability.extra.holygrail * -1)
+	end
+} 
 return {name = "Misc. Jokers", 
         init = function()
             --Dropshot Patches
@@ -3034,4 +3070,4 @@ return {name = "Misc. Jokers",
                 end
             end
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope, night, busdriver,}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, coin, wheelhope, night, busdriver, soccer,}}
