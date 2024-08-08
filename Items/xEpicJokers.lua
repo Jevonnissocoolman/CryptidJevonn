@@ -1273,6 +1273,7 @@ local goldjoker = {
     },
 	rarity = "cry_epic",
 	cost = 14,
+	enhancement_gate = 'm_gold',
 	perishable_compat = false,
 	atlas = "atlasepic",
     	loc_vars = function(self, info_queue, center)
@@ -1323,6 +1324,48 @@ if JokerDisplay then
         end
     }
 end
+local altgoogol = {
+	object_type = "Joker",
+	name = "cry-altgoogol",
+	key = "altgoogol",
+	pos = {x = 4, y = 3},
+	loc_txt = {
+        name = 'Googol Play Card',
+        text = {
+			"Sell this card to",
+			"create 2 copies",
+			"of the {C:attention}Joker{}",
+			"to the left",
+			"of this card"
+		}
+    },
+	rarity = "cry_epic",
+	cost = 10,
+	blueprint_compat = true,
+	atlas = "atlasepic",
+	soul_pos = {x = 10, y = 0, extra = {x = 5, y = 3}},
+	calculate = function(self, card, context)
+		if context.selling_self and not context.blueprint and not context.retrigger_joker then
+			local other_joker = nil
+        		for i = 1, #G.jokers.cards do
+            			if G.jokers.cards[i] == card and G.jokers.cards[i].ability.name ~= card.ability.name then
+                			other_joker = G.jokers.cards[i + 1]
+            			end
+       			end
+        		if other_joker ~= self and other_joker ~= nil then
+				G.E_MANAGER:add_event(Event({
+                    			func = function() 
+                        			local card = copy_card(other_joker, nil)
+                        			card:add_to_deck()
+                        			G.jokers:emplace(card) 
+                        			return true
+                    			end}))
+                			card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+                			return {calculated = true}
+			end
+		end
+	end
+}
 return {name = "Epic Jokers", 
 		init = function()
 			
@@ -1410,4 +1453,4 @@ return {name = "Epic Jokers",
                 loc_txt = {}
             },true)
 		end,
-		items = {supercell, googol_play, sync_catalyst, negative, canvas, error_joker, M, m, boredom, double_scale, number_blocks, oldcandy, caramel, curse, bonusjoker, multjoker, goldjoker,}}
+		items = {supercell, googol_play, sync_catalyst, negative, canvas, error_joker, M, m, boredom, double_scale, number_blocks, oldcandy, caramel, curse, bonusjoker, multjoker, goldjoker, altgoogol,}}
