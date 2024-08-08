@@ -585,7 +585,7 @@ local bonk = {
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		card.ability.extra.xchips = math.floor(card.ability.extra.xchips + 0.5) end --lua moment
+		card.ability.extra.xchips = math.floor(card.ability.extra.xchips + 0.5) --lua moment
     	end
 }
 if JokerDisplay then
