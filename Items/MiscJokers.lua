@@ -2962,7 +2962,11 @@ local soccer = {
 	loc_txt = {
         name = 'Unum Socors',
         text = {
-			"{C:dark_edition}+#1#{C:attention} Joker{} slots"
+			"{C:attention}+#1#{} Joker slots",
+			"{C:attention}+#1#{} Booster pack slot",
+			"{C:attention}+#1#{} handsize",
+			"{C:attention}+#1#{} Consumable slots",
+			"{C:attention}+#1#{} card in shop",
 		}
     },
 	rarity = 4,
@@ -2977,7 +2981,7 @@ local soccer = {
 		G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.holygrail
 		G.hand:change_size((card.ability.extra.holygrail))
 		if not G.GAME.modifiers.cry_booster_packs then G.GAME.modifiers.cry_booster_packs = 2 end
-        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs + card.ability.extra.booster_slots
+        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs + card.ability.extra.holygrail
 		change_shop_size(card.ability.extra.holygrail)
 	end,
 	remove_from_deck = function(self, card, from_debuff)
@@ -2985,7 +2989,7 @@ local soccer = {
 		G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.holygrail
 		G.hand:change_size((-card.ability.extra.holygrail))
 		if not G.GAME.modifiers.cry_booster_packs then G.GAME.modifiers.cry_booster_packs = 2 end
-        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs - card.ability.extra.booster_slots
+        	G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs - card.ability.extra.holygrail
 		change_shop_size(card.ability.extra.holygrail * -1)
 	end
 } 
