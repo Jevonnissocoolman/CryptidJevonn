@@ -391,7 +391,7 @@ local mneon = {
             		card.ability.extra.money = card.ability.extra.money + card.ability.extra.bonus * jollycount
 			return {message = "M!"}
 		else 
-			card.ability.extra.money = card.ability.extra.money + card.ability.extra.bonus
+			card.ability.extra.money = card.ability.extra.money + math.max(1, card.ability.extra.bonus)
 			return {message = "Upgrade!"}
 		end
         end
@@ -525,19 +525,19 @@ local bonk = {
 	name = "cry-bonk",
 	key = "bonk",
 	pos = {x = 2, y = 2},
-	config = {extra = {chips = 6, bonus = 1, xchips = 3, type = "Pair", chipstext = 18}, jolly = {t_mult = 8, type = 'Pair'}},
+	config = {extra = {chips = 6, bonus = 1, xchips = 3, type = "Pair"}, jolly = {t_mult = 8, type = 'Pair'}},
 	loc_txt = {
 		name = 'Bonk',
 		text = {
 			"Each {C:attention}Joker{} gives {C:chips}+#1#{} Chips",
 			"Increase amount by {C:chips}+#2#{} if",
-			"{C:attention} poker hand{} is a {C:attention}#4#{}",
-			"{C:inactive,s:0.8}Jolly Jokers give{} {C:chips,s:0.8}+#3#{} {C:inactive,s:0.8}Chips instead{}"
+			"{C:attention} poker hand{} is a {C:attention}#3#{}",
+			"{C:inactive,s:0.8}Jolly Jokers give{} {C:chips,s:0.8}+#4#{} {C:inactive,s:0.8}Chips instead{}"
 		}
 	},
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue+1] = { set = 'Joker', key = 'j_jolly', specific_vars = {self.config.jolly.t_mult, self.config.jolly.type} }
-		return {vars = {center.ability.extra.chips, center.ability.extra.bonus, center.ability.extra.chipstext, center.ability.extra.type}}
+		return {vars = {center.ability.extra.chips, center.ability.extra.bonus, center.ability.extra.type, (center.ability.extra.chips * center.ability.extra.xchips)}}
 	end,
 	rarity = 2,
 	cost = 5,
@@ -548,7 +548,6 @@ local bonk = {
 		if context.cardarea == G.jokers and context.before and not context.blueprint then
 			if context.scoring_name == card.ability.extra.type then
 				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.bonus
-				card.ability.extra.chipstext = card.ability.extra.chips * card.ability.extra.xchips --value used for display
 				card_eval_status_text(card, 'extra', nil, nil, nil, {
 					message = localize('k_upgrade_ex'),
 					colour = G.C.CHIPS
@@ -579,15 +578,14 @@ local bonk = {
 					})) 
 				end
 				return {
-					message = localize{type='variable',key='a_chips',vars={card.ability.extra.chipstext}},
+					message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips * card.ability.extra.xchips}},
 					chip_mod = card.ability.extra.chips * card.ability.extra.xchips,
 				}
 			end
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		if card.ability.extra.xchips ~= 3 then card.ability.extra.xchips = 3 end --avoid text displaying an incorrect value on misprint deck
-		card.ability.chipstext = card.ability.extra.chips * card.ability.extra.xchips
+		card.ability.extra.xchips = math.floor(card.ability.extra.xchips + 0.5) end --lua moment
     	end
 }
 if JokerDisplay then
