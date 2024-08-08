@@ -1345,11 +1345,13 @@ local altgoogol = {
 	soul_pos = {x = 10, y = 0, extra = {x = 5, y = 3}},
 	calculate = function(self, card, context)
 		if context.selling_self and not context.retrigger_joker then
-			if G.jokers.cards[1].ability.name ~= card.ability.name then
+			local spawn = {}
+			if G.jokers.cards[1].ability.name ~= card.ability.name then spawn[#spawn+1] = G.jokers.cards[1] end
+			if #spawn ~= 0 then
 				for i = 1, 2 do
 					 G.E_MANAGER:add_event(Event({
                     				func = function() 
-                        				local card = copy_card(pseudorandom_element(eligibleJokers, pseudoseed('cry_speculo')), nil)
+                        				local card = copy_card(spawn, nil)
                        					card:set_edition({negative = true}, true)
                         				card:add_to_deck()
                         				G.jokers:emplace(card) 
