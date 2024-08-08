@@ -1352,7 +1352,7 @@ local altgoogol = {
                 			other_joker = G.jokers.cards[i + 1]
             			end
        			end
-        		if other_joker ~= self and other_joker ~= nil then
+        		if other_joker ~= nil then
 				G.E_MANAGER:add_event(Event({
                     			func = function() 
                         			local card = copy_card(other_joker, nil)
@@ -1360,7 +1360,7 @@ local altgoogol = {
                         			G.jokers:emplace(card) 
                         			return true
                     			end}))
-                			card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+                			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
                 			return {calculated = true}
 			end
 		end
