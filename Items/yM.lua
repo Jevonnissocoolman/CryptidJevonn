@@ -1104,7 +1104,7 @@ local biggestm = {
 	key = "biggestm",
 	pos = {x = 0, y = 5},
 	soul_pos = {x = 2, y = 5, extra = {x = 1, y = 5}},
-	config = {extra = {mult = 1.07, bonus = 0.07, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
+	config = {extra = {mult = 1.07, bonus = 0.04, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
 	loc_txt = {
 		name = 'M Prime',
 		text = {
@@ -1179,8 +1179,20 @@ local biggestm = {
 		end
 		if context.end_of_round and not card.ability.extra.check and not context.blueprint and not context.retrigger_joker then
 		card.ability.extra.check = true end
-	end
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		local jollycount = 4 --Create up to 4 jollies if there are none to start off
+		for i = 1, #G.jokers.cards do
+                	if G.jokers.cards[i].ability.name == 'Jolly Joker' then jollycount = jollycount - 1 end
+            	end
+		for i = 1, math.max(0, jollycount) do
+			local card = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_jolly')
+				card:add_to_deck()
+				G.jokers:emplace(card)
+		end
+	end,
 }
+
 local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse,biggestm}
 return {name = "M Jokers", 
         init = function()
@@ -1196,8 +1208,7 @@ return {name = "M Jokers",
                 for _, jkr in pairs({doodlem, virgo, smallestm}) do
                     ret_items[#ret_items+1] = jkr
                 end
-            end
-	    if Cryptid_config["Exotic Jokers"] then
+	    elseif Cryptid_config["Exotic Jokers"] then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
                 for _, jkr in pairs({biggestm}) do
                     ret_items[#ret_items+1] = jkr
                 end
