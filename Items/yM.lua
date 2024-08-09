@@ -1205,7 +1205,7 @@ return {name = "M Jokers",
                     ret_items[#ret_items+1] = jkr
                 end
 	    end
-	    if Cryptid_config["Exotic Jokers"] then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
+	    if cry_exotic then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
                 for _, jkr in pairs({hugem}) do
                     ret_items[#ret_items+1] = jkr
                 end
