@@ -568,6 +568,9 @@ local double_scale = {
             G.GAME.cry_double_scale = {double_scale = true} --doesn't really matter what's in here as long as there's something
         end
         for i = 1, #G.jokers.cards do
+	    if G.jokers.cards[i].ability.name ~= "cry-happyhouse"
+	    or G.jokers.cards[i].ability.name ~= "cry-sapling"
+	    or G.jokers.cards[i].ability.name ~= "cry-mstack" then
             --sort_id is a unique ID for each Joker
             local jkr = G.jokers.cards[i]
             if jkr.ability and type(jkr.ability) == 'table' then
