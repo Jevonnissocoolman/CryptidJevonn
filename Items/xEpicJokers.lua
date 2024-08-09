@@ -763,6 +763,7 @@ local double_scale = {
         end
         return
     end
+    end
 }
 local oldcandy = {
 	object_type = "Joker",
