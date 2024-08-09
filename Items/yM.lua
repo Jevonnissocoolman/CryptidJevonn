@@ -1193,7 +1193,7 @@ local biggestm = {
 	end,
 }
 
-local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse,biggestm}
+local ret_items = {jollysus,kidnap,bubblem,foodm,mstack,mneon,notebook,bonk,morse,loopy,scrabble,sacrifice,reverse}
 return {name = "M Jokers", 
         init = function()
 	    --Make Kidnapping always cost 1$ regardless of edition
