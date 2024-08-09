@@ -1098,10 +1098,10 @@ if JokerDisplay then
         end
     }
 end
-local biggestm = {
+local hugem = {
 	object_type = "Joker",
-	name = "cry-biggestm",
-	key = "biggestm",
+	name = "cry-hugem",
+	key = "hugem",
 	pos = {x = 0, y = 5},
 	soul_pos = {x = 2, y = 5, extra = {x = 1, y = 5}},
 	config = {extra = {mult = 1.07, bonus = 0.04, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
@@ -1204,8 +1204,9 @@ return {name = "M Jokers",
                 for _, jkr in pairs({doodlem, virgo, smallestm}) do
                     ret_items[#ret_items+1] = jkr
                 end
-	    elseif Cryptid_config["Exotic Jokers"] then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
-                for _, jkr in pairs({biggestm}) do
+	    end
+	    if Cryptid_config["Exotic Jokers"] then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
+                for _, jkr in pairs({hugem}) do
                     ret_items[#ret_items+1] = jkr
                 end
             end
