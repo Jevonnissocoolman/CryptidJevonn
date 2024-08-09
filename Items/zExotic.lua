@@ -525,7 +525,9 @@ local scalae = {
 			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
 		end
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i].ability.name ~= "cry-Scalae" then
+            if G.jokers.cards[i].ability.name ~= "cry-Scalae"
+	    or G.jokers.cards[i].ability.name ~= "cry-happyhouse"
+	    or G.jokers.cards[i].ability.name ~= "cry-sapling" then
                 --sort_id is a unique ID for each Joker
                 local jkr = G.jokers.cards[i]
                 if jkr.ability and type(jkr.ability) == 'table' then
