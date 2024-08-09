@@ -1,15 +1,15 @@
-local copies_atlas = {
+local voucher_atlas = {
     object_type = "Atlas",
-    key = "cry_copies",
-    path = "v_cry_copies.png",
+    key = "atlasvoucher",
+    path = "atlasvoucher.png",
     px = 71,
     py = 95
 }
 local copies = {
     object_type = "Voucher",
 	key = "copies",
-    atlas = "cry_copies",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 1, y = 1},
 	loc_txt = {
         name = 'Copies',
         text = {
@@ -23,18 +23,11 @@ local copies = {
         return {vars = {}}
     end,
 }
-local tag_printer_atlas = {
-    object_type = "Atlas",
-    key = "cry_tag_printer",
-    path = "v_cry_tag_printer.png",
-    px = 71,
-    py = 95
-}
 local tag_printer = {
     object_type = "Voucher",
 	key = "tag_printer",
-    atlas = "cry_tag_printer",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 1, y = 2},
 	loc_txt = {
         name = 'Tag Printer',
         text = {
@@ -49,18 +42,11 @@ local tag_printer = {
     end,
     requires = {"v_cry_copies"}
 }
-local clone_machine_atlas = {
-    object_type = "Atlas",
-    key = "cry_clone_machine",
-    path = "v_placeholder_t3.png",
-    px = 71,
-    py = 95
-}
 local clone_machine = {
     object_type = "Voucher",
 	key = "clone_machine",
-    atlas = "cry_clone_machine",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 1, y = 3},
 	loc_txt = {
         name = 'Clone Machine',
         text = {
@@ -75,18 +61,11 @@ local clone_machine = {
     end,
     requires = {"v_cry_tag_printer"}
 }
-local command_prompt_atlas = {
-    object_type = "Atlas",
-    key = "cry_command_prompt",
-    path = "v_commandprompt.png",
-    px = 71,
-    py = 95
-}
 local command_prompt = {
     object_type = "Voucher",
 	key = "command_prompt",
-    atlas = "cry_command_prompt",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 0, y = 1},
 	loc_txt = {
         name = 'Command Prompt',
         text = {
@@ -103,18 +82,11 @@ local command_prompt = {
         return true end }))
     end
 }
-local satellite_uplink_atlas = {
-    object_type = "Atlas",
-    key = "cry_satellite_uplink",
-    path = "v_satelliteuplink.png",
-    px = 71,
-    py = 95
-}
 local satellite_uplink = {
     object_type = "Voucher",
 	key = "satellite_uplink",
-    atlas = "cry_satellite_uplink",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 0, y = 2},
 	loc_txt = {
         name = 'Satellite Uplink',
         text = {
@@ -128,18 +100,11 @@ local satellite_uplink = {
     end,
     requires = {"v_cry_command_prompt"}
 }
-local quantum_computing_atlas = {
-    object_type = "Atlas",
-    key = "cry_quantum_computing",
-    path = "v_quantumcomputing.png",
-    px = 71,
-    py = 95
-}
 local quantum_computing = {
     object_type = "Voucher",
 	key = "quantum_computing",
-    atlas = "cry_quantum_computing",
-	pos = {x = 0, y = 0},
+    atlas = "atlasvoucher",
+	pos = {x = 0, y = 3},
 	loc_txt = {
         name = 'Quantum Computing',
         text = {
