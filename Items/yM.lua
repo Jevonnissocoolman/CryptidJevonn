@@ -1153,11 +1153,7 @@ local biggestm = {
 					card:start_materialize()
         				G.jokers:emplace(card)
 			end
-			return {
-                    		message = localize('k_upgrade_ex'),
-				colour = G.C.DARK_EDITION,
-                        	card = card,
-			}
+			card_eval_status_text(card, 'extra', nil, nil, nil, {message = "M!", colour = G.C.DARK_EDITION})
 		end
 		if context.other_joker then
 			if context.other_joker and context.other_joker.ability.name == "Jolly Joker" then
