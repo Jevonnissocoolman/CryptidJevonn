@@ -1205,7 +1205,7 @@ return {name = "M Jokers",
                     ret_items[#ret_items+1] = jkr
                 end
 	    end
-	    if cry_exotic then --whydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotworkwhydoesthisnotwork
+	    if cry_exotic then --Exotic Jokers need to load before M jokers for this to load properly
                 for _, jkr in pairs({hugem}) do
                     ret_items[#ret_items+1] = jkr
                 end
