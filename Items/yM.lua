@@ -1104,7 +1104,7 @@ local hugem = {
 	key = "hugem",
 	pos = {x = 0, y = 5},
 	soul_pos = {x = 2, y = 5, extra = {x = 1, y = 5}},
-	config = {extra = {mult = 1.07, bonus = 0.04, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
+	config = {extra = {mult = 1.05, bonus = 0.04, check = true}, jolly = {t_mult = 8, type = 'Pair'}},
 	loc_txt = {
 		name = 'M Prime',
 		text = {
@@ -1126,7 +1126,7 @@ local hugem = {
 	calculate = function(self, card, context)
 		if context.selling_card and context.card.ability.name == "Jolly Joker" then
 			if not context.blueprint then card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.bonus end
-			if card.ability.extra.check and not context.retrigger_joker then
+			if card.ability.extra.check and not context.blueprint and not context.retrigger_joker then
 				card.ability.extra.check = false
 				local loyalservants = {
             				"j_cry_jollysus",
@@ -1177,7 +1177,7 @@ local hugem = {
 		card.ability.extra.check = true end
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		local jollycount = 4 --Create up to 4 jollies if there are none to start off
+		local jollycount = 4 --Create up to 4 jollies if there are none to help start off fresh from the gateway
 		for i = 1, #G.jokers.cards do
                 	if G.jokers.cards[i].ability.name == 'Jolly Joker' then jollycount = jollycount - 1 end
             	end
