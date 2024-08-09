@@ -1197,7 +1197,7 @@ return {name = "M Jokers",
                     ret_items[#ret_items+1] = jkr
                 end
             end
-	    if cry_enable_exotics then
+	    if Cryptid_config["Exotic Jokers"] then
                 for _, jkr in pairs({biggestm}) do
                     ret_items[#ret_items+1] = jkr
                 end
