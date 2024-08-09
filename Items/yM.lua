@@ -1118,7 +1118,7 @@ local biggestm = {
 		info_queue[#info_queue+1] = { set = 'Joker', key = 'j_jolly', specific_vars = {self.config.jolly.t_mult, self.config.jolly.type} }
 		return {vars = {center.ability.extra.mult, center.ability.extra.bonus}}
 	end,
-	rarity = 4,
+	rarity = "cry_exotic",
 	cost = 50,
 	blueprint_compat = true,
 	atlas = "atlasexotic",
@@ -1194,6 +1194,11 @@ return {name = "M Jokers",
             end
             if cry_enable_epics then
                 for _, jkr in pairs({doodlem, virgo, smallestm}) do
+                    ret_items[#ret_items+1] = jkr
+                end
+            end
+	    if cry_enable_exotics then
+                for _, jkr in pairs({biggestm}) do
                     ret_items[#ret_items+1] = jkr
                 end
             end
