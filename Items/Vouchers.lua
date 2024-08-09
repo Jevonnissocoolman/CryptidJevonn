@@ -272,4 +272,4 @@ return {name = "Vouchers",
                 return tinit(self,tag,y,z)
             end
         end,
-        items = {copies_atlas, copies, tag_printer_atlas, tag_printer, clone_machine_atlas, clone_machine, triple, quadruple, quintuple, command_prompt_atlas, command_prompt, satellite_uplink_atlas, satellite_uplink, quantum_computing_atlas, quantum_computing}}
+        items = {voucher_atlas, copies, tag_printer, clone_machine, triple, quadruple, quintuple, command_prompt, satellite_uplink, quantum_computing}}
