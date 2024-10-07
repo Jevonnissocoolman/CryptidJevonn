@@ -1438,7 +1438,7 @@ return {
                 },
                 unlock = {
                     'Increase {C:attention}handsize',
-                    'to 12'
+                    'to #1#'
                 },
             },
             j_cry_primus = {
