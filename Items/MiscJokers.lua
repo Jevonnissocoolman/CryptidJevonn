@@ -142,7 +142,7 @@ local potofjokes = {
 	name = "cry-Pot of Jokes",
 	key = "pot_of_jokes",
 	config = { extra = { h_size = -2, h_mod = 1 } },
-	unlock_condition = {type = '', extra = 12}},
+	unlock_condition = {type = '', extra = 12},
 	pos = { x = 5, y = 0 },
 	immune_to_chemach = true,
 	rarity = 3,
