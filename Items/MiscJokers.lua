@@ -142,6 +142,7 @@ local potofjokes = {
 	name = "cry-Pot of Jokes",
 	key = "pot_of_jokes",
 	config = { extra = { h_size = -2, h_mod = 1 } },
+	unlock_condition = {type = '', extra = 12}},
 	pos = { x = 5, y = 0 },
 	immune_to_chemach = true,
 	rarity = 3,
@@ -159,7 +160,7 @@ local potofjokes = {
 	locked_loc_vars = function(self, info_queue, center)
 		return {
 			vars = {
-				12
+				unlock_condition.extra
 			},
 		}
 	end,
