@@ -156,6 +156,13 @@ local potofjokes = {
 			},
 		}
 	end,
+	locked_loc_vars = function(self, info_queue, center)
+		return {
+			vars = {
+				12
+			},
+		}
+	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
 			card.ability.extra.h_size = card.ability.extra.h_size + card.ability.extra.h_mod
@@ -174,7 +181,7 @@ local potofjokes = {
 		G.hand:change_size(-card.ability.extra.h_size)
 	end,
 	check_for_unlock = function(self, args)
-        	if G and G.hand and G.hand.config.card_limit > 10 then
+        	if G and G.hand and G.hand.config.card_limit > 12 then
 			unlock_card(self)
 		end
     	end,
