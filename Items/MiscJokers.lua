@@ -1364,7 +1364,7 @@ local hunger = {
 	end,
 	calculate = function(self, card, context) --This didn't work for Jevonn for some reason but it works for me :joker:
 		if context.using_consumeable then --shush
-			ease_dollars(card.ability.extra.money),
+			ease_dollars(card.ability.extra.money)
 			card_eval_status_text(
 					card,
 					"extra",
