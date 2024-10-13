@@ -1366,7 +1366,7 @@ local hunger = {
 		if context.using_consumeable then --shush
 			ease_dollars(card.ability.extra.money)
 			card_eval_status_text(
-					card,
+					context.blueprint_card or card,
 					"extra",
 					nil,
 					nil,
