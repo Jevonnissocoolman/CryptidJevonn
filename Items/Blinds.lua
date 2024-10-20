@@ -568,6 +568,7 @@ local lavender_loop = {
 	order = 2,
 	boss_colour = HEX("ae00ff"),
 	set_blind = function(self, reset, silent)
+		G.GAME.trophy = true
 		G.GAME.cry_ach_conditions.patience_virtue_timer = 120
 	end,
 	disable = function(self, silent)
@@ -1450,6 +1451,13 @@ return {
 				end
 			end
 			rb()
+		end
+		local modm = mod_mult
+		function mod_mult(_mult)
+    			if G.GAME.trophy then
+				_mult = math.min(_mult, math.max(_chips, 0))
+    			end
+    			return modm(_mult)  -- Return the result of the original function
 		end
 	end,
 	items = items_togo,
