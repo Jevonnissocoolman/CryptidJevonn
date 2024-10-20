@@ -1455,7 +1455,7 @@ return {
 		local modm = mod_mult
 		function mod_mult(_mult)
     			if G.GAME.trophy then
-        			_mult = math.min(_mult, math.max(hand_chips, 0))
+        			_mult = math.min(_mult, math.max((hand_chips or G.GAME.hands[text].chips), 0))
     			end
     			return modm(_mult)
 		end
