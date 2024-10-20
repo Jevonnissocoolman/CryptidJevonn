@@ -568,7 +568,6 @@ local lavender_loop = {
 	order = 2,
 	boss_colour = HEX("ae00ff"),
 	set_blind = function(self, reset, silent)
-		G.GAME.trophy = true
 		G.GAME.cry_ach_conditions.patience_virtue_timer = 120
 	end,
 	disable = function(self, silent)
@@ -710,7 +709,34 @@ local sapphire_stamp = {
 		end
 	end,
 }
-
+local lemontrophy = {
+	object_type = "Blind",
+	name = "cry-Lemon Trophy",
+	key = "trophy",
+	pos = { x = 0, y = 17 },
+	dollars = 8,
+	boss = {
+		min = 3,
+		max = 10,
+		showdown = true,
+	},
+	atlas = "blinds",
+	order = 6,
+	boss_colour = HEX("bbdb44"),
+	set_blind = function(self, reset, silent)
+		G.GAME.trophy = true
+	end,
+	defeat = function(self, silent)
+		if G.GAME.trophy then 
+			G.GAME.trophy = nil
+		end
+	end,
+	disable = function(self, silent)
+		if G.GAME.trophy then 
+			G.GAME.trophy = nil
+		end
+	end,
+}
 local obsidian_orb = {
 	object_type = "Blind",
 	name = "cry-Obsidian Orb",
@@ -1246,6 +1272,7 @@ local items_togo = {
 	tornado,
 	sapphire_stamp,
 	obsidian_orb,
+	lemontrophy,
 	blind_sprites,
 	nostalgia_sprites,
 }
