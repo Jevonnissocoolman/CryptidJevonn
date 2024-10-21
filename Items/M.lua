@@ -1195,7 +1195,7 @@ local longboi = {
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		if not from_debuff and card.ability.extra.mult == nil then
+		if (not from_debuff and card.ability.extra.mult == nil) or card.from_copy then
 			card.ability.extra.mult = G.GAME.monstermult or 1
 		end
 	end,
