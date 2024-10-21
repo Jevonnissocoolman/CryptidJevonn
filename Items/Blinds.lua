@@ -715,6 +715,7 @@ local lemontrophy = {
 	key = "trophy",
 	pos = { x = 0, y = 17 },
 	dollars = 8,
+	mult = 1,
 	boss = {
 		min = 3,
 		max = 10,
