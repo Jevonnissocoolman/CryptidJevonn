@@ -28,7 +28,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = '''if not strip_edition then'''
+pattern = "if not strip_edition then"
 position = 'before'
 payload = '''
 new_card.checkmonster = true
