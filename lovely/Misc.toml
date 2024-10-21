@@ -420,7 +420,5 @@ if G.GAME.modifiers.cry_beta then numcards = #G.jokers.cards end
 for i=1, numcards do'''
 match_indent = true
 
-"cry-longboi"
-
 
 
