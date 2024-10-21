@@ -282,6 +282,13 @@ return {
                     "mit dem Gesicht oben in der Hand um",
                 },
             },
+            bl_cry_trophy = {
+                name = "Lemon Trophy",
+                text = {
+                    "Mult cannot",
+                    "exceed chips",
+                },
+            },
             bl_cry_vermillion_virus = {
                 name = "Zinnober Virus",
                 text = {

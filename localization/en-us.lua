@@ -283,6 +283,13 @@ return {
                     "face-up cards held in hand",
                 },
             },
+            bl_cry_trophy = {
+                name = "Lemon Trophy",
+                text = {
+                    "Mult cannot",
+                    "exceed chips",
+                },
+            },
             bl_cry_vermillion_virus = {
                 name = "Vermillion Virus",
                 text = {

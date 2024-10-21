@@ -560,6 +560,13 @@ return {
                     "手中的牌"
                 }
             },
+            bl_cry_trophy = {
+                name = "Lemon Trophy",
+                text = {
+                    "Mult cannot",
+                    "exceed chips",
+                },
+            },
             bl_cry_vermillion_virus = {
                 name = "朱红病毒",
                 text = {

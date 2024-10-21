@@ -307,6 +307,13 @@ return {
                     "les cartes visibles en main",
                 },
             },
+            bl_cry_trophy = {
+                name = "Lemon Trophy",
+                text = {
+                    "Mult cannot",
+                    "exceed chips",
+                },
+            },
             bl_cry_vermillion_virus = {
                 name = "Virus Vermillion",
                 text = {
