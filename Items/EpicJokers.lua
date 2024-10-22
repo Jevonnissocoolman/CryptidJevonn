@@ -1387,6 +1387,5 @@ return {
 		goldjoker,
 		altgoogol,
 		soccer,
-		starfruit,
 	},
 }
