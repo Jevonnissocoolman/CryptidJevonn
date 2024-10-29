@@ -2688,28 +2688,29 @@ SMODS.Sound({
 })
 
 --Requires Malverk Mod
-AltTexture({
-    key = 'jolly_jokers',
-    set = 'Joker',
-    path = 'jolly.png',
-    loc_txt = {
-        name = 'Jolly Jokers'
-    }
-})
-TexturePack{ -- HD Texture Pack
-    key = 'jolly_texture',
-    textures = {
-        'cry_jolly_jokers',
-    },
-    loc_txt = {
-        name = 'Jolly',
-        text = {
-            'Jolly Jokers lmao',
-            'Art by B'
-        }
-    }
-}
-
+if (SMODS.Mods["malverk"] or {}).can_load then
+	AltTexture({
+    		key = 'jolly_jokers',
+    		set = 'Joker',
+    		path = 'jolly.png',
+    		loc_txt = {
+        		name = 'Jolly Jokers'
+    		}
+	})
+	TexturePack{ -- HD Texture Pack
+    		key = 'jolly_texture',
+    		textures = {
+        		'cry_jolly_jokers',
+    		},
+    		loc_txt = {
+       			name = 'Jolly',
+        		text = {
+            			'Jolly Jokers lmao',
+            			'Art by B'
+        		}
+    		}
+	}
+end
 SMODS.Atlas({
 	key = "modicon",
 	path = "cry_icon.png",
