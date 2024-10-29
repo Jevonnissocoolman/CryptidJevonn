@@ -2686,6 +2686,30 @@ SMODS.Sound({
 		return Cryptid_config.Cryptid.exotic_music and cry_has_exotic()
 	end,
 })
+
+--Requires Malverk Mod
+AltTexture({
+    key = 'jolly_jokers',
+    set = 'Joker',
+    path = 'jolly.png',
+    loc_txt = {
+        name = 'Jolly Jokers'
+    }
+})
+TexturePack{ -- HD Texture Pack
+    key = 'jolly_texture',
+    textures = {
+        'cry_jolly_jokers',
+    },
+    loc_txt = {
+        name = 'Jolly',
+        text = {
+            'Jolly Jokers lmao',
+            'Art by B'
+        }
+    }
+}
+
 SMODS.Atlas({
 	key = "modicon",
 	path = "cry_icon.png",
