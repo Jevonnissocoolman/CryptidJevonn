@@ -2702,8 +2702,8 @@ if (SMODS.Mods["malverk"] or {}).can_load then
     		set = 'Joker',
     		path = 'atlasone.png',
 		keys = { -- keys of objects to change
-        		'j_cry_m'
-			'j_cry_M
+        		'j_cry_m',
+			'j_cry_M'
     		},
     		loc_txt = {
         		name = 'Test'
