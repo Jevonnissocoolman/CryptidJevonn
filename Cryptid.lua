@@ -2700,10 +2700,18 @@ if (SMODS.Mods["malverk"] or {}).can_load then
 	AltTexture({
     		key = 'aaaaa',
     		set = 'Joker',
-    		path = 'atlasone.png',
+    		path = 'old.png',
 		keys = { -- keys of objects to change
         		'j_cry_m',
-			'j_cry_M'
+			'j_cry_M',
+			'j_cry_boredom',
+			'j_cry_oldcandy',
+			'j_cry_bonusjoker',
+			'j_cry_sync_catalyst',
+			'j_cry_dropshot',
+			'j_cry_antennastoheaven',
+			'j_cry_sacrifice',
+			'j_cry_bonk',
     		},
     		loc_txt = {
         		name = 'Test'
