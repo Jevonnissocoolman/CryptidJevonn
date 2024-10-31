@@ -2697,7 +2697,32 @@ if (SMODS.Mods["malverk"] or {}).can_load then
         		name = 'Jolly Jokers'
     		}
 	})
-	TexturePack{ -- HD Texture Pack
+	AltTexture({
+    		key = 'aaaaa',
+    		set = 'Joker',
+    		path = 'atlasone.png',
+		keys = { -- keys of objects to change
+        		'j_cry_m'
+			'j_cry_M
+    		},
+    		loc_txt = {
+        		name = 'Test'
+    		}
+	})
+	TexturePack{ -- Test Texture Pack
+    		key = 'testtest',
+    		textures = {
+        		'cry_aaaaa',
+    		},
+    		loc_txt = {
+       			name = 'hhjhj',
+        		text = {
+            			'hhhhhh',
+            			'Aioioaeiou'
+        		}
+    		}
+	}
+	TexturePack{ -- Jolly Texture Pack
     		key = 'jolly_texture',
     		textures = {
         		'cry_jolly_jokers',
