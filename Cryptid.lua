@@ -2698,10 +2698,10 @@ if (SMODS.Mods["malverk"] or {}).can_load then
     		}
 	})
 	AltTexture({
-    		key = 'aaaaa',
+    		key = 'oldcryptidJ',
     		set = 'Joker',
     		path = 'old.png',
-		keys = { -- keys of objects to change
+		keys = { --This doesn't crash/cause issues if jokers jere are disabled. How convenient!
         		'j_cry_m',
 			'j_cry_M',
 			'j_cry_boredom',
@@ -2727,21 +2727,22 @@ if (SMODS.Mods["malverk"] or {}).can_load then
 			'j_cry_macabre',
 			'j_cry_oldblueprint',
 			'j_cry_maze',
+			'j_cry_kidnap',
     		},
     		loc_txt = {
         		name = 'Test'
     		}
 	})
 	TexturePack{ -- Test Texture Pack
-    		key = 'testtest',
+    		key = 'oldcryptid',
     		textures = {
-        		'cry_aaaaa',
+        		'cry_oldcryptidJ',
     		},
     		loc_txt = {
-       			name = 'hhjhj',
+       			name = 'Old Cryptid Sprites',
         		text = {
-            			'hhhhhh',
-            			'Aioioaeiou'
+            			'"Back in my day..."',
+            			'-Nostalgic Candy, 2024'
         		}
     		}
 	}
