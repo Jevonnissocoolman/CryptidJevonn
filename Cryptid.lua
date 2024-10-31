@@ -2705,6 +2705,7 @@ if (SMODS.Mods["malverk"] or {}).can_load then
         		'j_cry_m',
 			'j_cry_M',
 			'j_cry_boredom',
+			'j_cry_smallestm',
 			'j_cry_oldcandy',
 			'j_cry_bonusjoker',
 			'j_cry_sync_catalyst',
