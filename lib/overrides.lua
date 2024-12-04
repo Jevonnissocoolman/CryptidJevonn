@@ -168,9 +168,9 @@ function Card:set_cost()
 	end
 	--Makes cube and Big Cube always cost a set amount
 	if self.ability.name == "cry-Cube" then
-		local a = get_gameset()
+		local a = get_gameset(nil, true)
 		print(a)
-		if a == "modest" then 
+		if a ~= "modest" then 
 			self.cost = -27
 		else
 			self.cost = -12
