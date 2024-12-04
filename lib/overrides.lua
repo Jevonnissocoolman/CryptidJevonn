@@ -12,7 +12,8 @@ function Game:update(dt)
 	cry_pointer_dt = cry_pointer_dt + dt
 	cry_jimball_dt = cry_jimball_dt + dt
 	cry_glowing_dt = cry_glowing_dt + dt
-	
+
+	--Update sprite positions each frame on certain cards to give the illusion of an animated card
 	if G.P_CENTERS and G.P_CENTERS.c_cry_pointer and cry_pointer_dt > 0.5 then
 		cry_pointer_dt = 0
 		local pointerobj = G.P_CENTERS.c_cry_pointer
@@ -63,6 +64,92 @@ function Game:update(dt)
 		G.CHOOSE_CARD.alignment.offset.y = 0
 		G.ROOM.jiggle = G.ROOM.jiggle + 1
 		G.CHOOSE_CARD:align_to_major()
+	end
+
+	--Increase the blind size for The Clock and Lavender Loop
+	local choices = { "Small", "Big", "Boss" }
+	G.GAME.CRY_BLINDS = G.GAME.CRY_BLINDS or {}
+	for _, c in pairs(choices) do
+		if
+			G.GAME
+			and G.GAME.round_resets
+			and G.GAME.round_resets.blind_choices
+			and G.GAME.round_resets.blind_choices[c]
+			and G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].cry_ante_base_mod
+		then
+			if
+				G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult ~= 0
+				and G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult_ante ~= G.GAME.round_resets.ante
+			then
+				if G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].name == "cry-Obsidian Orb" then
+					for i = 1, #G.GAME.defeated_blinds do
+						G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult = G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult
+							* G.P_BLINDS[G.GAME.defeated_blinds[i]]
+							/ 2
+					end
+				else
+					G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult = 0
+				end
+				G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult_ante = G.GAME.round_resets.ante
+			end
+			if
+				G.GAME.round_resets.blind_states[c] ~= "Current"
+				and G.GAME.round_resets.blind_states[c] ~= "Defeated"
+			then
+				G.GAME.CRY_BLINDS[c] = (
+					G.GAME.CRY_BLINDS[c] or G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].mult
+				)
+					+ (
+						G.P_BLINDS[G.GAME.round_resets.blind_choices[c]].cry_ante_base_mod
+							and G.P_BLINDS[G.GAME.round_resets.blind_choices[c]]:cry_ante_base_mod(
+								dt * (G.GAME.modifiers.cry_rush_hour_iii and 2 or 1)
+							)
+						or 0
+					)
+				--Update UI
+				--todo: in blinds screen, too
+				if G.blind_select_opts then
+					local blind_UI =
+						G.blind_select_opts[string.lower(c)].definition.nodes[1].nodes[1].nodes[1].nodes[1]
+					local chip_text_node = blind_UI.nodes[1].nodes[3].nodes[1].nodes[2].nodes[2].nodes[3]
+					if chip_text_node then
+						chip_text_node.config.text = number_format(
+							get_blind_amount(G.GAME.round_resets.blind_ante)
+								* G.GAME.starting_params.ante_scaling
+								* G.GAME.CRY_BLINDS[c]
+						)
+						chip_text_node.config.scale = score_number_scale(
+							0.9,
+							get_blind_amount(G.GAME.round_resets.blind_ante)
+								* G.GAME.starting_params.ante_scaling
+								* G.GAME.CRY_BLINDS[c]
+						)
+					end
+					G.blind_select_opts[string.lower(c)]:recalculate()
+				end
+			elseif
+				G.GAME.round_resets.blind_states[c] ~= "Defeated"
+				and not G.GAME.blind.disabled
+				and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips)
+			then
+				G.GAME.blind.chips = G.GAME.blind.chips
+					+ G.GAME.blind:cry_ante_base_mod(dt * (G.GAME.modifiers.cry_rush_hour_iii and 2 or 1))
+						* get_blind_amount(G.GAME.round_resets.ante)
+						* G.GAME.starting_params.ante_scaling
+				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+			end
+		end
+		if
+			G.GAME.round_resets.blind_states[c] == "Current"
+			and G.GAME
+			and G.GAME.blind
+			and not G.GAME.blind.disabled
+			and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips)
+		then
+			G.GAME.blind.chips = G.GAME.blind.chips
+				* G.GAME.blind:cry_round_base_mod(dt * (G.GAME.modifiers.cry_rush_hour_iii and 2 or 1))
+			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+		end
 	end
 end
 
