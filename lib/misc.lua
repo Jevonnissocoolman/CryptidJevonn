@@ -258,7 +258,10 @@ if true then --Cryptid.enabled["Menu"] then
 end
 function Cryptid.get_food(seed)
     local food_keys = {}  
-    for k, v in pairs(Cryptid.food) do  
+    for k, v in pairs(Cryptid.food) do
+	local a = Card.get_gameset()
+	print(a)
+	print(G.P_CENTERS[v].config.center.rarity)
         if G.GAME.banned_keys[v] and ( G.P_CENTERS[v].config.center.rarity ~= "cry_epic" or not Card.get_gameset() == "modest" ) then
             table.insert(food_keys, v)  
         end
