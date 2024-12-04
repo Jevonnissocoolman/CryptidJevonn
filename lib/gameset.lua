@@ -356,7 +356,7 @@ function gameset_sprite(scale, profile, force_gameset)
 end
 
 -- set_ability accounts for gamesets
-function Card:get_gameset(center, no_center)
+function Card:get_gameset(center)
     if no_center then 
         return G.PROFILES[G.SETTINGS.profile].cry_gameset
     end
