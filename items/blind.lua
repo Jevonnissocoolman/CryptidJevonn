@@ -1265,7 +1265,7 @@ local items_togo = {
 	nostalgia_sprites,
 }
 
-if Cryptid.enabled["Timer Mechanics"] then
+if true then
 	table.insert(items_togo, clock)
 	table.insert(items_togo, lavender_loop)
 end
