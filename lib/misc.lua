@@ -259,7 +259,7 @@ end
 function Cryptid.get_food(seed)
     local food_keys = {}  
     for k, v in pairs(Cryptid.food) do  
-        if G.GAME.banned_keys[v] and ( G.P_CENTERS[v].config.center.rarity ~= "cry_epic" or not Card.get_gameset() ) then
+        if G.GAME.banned_keys[v] and ( G.P_CENTERS[v].config.center.rarity ~= "cry_epic" or not Card.get_gameset() == "modest" ) then
             table.insert(food_keys, v)  
         end
     end
