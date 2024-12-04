@@ -168,7 +168,7 @@ function Card:set_cost()
 	end
 	--Makes cube and Big Cube always cost a set amount
 	if self.ability.name == "cry-Cube" then
-		if G.PROFILES[G.SETTINGS.profile].cry_gameset ~= "modest" then 
+		if Card.get_gameset(self) ~= "modest" then 
 			self.cost = -27
 		else
 			self.cost = -12
