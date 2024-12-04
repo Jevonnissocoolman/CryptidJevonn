@@ -1351,15 +1351,6 @@ items = {
 }
 return { name = "Spooky", init = function() 
 	
-	local sc = Card.set_cost
-	function Card:set_cost()
-		sc(self)
-		if self.config and self.config.center and self.config.center.rarity == "cry_cursed" then
-			self.sell_cost = 0
-			self.sell_cost_label = 0
-		end
-	end
-	
 	--Really hacky patch to remove sell button for cursed jokers
 	local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 	function G.UIDEF.use_and_sell_buttons(card)
@@ -1447,4 +1438,4 @@ return { name = "Spooky", init = function()
 				}))
 			end
 		end
-end, items = items, disabled = true }
+end, items = items, disabled = false }
