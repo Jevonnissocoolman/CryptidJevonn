@@ -1,6 +1,72 @@
 -- overrides.lua - Adds hooks and overrides used by multiple features.
 
--- All the scattered set_cost hook from all the pre refactor files moved into one hook
+
+--Game:update hook
+local upd = Game.update
+cry_pointer_dt = 0
+cry_jimball_dt = 0
+cry_glowing_dt = 0
+function Game:update(dt)
+	upd(self, dt)
+	
+	cry_pointer_dt = cry_pointer_dt + dt
+	cry_jimball_dt = cry_jimball_dt + dt
+	cry_glowing_dt = cry_glowing_dt + dt
+	
+	if G.P_CENTERS and G.P_CENTERS.c_cry_pointer and cry_pointer_dt > 0.5 then
+		cry_pointer_dt = 0
+		local pointerobj = G.P_CENTERS.c_cry_pointer
+		pointerobj.pos.x = (pointerobj.pos.x == 4) and 5 or 4
+	end
+	if G.P_CENTERS and G.P_CENTERS.j_cry_jimball and cry_jimball_dt > 0.1 then
+		cry_jimball_dt = 0
+		local jimballobj = G.P_CENTERS.j_cry_jimball
+		if jimballobj.pos.x == 5 and jimballobj.pos.y == 6 then
+			jimballobj.pos.x = 0
+			jimballobj.pos.y = 0
+		elseif jimballobj.pos.x < 8 then
+			jimballobj.pos.x = jimballobj.pos.x + 1
+		elseif jimballobj.pos.y < 6 then
+			jimballobj.pos.x = 0
+			jimballobj.pos.y = jimballobj.pos.y + 1
+		end
+	end
+	if G.P_CENTERS and G.P_CENTERS.b_cry_glowing and cry_glowing_dt > 0.1 then
+		cry_glowing_dt = 0
+		local glowingobj = G.P_CENTERS.b_cry_glowing
+		if glowingobj.pos.x == 1 and glowingobj.pos.y == 4 then
+			glowingobj.pos.x = 0
+			glowingobj.pos.y = 0
+		elseif glowingobj.pos.x < 4 then
+			glowingobj.pos.x = glowingobj.pos.x + 1
+		elseif glowingobj.pos.y < 6 then
+			glowingobj.pos.x = 0
+			glowingobj.pos.y = glowingobj.pos.y + 1
+		end
+	end
+	for k, v in pairs(G.I.CARD) do
+		if v.children.back and v.children.back.atlas.name == "cry_glowing" then
+			v.children.back:set_sprite_pos(G.P_CENTERS.b_cry_glowing.pos or G.P_CENTERS["b_red"].pos)
+		end
+	end
+	if not G.OVERLAY_MENU and not G.CHOOSE_CARD and G.GAME.USING_POINTER then
+		G.CHOOSE_CARD = UIBox({
+			definition = create_UIBox_pointer(card),
+			config = {
+				align = "cm",
+				offset = { x = 0, y = 10 },
+				major = G.ROOM_ATTACH,
+				bond = "Weak",
+				instance_type = "POPUP",
+			},
+		})
+		G.CHOOSE_CARD.alignment.offset.y = 0
+		G.ROOM.jiggle = G.ROOM.jiggle + 1
+		G.CHOOSE_CARD:align_to_major()
+	end
+end
+
+-- All the scattered set_cost hooks from all the pre refactor files moved into one hook
 local sc = Card.set_cost
 function Card:set_cost()
 	-- Makes the edition cost increase usually present not apply if this variable is true
@@ -45,10 +111,10 @@ function Card:set_cost()
 	
 	--Makes Tarots free if Tarot Acclimator is redeemed
 	--Makes Planets free if Planet Acclimator is redeemed
-	if self.ability.set == "Tarot" and G.GAME.used_vouchers.v_cry_tacclimator then --Make Tarots free when Tarot Acclimator is redeemed
+	if self.ability.set == "Tarot" and G.GAME.used_vouchers.v_cry_tacclimator then
 		self.cost = 0
 	end
-	if self.ability.set == "Planet" and G.GAME.used_vouchers.v_cry_pacclimator then --Make Planets free when Planet Acclimator is redeemed
+	if self.ability.set == "Planet" and G.GAME.used_vouchers.v_cry_pacclimator then
 		self.cost = 0
 	end
 end
