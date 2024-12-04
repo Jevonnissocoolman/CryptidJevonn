@@ -422,31 +422,6 @@ return {
 				end
 			end
 		end
-		--glowing deck patches
-		local upd = Game.update
-		cry_glowing_dt = 0
-		function Game:update(dt)
-			upd(self, dt)
-			cry_glowing_dt = cry_glowing_dt + dt
-			if G.P_CENTERS and G.P_CENTERS.b_cry_glowing and cry_glowing_dt > 0.1 then
-				cry_glowing_dt = 0
-				local obj = G.P_CENTERS.b_cry_glowing
-				if obj.pos.x == 1 and obj.pos.y == 4 then
-					obj.pos.x = 0
-					obj.pos.y = 0
-				elseif obj.pos.x < 4 then
-					obj.pos.x = obj.pos.x + 1
-				elseif obj.pos.y < 6 then
-					obj.pos.x = 0
-					obj.pos.y = obj.pos.y + 1
-				end
-			end
-			for k, v in pairs(G.I.CARD) do
-				if v.children.back and v.children.back.atlas.name == "cry_glowing" then
-					v.children.back:set_sprite_pos(G.P_CENTERS.b_cry_glowing.pos or G.P_CENTERS["b_red"].pos)
-				end
-			end
-		end
 	end,
 	items = {
 		atlasdeck,
