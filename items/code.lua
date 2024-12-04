@@ -4066,33 +4066,6 @@ return {
 			end
 			return ret
 		end
-		--Pointer Patches
-		local upd = Game.update
-		cry_pointer_dt = 0
-		function Game:update(dt)
-			upd(self, dt)
-			cry_pointer_dt = cry_pointer_dt + dt
-			if G.P_CENTERS and G.P_CENTERS.c_cry_pointer and cry_pointer_dt > 0.5 then
-				cry_pointer_dt = 0
-				local obj = G.P_CENTERS.c_cry_pointer
-				obj.pos.x = (obj.pos.x == 4) and 5 or 4
-			end
-			if not G.OVERLAY_MENU and not G.CHOOSE_CARD and G.GAME.USING_POINTER then
-				G.CHOOSE_CARD = UIBox({
-					definition = create_UIBox_pointer(card),
-					config = {
-						align = "cm",
-						offset = { x = 0, y = 10 },
-						major = G.ROOM_ATTACH,
-						bond = "Weak",
-						instance_type = "POPUP",
-					},
-				})
-				G.CHOOSE_CARD.alignment.offset.y = 0
-				G.ROOM.jiggle = G.ROOM.jiggle + 1
-				G.CHOOSE_CARD:align_to_major()
-			end
-		end
 		local yc = G.FUNCS.your_collection
 		G.FUNCS.your_collection = function(e)
 			if G.CHOOSE_CARD then
