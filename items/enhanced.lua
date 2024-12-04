@@ -673,17 +673,6 @@ return {
 		function Card:change_suit(new_suit)
 			return cs(self, not self.no_forced_suit and G.GAME.modifiers.cry_force_suit or new_suit)
 		end
-		local sc = Card.set_cost
-		function Card:set_cost()
-			if self.edition and G.GAME.modifiers.cry_no_edition_price then
-				local m = cry_deep_copy(self.edition)
-				self.edition = nil
-				sc(self)
-				self.edition = m
-			else
-				sc(self)
-			end
-		end
 	end,
 	order = 1000000,
 	items = packs_to_add,
