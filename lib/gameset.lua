@@ -357,7 +357,9 @@ end
 
 -- set_ability accounts for gamesets
 function Card:get_gameset(center, no_center)
-    if no_center then return G.PROFILES[G.SETTINGS.profile].cry_gameset end
+    if no_center then 
+        return G.PROFILES[G.SETTINGS.profile].cry_gameset
+    end
     if not center then center = self.config.center end
     if self.force_gameset then return self.force_gameset end
     if center.force_gameset then return center.force_gameset end
