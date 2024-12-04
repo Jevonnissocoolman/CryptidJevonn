@@ -603,5 +603,5 @@ return {
 		ascendant,
 		banana,
 	},
-	disabled = true
+	disabled = false
 }
