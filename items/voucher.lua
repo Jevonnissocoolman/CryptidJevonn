@@ -956,17 +956,7 @@ return {
 			end
 			return tinit(self, tag, y, z)
 		end
-		local sc = Card.set_cost
-		function Card:set_cost()
-			sc(self)
-			if self.ability.set == "Tarot" and G.GAME.used_vouchers.v_cry_tacclimator then --Make Tarots free when Tarot Acclimator is redeemed
-				self.cost = 0
-			end
-			if self.ability.set == "Planet" and G.GAME.used_vouchers.v_cry_pacclimator then --Make Planets free when Planet Acclimator is redeemed
-				self.cost = 0
-			end
-		end
 	end,
 	items = voucheritems,
-	disabled = true
+	disabled = false
 }
