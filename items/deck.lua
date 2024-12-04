@@ -440,5 +440,5 @@ return {
 		beta,
 		bountiful,
 	},
-	disabled = true
+	disabled = false
 }
