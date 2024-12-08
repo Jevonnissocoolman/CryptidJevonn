@@ -24,6 +24,7 @@ local meme_object_type = {
 }
 local meme1 = {
 	object_type = "Booster",
+	name = "cry-Meme Pack",
 	key = "meme_1",
 	kind = "meme",
 	atlas = "memepack",
@@ -64,6 +65,7 @@ local meme1 = {
 local meme2 = {
 	object_type = "Booster",
 	key = "meme_two",
+	name = "cry-Meme Pack",
 	kind = "meme",
 	atlas = "memepack",
 	pos = { x = 1, y = 1 },
@@ -104,6 +106,7 @@ local meme3 = {
 	object_type = "Booster",
 	key = "meme_three",
 	kind = "meme",
+	name = "cry-Meme Pack",
 	atlas = "memepack",
 	pos = { x = 2, y = 1 },
 	order = 7,
