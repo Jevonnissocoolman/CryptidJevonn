@@ -8,7 +8,7 @@ local timantti = {
 	cost = 4,
 	aurinko = true,
 	atlas = "atlasnotjokers",
-	order = 7,
+	order = 8,
 	can_use = function(self, card)
 		return true
 	end,
@@ -75,7 +75,7 @@ local klubi = {
 	cost = 4,
 	aurinko = true,
 	atlas = "atlasnotjokers",
-	order = 8,
+	order = 9,
 	can_use = function(self, card)
 		return true
 	end,
@@ -142,7 +142,7 @@ local sydan = {
 	cost = 4,
 	aurinko = true,
 	atlas = "atlasnotjokers",
-	order = 9,
+	order = 10,
 	can_use = function(self, card)
 		return true
 	end,
@@ -209,7 +209,7 @@ local lapio = {
 	cost = 4,
 	aurinko = true,
 	atlas = "atlasnotjokers",
-	order = 10,
+	order = 11,
 	can_use = function(self, card)
 		return true
 	end,
@@ -276,7 +276,7 @@ local kaikki = {
     cost = 4,
     aurinko = true,
     atlas = "atlasnotjokers",
-    order = 11,
+    order = 12,
     can_use = function(self, card)
         return true
     end,
