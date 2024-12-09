@@ -722,11 +722,11 @@ local sunplanet = {
 	end,
 	use = function(self, card, area, copier)
 		local used_consumable = copier or card
-		G.GAME.sunnumber = G.GAME.sunnumber + 1 or 1
+		G.GAME.sunnumber = (G.GAME.sunnumber + 1) or 1
 	end,
 	bulk_use = function(self, card, area, copier, number)
 		local used_consumable = copier or card
-		G.GAME.sunnumber = G.GAME.sunnumber + number or number
+		G.GAME.sunnumber = (G.GAME.sunnumber + number) or number
 	end,
 	calculate = function(self, card, context) --Observatory effect: X1.5 mult if hand is an ascended hand 
 		if G.GAME.used_vouchers.v_observatory and G.GAME.current_round.current_hand.cry_asc_num ~= 0 then
