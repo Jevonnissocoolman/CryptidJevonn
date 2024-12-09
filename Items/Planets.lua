@@ -781,7 +781,7 @@ function neutronstarrandomhand(ignore, seed, allowhidden)
 	end
 	return chosen_hand
 end
-local planet_cards = { planetlua, nstar, timantti, klubi, sydan, lapio }
+local planet_cards = { planetlua, nstar, timantti, klubi, sydan, lapio, sunplanet }
 if Cryptid.enabled["Misc."] then
 	planet_cards[#planet_cards + 1] = kaikki
 end
