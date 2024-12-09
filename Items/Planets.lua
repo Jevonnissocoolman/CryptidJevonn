@@ -709,7 +709,7 @@ local sunplanet = {
 	set = "Planet",
 	name = "cry-sunplanet",
 	key = "sunplanet",
-	pos = { x = 0, y = 5 },
+	pos = { x = 5, y = 2 },
 	cost = 4,
 	aurinko = true,
 	atlas = "atlasnotjokers",
