@@ -2695,7 +2695,7 @@ function G.FUNCS.get_poker_hand_info(_cards)
 end
 
 function cry_ascend(num)	-- edit this function at your leisure
-	return num*((1.25 + (0.05 * G.GAME.sunnumber or 0))^G.GAME.current_round.current_hand.cry_asc_num or 0)
+	return num*((1.25 + (0.05 * G.GAME.sunnumber ~= nil and G.GAME.sunnumber or 0))^G.GAME.current_round.current_hand.cry_asc_num or 0)
 end
 
 --Will be moved to D20 file when that gets added
