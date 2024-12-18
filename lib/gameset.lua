@@ -560,6 +560,8 @@ function Card:set_ability(center, y, z)
 		for k, v in pairs(center.gameset_config[self:get_gameset(center)]) do
 			if k ~= "disabled" and k ~= "center" then
 				self.ability[k] = v
+				print(k)
+				print(v)
 			end
 		end
 		if center.gameset_config[self:get_gameset(center)].disabled then
