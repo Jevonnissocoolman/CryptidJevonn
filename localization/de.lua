@@ -24,6 +24,13 @@ return {
                     "{C:inactive,E:1}Tut nichts?",
                 },
             },
+			b_cry_bountiful = {
+				name = "Größzügiges Deck",
+				text = {
+					"Ziehe immer 5 Karten nach",
+					"{C:attention}Gespielter Hand{} oder {C:attention}Abwurf{}",
+				},
+			},
             b_cry_CCD = {
                 name = "CCD Deck",
                 text = {
@@ -335,6 +342,12 @@ return {
                     "{C:cry_code,E:1}Nein",
                 },
             },
+	    c_cry_ctrl_v = {
+		name = "://CTRL+V",
+		text = {
+			"Erstelle eine Kopie einer {C:cry_code}gewälten{} Spielkarte oder Gebrauchsgegenstand."
+		},
+	    },
             c_cry_delete = {
                 name = "://DELETE",
                 text = {
@@ -353,8 +366,8 @@ return {
             c_cry_exploit = {
                 name = "://EXPLOIT",
                 text = {
-                    "Die {C:cry_code}nächste{} gespielte Hand",
-                    "wird als {C:cry_code}chosen{} Pokerhand gewertet.",
+                    "Die {C:cry_code}nächste{} gespielte Hand wird",
+                    "gewertet als ob sie eine {C:cry_code}gewählte{} Pokerhand enthält.",
                     "{C:inactive,s:0.8}Geheime Hände müssen",
                     "{C:inactive,s:0.8}entdeckt weden um gültig zu sein.",
                 },
@@ -366,6 +379,14 @@ return {
                     "die {C:cry_code}Verhackt{} werden",
                 },
             },
+			c_cry_inst = {
+				name = "://INSTANTIATE",
+				text = {
+					"Ziehe eine Karte mit dem {C:attention}Rang{} einer ausgewählten Karte",
+					"und eine mit der {C:attention}Farbe{} der ausgewählten Karte",
+					"{C:inactive}(Wenn möglich){}",
+				},
+			},
             c_cry_machinecode = {
                 name = "://MACHINECODE",
                 text = {
@@ -391,6 +412,13 @@ return {
                     "zum ende der Runde.",
                 },
             },
+	    c_cry_patch = {
+		name = "://PATCH",
+		text = {
+			"Entfernt alle Sticker und Schwächungen von",
+			"allen momentan sichtbaren Gegenständen",
+		},
+	    },
             c_cry_payload = {
                 name = "://PAYLOAD",
                 text = {
@@ -560,6 +588,14 @@ return {
             },
         },
         Joker = {
+			j_cry_adroit = {
+                name = "Geschickter Joker",
+                text = {
+                    "{C:chips}+#1#{} Chips wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
+            },
             j_cry_altgoogol = {
                 name = "Nostalgische Googol Play Karte",
                 text = {
@@ -630,6 +666,14 @@ return {
                     "{C:attention}Pokerhand{} ein {C:attention}#3#{} ist",
                     "{C:inactive,s:0.8}Lustige Joker geben statdessen{} {C:chips,s:0.8}+#4#{} {C:inactive,s:0.8}Chips{}",
                 },
+            },
+			j_cry_bonkers = {
+                name = "Bekloppter Joker",
+                text = {
+                    "{C:red}+#1#{} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
             },
             j_cry_bonusjoker = {
                 name = "Bonus Joker",
@@ -715,6 +759,13 @@ return {
                     "um eine {C:cry_candy}Süßigkeit{} zu erstellen.",
                 }
             },
+	    j_cry_candy_sticks = {
+		name = "Zuckerstöcke",
+		text = {
+			"Der Effekt der nächsten Boss Bind ist nicht Aktiv",
+			"bis {C:attention}#1#{} Hand gespielt wurde.",
+		}
+	    },
             j_cry_canvas = {
                 name = "Leinwand",
                 text = {
@@ -771,6 +822,14 @@ return {
                     "{C:cry_epic}Epische{} Joker geben {X:mult,C:white} X#2# {} Mult",
                     "{C:legendary}Legendäre{} Joker geben {X:mult,C:white} X#3# {} Mult",
                     "{C:cry_exotic}Exotische{} Joker geben {X:mult,C:white} X#4# {} Mult",
+                },
+            },
+			j_cry_clash = {
+                name = "Der Kampf",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält",
                 },
             },
             j_cry_CodeJoker = {
@@ -1032,6 +1091,14 @@ return {
                     "{C:inactive,s:0.8}Größe Pommes, 20 Stücke & Großer Kuchen{}",
                 },
             },
+			j_cry_foolhardy = {
+                name = "Tollkühner Joker",
+                text = {
+                    "{C:red}+#1#{} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
+            },
 			j_cry_formidiulosus = {
 				name = "Formidiulosus",
 				text = {
@@ -1057,6 +1124,14 @@ return {
                     "die meistgespielte {C:attention}Pokerhand{} ist",
                     "{C:inactive}(Momentan {C:chips}+#1#{C:inactive} Chips)",
                 },
+            },
+			j_cry_fuckedup = {
+                name = "Abgefuckter Joker",
+                text = {
+                    "{C:red}+#1#{} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
             },
             j_cry_gardenfork = {
                 name = "Garden der Kreuzungen",
@@ -1155,7 +1230,7 @@ return {
                 name = "Kieferbrecher",
                 text = {
                     "Wenn {C:attention}Boss Blind{} besiegt wurde,",
-                    "{C:attention}verdopple{} die Werte aller Joker",
+                    "{C:attention}verdopple{} die Werte benachbarter Joker",
                     "{E:2,C:red}Zerstört sich selbst{}",
                 }
             },
@@ -1436,6 +1511,14 @@ return {
                     "{C:inactive}(Muss Platz haben)",
                 },
             },
+	    j_cry_necromancer = {
+		name = "Totenbeschwörer",
+		text = {
+		    "Wenn ein Joker für mehr als {C:attention}$0 verkauft{} wird",
+		    "Erhalte einen {C:attention}zufälligen{} Joker der in diesem Durchlauf {C:attention}verkauft{} wurde",
+		    "und setzte seinen {C:attention}Verkaufspreis{} zu {C:attention}$0{}",
+		},
+	    },
             j_cry_negative = {
                 name = "Negativer Joker",
                 text = {
@@ -1502,6 +1585,13 @@ return {
                     "einen {C:attention}#2#{} enthält"
                 }
             },
+	    j_cry_oil_lamp = {
+		name = "Öl Lampe",
+		text = {
+			"Am Ende der Runde",
+			"werden alle Werte des {C:attention}rechten{} Joker um {C:attention}x#1#{} erhöht",
+		},
+	    },
             j_cry_oldblueprint = {
                 name = "Alter Bauplan",
                 text = {
@@ -1537,6 +1627,14 @@ return {
                     "{C:attention}letzte Hand{} der Runde", -- +$4
                 },
             },
+			j_cry_penetrating = {
+                name = "Durchdringender Joker",
+                text = {
+                    "{C:chips}+#1#{} Chips wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
+            },
             j_cry_pickle = {
                 name = "Saure Gurke",
                 text = {
@@ -1555,6 +1653,13 @@ return {
                     "{C:inactive}(Momentan {X:chips,C:white} X#1# {C:inactive} Chips)",
                 },
             },
+			
+			j_cry_pity_prize = {
+				name = "Trostpreis",
+				text = {
+					"Wenn ein {C:attention}Booster Pack{} übersprungen wird, erhalte einen zufälligen {C:attention}Tag{}"
+				},
+			},
             j_cry_pot_of_jokes = {
                 name = "Topf der Witze",
                 text = {
@@ -1728,6 +1833,16 @@ return {
                     "{C:attention}+#1#{} Karte im Shop",
                 },
             },
+			j_cry_fleshpanopticon = {
+                name = "Fleischpanoptikum",
+                text = {
+                    "{C:red}X#1#{} {C:attention}Boss Blind{} größe",
+                    "Wenn eine {C:attention}Boss Blind{} besiegt wurde,",
+                    "{C:red}zerstört sich selbst{}, und erstellt",
+                    "eine {C:dark_edition}Negative{} {C:spectral}Portal{} Karte",
+                    "{C:inactive,s:0.8}\"Ein Gefängnis... zum halten von... mir?\""
+                },
+            },
             j_cry_spaceglobe = {
                 name = "Himmelsglobus",
                 text = {
@@ -1768,6 +1883,14 @@ return {
                     "und erhält {X:dark_edition,C:white} ^#1# {} Mult",
                     "am Ende das {C:attention}Shops{}",
                     "{C:inactive}(Momentan {X:dark_edition,C:white} ^#2# {C:inactive} Mult)",
+                },
+            },
+			j_cry_stronghold = {
+                name = "Die Festung",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält",
                 },
             },
             j_cry_subtle = {
@@ -1812,6 +1935,13 @@ return {
                     "{C:inactive,s:0.8}Hey! Das habe ich schonmal gesehen!",
                 },
             },
+			j_cry_tax_fraud = {
+				name = "Steuerbetrug",
+				text = {
+					"Am Ende der Runde",
+					"Erhalte {C:attention}$#1#{} für jeden {C:attention}Gemieteten Joker",
+				},
+			},
             j_cry_tenebris = {
                 name = "Tenebris",
                 text = {
@@ -1827,6 +1957,14 @@ return {
                     "eines zufälligen {C:attention}Jokers{} zu erstellen",
                     "{s:0.8,C:inactive}(Egal ob der Joker kompatibel ist)",
                 },
+            },
+			j_cry_treacherous = {
+                name = "Tückischer Joker",
+                text = {
+                    "{C:chips}+#1#{} Chips wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält"
+                }
             },
 			j_cry_trick_or_treat = {
                 name = "Süßes oder Saures",
@@ -1964,6 +2102,14 @@ return {
                     "{C:red,E:2}Zerstört sich selbst{}",
                 },
             },
+			j_cry_wtf = {
+                name = "Die Hölle!?",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult wenn",
+                    "gespielte Hand",
+                    "ein {C:attention}#2#{} enthält",
+                },
+            },
         },
         Planet = {
             c_cry_Klubi = {
@@ -1978,6 +2124,16 @@ return {
             },
             c_cry_Lapio = {
                 name = "Lapio",
+                text = {
+                    "({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
+                    "Aufwertung für",
+                    "{C:attention}#1#{},",
+                    "{C:attention}#2#{},",
+                    "und {C:attention}#3#{}",
+                },
+            },
+			c_cry_Kaikki = {
+                name = "Kaikki",
                 text = {
                     "({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
                     "Aufwertung für",
@@ -2026,8 +2182,51 @@ return {
                     "und {C:attention}#3#{}",
                 },
             },
+            c_cry_marsmoons = {
+                name = 'Phobos & Deimos',
+                text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aufwertung für",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult und",
+                    "{C:chips}+#4#{} chips",
+				},
+            },
+            c_cry_void = {
+                name = 'Leere',
+                text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aufwertung für",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult und",
+                    "{C:chips}+#4#{} chips",
+				},
+            },
+            c_cry_asteroidbelt = {
+                name = 'Asteroidengürtel',
+                text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aufwertung für",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult und",
+                    "{C:chips}+#4#{} chips",
+				},
+            },
+            c_cry_universe = {
+                name = 'Das Universum in seiner verfickten Gesamtheit.',
+                text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aufwertung für",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult und",
+                    "{C:chips}+#4#{} chips",
+				},
+            },
         },
         Sleeve = {
+			sleeve_cry_bountiful_sleeve = {
+				name = "Größzügige Hülle",
+				text = {
+					"Ziehe immer 5 Karten nach",
+					"{C:attention}Gespielter Hand{} oder {C:attention}Abwurf{}",
+				},
+			},
             sleeve_cry_ccd_sleeve = {
                 name = "CCD Hülle",
                 text = {
@@ -2092,6 +2291,14 @@ return {
                     "Wenn ein {C:attention}Gutschein{} gekauft wird,",
                     "bekomme seine {C:attention}verbesserten Versionen",
                 },
+            },
+			sleeve_cry_spooky_sleeve = {
+                name = "Gruselige Hülle",
+                text = {
+                    "Starte mit einem {C:eternal}Ewigen{} {C:attention,T:j_cry_chocolate_dice}Schokoladenwürfel",
+                    "Nach jeder {C:attention}Ante{}, erstelle eine",
+                    "{C:cry_candy}Süßigkeit{} oder einen {X:cry_cursed,C:white}Verfluchten{} Joker",
+                }
             },
             sleeve_cry_wormhole_sleeve = {
                 name = "Wurmlochhülle",
@@ -2841,17 +3048,15 @@ return {
             v_cry_stickyhand = {
                 name = "Klebrige Hand",
                 text = {
-                    "{C:attention}+#1#{} Karten",
-                    "auswahl limit",
+                    "{C:attention}+#1#{} Karten auswahl limit",
                 },
             },
             v_cry_grapplinghook = {
                 name = "Enterhaken",
                 text = {
-                    "{C:attention}+#1#{} Karten",
-                    "auswahl limit",
-                    "{C:inactive,s:0.7}NOTE: Bekommt später noch{}",
-                    "{C:inactive,s:0.7}mehr funktionen{}",
+                    "{C:attention}+#1#{} Karten auswahl limit",
+                    "{C:inactive,s:0.7}NOTE: Hiermit kannst du mehr{}",
+                    "{C:inactive,s:0.7}machen als du denkst{}",
                 },
             },
             v_cry_hyperspacetether = {
@@ -3238,6 +3443,31 @@ return {
         },
     },
     misc = {
+        poker_hands = {
+            ['cry_Bulwark'] = "Bollwerk",
+            ['cry_Clusterfuck'] = "Clusterfuck",
+            ['cry_UltPair'] = "Ultimatives Paar",
+            ['cry_WholeDeck'] = "Das ganze verfickte Deck",
+        },
+        poker_hand_descriptions = {
+            ['cry_Bulwark'] = {
+                '5 ranglose, farbenlose Karten zusammen gespielt',
+            },
+            ['cry_Clusterfuck'] = {
+                'Mindestens 8 Karten, welche nicht',
+		        'Paar, Flush oder Straße enthalten'
+            },
+            ['cry_UltPair'] = {
+                'Zwei zwei Paare, bei denen jedes',
+		        'von ihnen von einer Farbe ist,',
+		        'was insgesammt 2 Farben ergibt.'
+            },
+            ['cry_WholeDeck'] = {
+                'Eine Hand, die jede Karte in',
+                'in einem 52-Karten Deck enthält.',
+                'Bist du verrückt?',
+            },
+        },
         achievement_names = {
             ach_cry_ace_in_crash = "Pocket ACE",
             ach_cry_blurred_blurred_joker = "Gesetzlich blind",
@@ -3367,6 +3597,10 @@ return {
 
             b_flip = "UMDREHEN",
             b_merge = "KOMBINIEREN",
+			
+			cry_hand_bulwark = "Bollwerk",
+            cry_hand_clusterfuck = "Clusterfuck",
+            cry_hand_ultpair = "Ultimatives Paar",
 
             cry_again_q = "Nochmal?",
             cry_curse = "Verflucht",
@@ -3374,6 +3608,7 @@ return {
             cry_sobbing = "Hilf mir...",
             cry_gaming = "Gaming",
             cry_gaming_ex = "Gaming!",
+			cry_good_luck_ex = "Viel Glück!",
             cry_sus_ex = "Verräter!",
             cry_jolly_ex = "Jolly Up!",
             cry_m_minus = "m",
@@ -3531,6 +3766,11 @@ return {
                 "um auf #2##1#",
                 "#2#Einsatz#3# Schwieringkeit tu gewinnen"
             },
+			
+
+            cry_art = {"Bild: #1#"},
+            cry_code = {"Code: #1#"},
+            cry_idea = {"Idee: #1#"},
         },
         v_text = {
             ch_c_cry_all_perishable = {"Alle Joker sind {C:eternal}Verderblich{}"},

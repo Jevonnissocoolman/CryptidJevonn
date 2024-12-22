@@ -8,7 +8,7 @@ local gateway = {
 	key = "gateway",
 	pos = { x = 0, y = 0 },
 	cost = 4,
-	atlas = "gateway",
+	atlas = "atlasnotjokers",
 	order = 90,
 	hidden = true, --default soul_set and soul_rate of 0.3% in spectral packs is used
 	can_use = function(self, card)
@@ -28,6 +28,9 @@ local gateway = {
 				delay = 0.75,
 				func = function()
 					for k, v in pairs(deletable_jokers) do
+						if v.config.center.rarity == "cry_exotic" then
+							check_for_unlock({ type = "what_have_you_done" })
+						end
 						v:start_dissolve(nil, _first_dissolve)
 						_first_dissolve = true
 					end
@@ -50,13 +53,6 @@ local gateway = {
 		delay(0.6)
 	end,
 }
-local gateway_sprite = {
-	object_type = "Atlas",
-	key = "gateway",
-	path = "c_cry_gateway.png",
-	px = 71,
-	py = 95,
-}
 local iterum = {
 	object_type = "Joker",
 	name = "cry-Iterum",
@@ -70,14 +66,14 @@ local iterum = {
 	atlas = "atlasexotic",
 	soul_pos = { x = 1, y = 1, extra = { x = 2, y = 1 } },
 	loc_vars = function(self, info_queue, center)
-		return { vars = { center.ability.extra.x_mult, center.ability.extra.repetitions } }
+		return { vars = { center.ability.extra.x_mult, math.min(40, center.ability.extra.repetitions) } }
 	end,
 	calculate = function(self, card, context)
 		if context.repetition then
 			if context.cardarea == G.play then
 				return {
 					message = localize("k_again_ex"),
-					repetitions = card.ability.extra.repetitions,
+					repetitions = math.min(40, card.ability.extra.repetitions),
 					card = card,
 				}
 			end
@@ -91,6 +87,11 @@ local iterum = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {"Math"},
+		art = {"Ein13"},
+		code = {"Math"}
+	},
 }
 local universum = {
 	object_type = "Joker",
@@ -112,6 +113,10 @@ local universum = {
 			return { mod = to_big(card.ability.extra) }
 		end
 	end,
+	cry_credits = {
+		idea = {"Ein13"},
+		art = {"Ein13"},
+	},
 }
 local exponentia = {
 	object_type = "Joker",
@@ -143,6 +148,11 @@ local exponentia = {
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra.Emult_mod, center.ability.extra.Emult } }
 	end,
+	cry_credits = {
+		idea = {"Enemui"},
+		art = {"Jevonn"},
+		code = {"Math"}
+	},
 }
 local speculo = {
 	object_type = "Joker",
@@ -152,6 +162,7 @@ local speculo = {
 	rarity = "cry_exotic",
 	cost = 50,
 	blueprint_compat = true,
+	immutable = true,
 	atlas = "atlasexotic",
 	order = 504,
 	soul_pos = { x = 4, y = 1, extra = { x = 5, y = 1 } },
@@ -191,6 +202,11 @@ local speculo = {
 			return
 		end
 	end,
+	cry_credits = {
+		idea = {"Mystic"},
+		art = {"Mystic"},
+		code = {"Math"}
+	},
 }
 local redeo = {
 	object_type = "Joker",
@@ -208,7 +224,7 @@ local redeo = {
 		}
 	end,
 	pos = { x = 3, y = 0 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_exotic",
 	cost = 50,
 	order = 506,
@@ -230,6 +246,11 @@ local redeo = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {"Enemui"},
+		art = {"Jevonn"},
+		code = {"Math", "jenwalter666"}
+	},
 }
 local tenebris = {
 	object_type = "Joker",
@@ -254,13 +275,18 @@ local tenebris = {
 	remove_from_deck = function(self, card, from_debuff)
 		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
 	end,
+	cry_credits = {
+		idea = {"Gold"},
+		art = {"Mystic"},
+		code = {"jenwalter666"}
+	},
 }
 local effarcire = {
 	object_type = "Joker",
 	name = "cry-Effarcire",
 	key = "effarcire",
 	config = {},
-	immune_to_chemach = true,
+	immutable = true,
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 1, y = 0, extra = { x = 2, y = 0 } },
 	cost = 50,
@@ -277,6 +303,11 @@ local effarcire = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {"Frix"},
+		art = {"AlexZGreat"},
+		code = {"jenwalter666"}
+	},
 }
 local effarcire_sprite = {
 	object_type = "Atlas",
@@ -337,6 +368,11 @@ local crustulum = {
 	remove_from_deck = function(self, card, from_debuff)
 		calculate_reroll_cost(true)
 	end,
+	cry_credits = {
+		idea = {"AlexZGreat"},
+		art = {"lolxddj"},
+		code = {"Jevonn"}
+	},
 }
 --todo: make the Emult always prime
 local primus = {
@@ -397,6 +433,11 @@ local primus = {
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra.Emult_mod, center.ability.extra.Emult } }
 	end,
+	cry_credits = {
+		idea = {"Jevonn"},
+		art = {"Jevonn"},
+		code = {"Jevonn"}
+	},
 }
 local big_num_whitelist = {
 	j_ride_the_bus = true,
@@ -453,7 +494,7 @@ local scalae = {
 	key = "Scalae",
 	pos = { x = 3, y = 4 },
 	soul_pos = { x = 5, y = 4, extra = { x = 4, y = 4 } },
-	immune_to_chemach = false,
+	immutable = false,
 	rarity = "cry_exotic",
 	cost = 50,
 	atlas = "atlasexotic",
@@ -517,6 +558,11 @@ local scalae = {
 	loc_vars = function(self, info_queue, card)
 		return { vars = { number_format(card.ability.extra.scale + 1), number_format(card.ability.extra.scale_mod) } }
 	end,
+	cry_credits = {
+		idea = {"Mathguy"},
+		art = {"Mathguy"},
+		code = {"Mathguy"}
+	},
 }
 local stella_mortis = {
 	object_type = "Joker",
@@ -594,6 +640,11 @@ local stella_mortis = {
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra.Emult_mod, center.ability.extra.Emult } }
 	end,
+	cry_credits = {
+		idea = {"SMG9000"},
+		art = {"SMG9000"},
+		code = {"SMG9000"}
+	},
 }
 local circulus_pistoris = {
 	object_type = "Joker",
@@ -635,6 +686,11 @@ local circulus_pistoris = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {"SMG9000", "Math"}, --not sure if there's more ppl I'm missing
+		art = {"HexaCryonic"},
+		code = {"SMG9000", "Math"}
+	},
 }
 local aequilibrium = {
 	object_type = "Joker",
@@ -648,7 +704,7 @@ local aequilibrium = {
 	cost = 50,
 	order = 512,
 	blueprint_compat = true,
-	immune_to_chemach = true,
+	immutable = true,
 	eternal_compat = true,
 	perishable_compat = true,
 	loc_vars = function(self, info_queue, center)
@@ -741,10 +797,15 @@ local aequilibrium = {
 		end
 	end,
 	remove_from_deck = function(self, card, from_debuff)
-		if not from_debuff then
+		if not from_debuff and card.ability.extra.card then
 			card.ability.extra.card:start_dissolve()
 		end
 	end,
+	cry_credits = {
+		idea = {"Elial2"},
+		art = {"Elial2"},
+		code = {"Elial2"}
+	},
 }
 local cc = copy_card
 function copy_card(card, a, b, c, d)
@@ -813,6 +874,11 @@ local facile = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {"Enemui"},
+		art = {"Kailen"},
+		code = {"Jevonn"}
+	},
 }
 local gemino = {
 	object_type = "Joker",
@@ -820,13 +886,14 @@ local gemino = {
 	key = "gemino",
 	pos = { x = 6, y = 1 },
 	soul_pos = { x = 8, y = 1, extra = { x = 7, y = 1 } },
-	immune_to_chemach = true,
+	immutable = true,
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Requiacity",
 		},
+		art = {"Requiacity"},
+		code = {"Math"}
 	},
 	rarity = "cry_exotic",
 	blueprint_compat = true,
@@ -837,7 +904,7 @@ local gemino = {
 		if context.end_of_round and not context.repetition and not context.individual then
 			local check = false
 			local card = G.jokers.cards[1]
-			if not Card.no(G.jokers.cards[1], "immune_to_chemach", true) and not Card.no(G.jokers.cards[1], "immutable", true) then
+			if not Card.no(G.jokers.cards[1], "immutable", true) then
 				cry_with_deck_effects(G.jokers.cards[1], function(card)
 					cry_misprintize(card, { min = 2, max = 2 }, nil, true)
 				end)
@@ -893,7 +960,14 @@ local energia = {
 			return { tags = t }
 		end
 	end,
+	cry_credits = {
+		idea = {"jenwalter666"},
+		art = {"Kailen"},
+		code = {"Math"}
+	},
 }
+
+--why is this an exotic???
 local verisimile = {
 	object_type = "Joker",
 	name = "cry-verisimile",
@@ -904,6 +978,7 @@ local verisimile = {
 	rarity = "cry_exotic",
 	cost = 50,
 	order = 516,
+	immutable = true,
 	blueprint_compat = true,
 	atlas = "placeholders",
 	loc_vars = function(self, info_queue, center)
@@ -985,8 +1060,11 @@ local verisimile = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {"Enemui"},
+		code = {"Jevonn"}
+	},
 }
-
 
 local duplicare = {
     object_type = "Joker",
@@ -1022,7 +1100,12 @@ local duplicare = {
 				colour = G.C.MULT,
 			}
 		end
-    end
+    end,
+	cry_credits = {
+		idea = {"Enemui"},
+		art = {"Shellular"},
+		code = {"elial2"}
+	},
 }
 
 -- to be honest, this needs a refactor because
@@ -1094,13 +1177,25 @@ local formidiulosus = {
 	config = { extra = { candy = 3, Emult_mod = 0.01, Emult = 1 } },
 	loc_vars = function(self, info_queue, center)
 		return {
-			vars = { center.ability.extra.candy, center.ability.extra.Emult_mod, center.ability.extra.Emult },
+			vars = { 3, center.ability.extra.Emult_mod, center.ability.extra.Emult },
 		}
 	end,
 	rarity = "cry_exotic",
 	cost = 50,
 	order = 518,
 	atlas = "atlasexotic",
+	no_dbl = true,
+	update = function(self, card, front)
+		local value = 0
+		if G.jokers then
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i].config.center.rarity == "cry_candy" then
+					value = value + 1
+				end
+			end
+		end
+		card.ability.extra.Emult = 1 + (card.ability.extra.Emult_mod * value)
+	end,
 	calculate = function(self, card, context)
 		if (context.buying_card or context.cry_creating_card) and context.card.ability.set == "Joker" and context.card.config.center.rarity == "cry_cursed" and not context.blueprint and not (context.card == card) then
 			G.E_MANAGER:add_event(Event({
@@ -1115,17 +1210,11 @@ local formidiulosus = {
 			}))
 		end
 		if context.ending_shop then
-			for i = 1, card.ability.extra.candy do
+			for i = 1, 3 do
 				local card = create_card("Joker", G.jokers, nil, "cry_candy", nil, nil, nil, "cry_trick_candy")
 				card:set_edition({ negative = true }, true)
 				card:add_to_deck()
 				G.jokers:emplace(card)
-			end
-		end
-		card.ability.extra.Emult = 1
-		for i = 1, #G.jokers.cards do
-			if G.jokers.cards[i].config.center.rarity == "cry_candy" then
-				card.ability.extra.Emult = card.ability.extra.Emult + card.ability.extra.Emult_mod
 			end
 		end
 		if
@@ -1141,8 +1230,38 @@ local formidiulosus = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {"HexaCryonic","Kailen"},
+		art = {"Foegro"},
+		code = {"Foegro"}
+	},
 }
-
+local items = {
+	gateway,
+	iterum,
+	universum,
+	exponentia,
+	speculo,
+	redeo,
+	tenebris,
+	effarcire,
+	effarcire_sprite,
+	crustulum,
+	primus,
+	scalae,
+	stella_mortis,
+	circulus_pistoris,
+	aequilibrium,
+	facile,
+	gemino,
+	energia,
+	--verisimile, WHY IS THIS AN EXOTIC????????????????????
+	--rescribere, [NEEDS REFACTOR]
+	duplicare,
+}
+if Cryptid.enabled["Spooky"] then
+	items[#items + 1] = formidiulosus
+end
 return {
 	name = "Exotic Jokers",
 	init = function()
@@ -1271,29 +1390,5 @@ return {
 			end
 		end
 	end,
-	items = {
-		gateway_sprite,
-		gateway,
-		iterum,
-		universum,
-		exponentia,
-		speculo,
-		redeo,
-		tenebris,
-		effarcire,
-		effarcire_sprite,
-		crustulum,
-		primus,
-		scalae,
-		stella_mortis,
-		circulus_pistoris,
-		aequilibrium,
-		facile,
-		gemino,
-		energia,
-		verisimile,
-		--rescribere, [NEEDS REFACTOR]
-		duplicare,
-		formidiulosus,
-	},
+	items = items,
 }

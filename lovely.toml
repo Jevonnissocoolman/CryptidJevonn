@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = -1
 
 # Make the splash screen more jolly
 # Requires "Custom Main Menu" config to be enabled
@@ -41,7 +41,7 @@ target = "game.lua"
 pattern = "if math.random() > 0.8 then card.sprite_facing = 'back'; card.facing = 'back' end"
 position = "before"
 payload = '''
-if Cryptid.enabled["Menu"] then card:set_ability(get_random_consumable('cry_ccd', nil, true), true, nil) end
+if Cryptid.enabled["Menu"] then card:set_ability(get_random_consumable('cry_splash',{"no_grc"},nil,nil,true), true, nil) end
 '''
 match_indent = true
 
@@ -107,24 +107,17 @@ position = "at"
 payload = "{card_limit = 1e308, type = 'discard'})"
 match_indent = true
 
-# Max out hand size at deck size
+# When hand size exceeds deck size, space the cards as if the hand size was equal to the deck size
 [[patches]]
 [patches.pattern]
 target = "cardarea.lua"
-pattern = "self.config.real_card_limit = (self.config.real_card_limit or self.config.card_limit) + delta"
-position = "at"
+pattern = "function CardArea:align_cards()"
+position = "after"
 payload = '''
-self.config.realer_card_limit = (self.config.realer_card_limit or self.config.real_card_limit or self.config.card_limit) + delta
-self.config.real_card_limit = self ~= G.hand and self.config.realer_card_limit or math.min((G.deck and G.deck.config.card_limit or 52), self.config.realer_card_limit)
+    if self.config.type == 'hand' then
+        self.config.temp_limit = math.min(self.config.card_limit, #G.playing_cards)
+    end
 '''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "cardarea.lua"
-pattern = "self.config.card_limit = math.max(0, self.config.real_card_limit)"
-position = "at"
-payload = "self.config.card_limit = math.max(0, self.config.real_card_limit)"
 match_indent = true
 
 # Crash fix
@@ -602,6 +595,7 @@ if update_cry_member_count then update_cry_member_count() end
 match_indent = true
 
 # notice if https is disabled (by default)
+# also does some other things since this is patching in the same spot
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -629,6 +623,15 @@ if _c.name == 'cry-translucent Joker' then
                 end
         end 
 end 
+if _c.name == 'cry-blurred Joker' then
+	if (SMODS.Mods["sdm0sstuff"] or {}).can_load then
+		if G.localization.descriptions.Other.blurred_sdm0 then 
+			main_end = {}
+			localize{type = 'other', key = 'blurred_sdm0', nodes = main_end, vars = {}}
+			main_end = main_end[1]
+		end
+	end
+end
 '''
 match_indent = true
 
@@ -683,6 +686,54 @@ position = "after"
 payload = '''
 for i = 1, #G.jokers.cards do
     G.jokers.cards[i]:calculate_joker({cry_creating_card = true, card = card})
+end
+'''
+match_indent = true
+
+# Adds cry_debuff_immune card modifier
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = 'if self.ability and self.ability.perma_debuff then self.debuff = true end'
+position = "after"
+payload = '''
+if self.cry_debuff_immune then
+	self.debuff = false
+end
+'''
+match_indent = true
+
+# Removes cry_debuff_immune at the end of the round
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = 'for i = 1, #G.jokers.cards do'
+position = "before"
+payload = '''
+for i = 1, #G.playing_cards do
+	local CARD = G.playing_cards[i]
+    CARD.cry_debuff_immune = false
+end
+'''
+match_indent = true
+
+# Joker Sell List
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = 'self:calculate_joker{selling_self = true}'
+position = "before"
+payload = '''
+if self.config.center.set == 'Joker' then
+	if G.GAME.jokers_sold then
+		local contained = false
+		for i = 1, #G.GAME.jokers_sold do
+			if self.config.center.key == G.GAME.jokers_sold[i] then contained = true end
+		end
+		if not contained then table.insert(G.GAME.jokers_sold, self.config.center.key) end
+	else
+		G.GAME.jokers_sold = {self.config.center.key}
+	end
 end
 '''
 match_indent = true

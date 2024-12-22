@@ -35,6 +35,17 @@ local supercell = {
 			play_sound("cry_studiofromhelsinki")
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local membershipcardtwo = {
 	object_type = "Joker",
@@ -67,6 +78,17 @@ local membershipcardtwo = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local googol_play = {
 	object_type = "Joker",
@@ -74,7 +96,6 @@ local googol_play = {
 	key = "googol_play",
 	config = { extra = { Xmult = 1e100, odds = 8 } },
 	pos = { x = 3, y = 0 },
-	immune_to_chemach = true,
 	rarity = "cry_epic",
 	cost = 10,
 	order = 14,
@@ -103,6 +124,17 @@ local googol_play = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			".asdom"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local sync_catalyst = {
 	object_type = "Joker",
@@ -113,11 +145,13 @@ local sync_catalyst = {
 	cost = 12,
 	order = 54,
 	blueprint_compat = true,
+	immutable = true,
 	atlas = "atlasepic",
 	calculate = function(self, card, context)
-		if context.cardarea == G.jokers and not context.before and not context.after then
+		if context.cardarea == G.jokers and not context.before
+		 and not context.after and not context.debuffed_hand
+		  and hand_chips and mult then
 			local tot = hand_chips + mult
-			if not context.debuffed_hand then -- Adding Guard clause to protect against unallowed hands
 				if not tot.array or #tot.array < 2 or tot.array[2] < 2 then --below eXeY notation
 					hand_chips = mod_chips(math.floor(tot / 2))
 					mult = mod_mult(math.floor(tot / 2))
@@ -136,8 +170,18 @@ local sync_catalyst = {
 					colour = { 0.8, 0.45, 0.85, 1 },
 				}
 			end
-		end
-	end,
+		end,
+	cry_credits = {
+		idea = {
+			"Project666"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local negative = {
 	object_type = "Joker",
@@ -158,12 +202,23 @@ local negative = {
 	remove_from_deck = function(self, card, from_debuff)
 		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra
 	end,
+	cry_credits = {
+		idea = {
+			"Xero01"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local canvas = {
 	object_type = "Joker",
 	name = "cry-Canvas",
 	key = "canvas",
-	immune_to_chemach = true,
+	immutable = true,
 	order = 4,
 	pos = { x = 2, y = 1 },
 	config = { num_retriggers = 0 },
@@ -191,6 +246,17 @@ local canvas = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local error_joker = {
 	object_type = "Joker",
@@ -198,7 +264,7 @@ local error_joker = {
 	key = "error",
 	pos = { x = 4, y = 2 },
 	config = { extra = { sell_rounds = 0, active = false } },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_epic",
 	cost = 1,
 	order = 72,
@@ -271,6 +337,17 @@ local error_joker = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Coronacht", "Fetch"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local m = {
 	object_type = "Joker",
@@ -345,7 +422,18 @@ local m = {
 				return ret, trig
 			end
 		end
-	end
+	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local M = {
 	object_type = "Joker",
@@ -357,6 +445,7 @@ local M = {
 	rarity = "cry_epic",
 	effect = "M Joker",
 	cost = 13,
+	immutable = true,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = {
@@ -396,7 +485,18 @@ local M = {
 				return ret, trig
 			end
 		end
-	end
+	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local boredom = {
 	object_type = "Joker",
@@ -404,7 +504,6 @@ local boredom = {
 	key = "boredom",
 	pos = { x = 1, y = 0 },
 	config = { extra = { odds = 2 } },
-	immune_to_chemach = true,
     pools = {["Meme"] = true},
 	rarity = "cry_epic",
 	order = 32,
@@ -438,6 +537,17 @@ local boredom = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Math"
+		},
+		art = {
+			"Saturn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local number_blocks = {
 	object_type = "Joker",
@@ -486,6 +596,17 @@ local number_blocks = {
 			return card.ability.extra.money
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local double_scale = {
 	object_type = "Joker",
@@ -495,11 +616,23 @@ local double_scale = {
 	order = 6,
 	rarity = "cry_epic",
 	cost = 18,
+	immutable = true,
 	atlas = "atlasepic",
 	--todo: support jokers that scale multiple variables
 	cry_scale_mod = function(self, card, joker, orig_scale_scale, true_base, orig_scale_base, new_scale_base)
 		return orig_scale_scale + true_base
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"AlezZGreat"
+		},
+		code = {
+			"Math", "Mathguy"
+		}
+	},
 }
 local oldcandy = {
 	object_type = "Joker",
@@ -521,6 +654,17 @@ local oldcandy = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local circus = {
 	object_type = "Joker",
@@ -616,6 +760,17 @@ local circus = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Ein13"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local caramel = {
 	object_type = "Joker",
@@ -684,6 +839,17 @@ local caramel = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 --this has to be the most spaghetti code in cryptid
 local curse_sob = {
@@ -695,212 +861,32 @@ local curse_sob = {
 	rarity = "cry_epic",
 	cost = 9,
 	order = 82,
+	immutable = true,
 	perishable_compat = true,
 	atlas = "atlasepic",
 	calculate = function(self, card, context)
-		if
-			context.selling_self
-			and #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.discard
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.pre_discard
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.reroll_shop
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.open_booster
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.buying_card
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.skip_blind
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.cardarea == G.jokers
-			and context.before
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.using_consumeable
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
+		if 
 			context.selling_card
-			and context.card.ability.name ~= "Obelisk"
-			and #G.jokers.cards + G.GAME.joker_buffer - (context.card.ability.set == "Joker" and 1 or 0) < G.jokers.config.card_limit
+			and context.card.ability.name == "Obelisk"
 			and not context.retrigger_joker
 			and not context.blueprint
 		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
+			return {}
 		elseif
-			context.setting_blind
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			and not context.retrigger_joker
-			and not context.blueprint
-		then
-			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
-			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_obelisk")
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			G.GAME.joker_buffer = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("cry_curse_ex"),
-					colour = G.C.FILTER,
-				}),
-			}
-		elseif
-			context.skipping_booster
-			and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+			(-- Compacting all the elseifs into one block for space and readability also maintablity
+				context.selling_self 
+				or context.discard 
+				or context.pre_discard -- We want 2 obilisks per discard? dunno just copying what was there
+				or context.reroll_shop --Yes
+				or context.buying_card 
+				or context.skip_blind 
+				or context.using_consumeable
+				or context.selling_card 
+				or context.setting_blind 
+				or context.skipping_booster 
+				or context.open_booster 
+			)
+			and #G.jokers.cards + G.GAME.joker_buffer < (context.selling_self and (G.jokers.config.card_limit + 1) or G.jokers.config.card_limit)
 			and not context.retrigger_joker
 			and not context.blueprint
 		then
@@ -934,6 +920,17 @@ local curse_sob = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local bonusjoker = {
 	object_type = "Joker",
@@ -941,7 +938,7 @@ local bonusjoker = {
 	key = "bonusjoker",
 	pos = { x = 3, y = 2 },
 	config = { extra = { odds = 8, check = 0 } },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_epic",
 	cost = 11,
 	order = 75,
@@ -995,6 +992,17 @@ local bonusjoker = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local multjoker = {
 	object_type = "Joker",
@@ -1002,7 +1010,6 @@ local multjoker = {
 	key = "multjoker",
 	pos = { x = 2, y = 3 },
 	config = { extra = { odds = 3 } },
-	immune_to_chemach = true,
 	rarity = "cry_epic",
 	order = 99,
 	cost = 11,
@@ -1045,6 +1052,17 @@ local multjoker = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local goldjoker = {
 	object_type = "Joker",
@@ -1090,13 +1108,24 @@ local goldjoker = {
 			return bonus
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local altgoogol = {
 	object_type = "Joker",
 	name = "cry-altgoogol",
 	key = "altgoogol",
 	pos = { x = 4, y = 3 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_epic",
 	cost = 10,
 	order = 60,
@@ -1167,6 +1196,17 @@ local altgoogol = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local soccer = {
 	object_type = "Joker",
@@ -1174,7 +1214,7 @@ local soccer = {
 	key = "soccer",
 	pos = { x = 1, y = 4 },
 	config = { extra = { holygrail = 1 } },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_epic",
 	order = 58,
 	cost = 20,
@@ -1203,6 +1243,97 @@ local soccer = {
 		G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs - card.ability.extra.holygrail
 		change_shop_size(card.ability.extra.holygrail * -1)
 	end,
+	cry_credits = {
+		idea = {
+			"Mjiojio"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
+}
+local fleshpanopticon = {
+	object_type = "Joker",
+	name = "cry-fleshpanopticon",
+	key = "fleshpanopticon",
+	pos = { x = 0, y = 5 },
+	config = { extra = { boss_size = 20 } },
+	immutable = true,
+	rarity = "cry_epic",
+	cost = 15,
+	order = 146,
+	atlas = "atlasepic",
+	loc_vars = function(self, info_queue, center)
+		if Cryptid.enabled["Exotic Jokers"] then
+			info_queue[#info_queue + 1] = { set = "Spectral", key = "c_cry_gateway" }
+		end
+		if not center.edition or (center.edition and not center.edition.negative) then
+			info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
+		end
+		return { vars = { center.ability.extra.boss_size } }
+	end,
+  calculate = function(self, card, context)
+    if context.setting_blind and not context.blueprint and context.blind.boss and not card.getting_sliced then
+      local eval = function(card) return not card.REMOVED and not G.RESET_JIGGLES end
+      juice_card_until(card, eval, true)
+      card.gone = false
+      G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.boss_size
+      G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+      G.HUD_blind:recalculate(true)
+      G.E_MANAGER:add_event(Event({func = function()
+        G.E_MANAGER:add_event(Event({func = function()
+          play_sound('timpani')
+          delay(0.4)
+          return true end }))
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("cry_good_luck_ex")})
+      return true end }))
+    end
+    if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and G.GAME.blind.boss and not card.gone then
+      G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+            local card = create_card(nil,G.consumeables, nil, nil, nil, nil, Cryptid.enabled["Exotic Jokers"] and 'c_cry_gateway' or 'c_soul', 'sup')
+            card:set_edition({negative = true}, true)
+            card:add_to_deck()
+            G.consumeables:emplace(card)
+          return true
+        end)}))
+      if not card.ability.eternal then
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            play_sound('tarot1')
+            card.T.r = -0.2
+            card:juice_up(0.3, 0.4)
+            card.states.drag.is = true
+            card.children.center.pinch.x = true
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+              func = function()
+                G.jokers:remove_card(card)
+                card:remove()
+                card = nil
+              return true; end})) 
+            return true
+          end
+        })) 
+      end
+      card.gone = true
+    end
+  end,
+	cry_credits = {
+		idea = {
+			"notmario"
+		},
+		art = {
+			"notmario"
+		},
+		code = {
+			"notmario"
+		}
+	},
 }
 return {
 	name = "Epic Jokers",
@@ -1392,5 +1523,6 @@ return {
 		goldjoker,
 		altgoogol,
 		soccer,
+		fleshpanopticon,
 	},
 }

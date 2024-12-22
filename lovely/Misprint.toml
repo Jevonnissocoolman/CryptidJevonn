@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = -1
 
 # Randomize poker hands after RNG is set up
 [[patches]]
@@ -272,8 +272,13 @@ match_indent = true
 target = "card.lua"
 pattern = "self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))"
 position = "after"
-payload = '''if self.misprint_cost_fac then self.cost = cry_format(self.cost * self.misprint_cost_fac,'%.2f') 
-if not G.GAME.modifiers.cry_misprint_min then self.cost = math.floor(self.cost) end end'''
+payload = '''
+    if self.ability.set == 'Joker' then 
+        self.cost = cry_format(self.cost * G.GAME.cry_shop_joker_price_modifier,'%.2f') end
+    if self.misprint_cost_fac then 
+        self.cost = cry_format(self.cost * self.misprint_cost_fac,'%.2f') 
+    if not G.GAME.modifiers.cry_misprint_min then self.cost = math.floor(self.cost) end end
+'''
 match_indent = true
 
 # welcome to hell, enjoy your stay (initialise center copy)
@@ -286,7 +291,8 @@ payload = '''
 G.GAME.cry_voucher_centers = {}
 for k, v in pairs(G.P_CENTERS) do
 	if v.set == 'Voucher' then
-		G.GAME.cry_voucher_centers[k] = v
+		G.GAME.cry_voucher_centers[k] = {config = {}}
+		G.GAME.cry_voucher_centers[k].config = copy_table(v.config)
 	end
 end
 '''

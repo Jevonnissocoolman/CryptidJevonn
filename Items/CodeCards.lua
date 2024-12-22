@@ -7,7 +7,7 @@ local code = {
 	collection_rows = { 4, 4 }, -- 4 pages for all code cards
 	shop_rate = 0.0,
 	loc_txt = {},
-	default = "c_cry_crash",
+	default = (SMODS.Mods['jen'] or {}).can_load and "c_cry_oboe" or "c_cry_crash",
 	can_stack = true,
 	can_divide = true,
 }
@@ -142,7 +142,7 @@ local console = {
 		info_queue[#info_queue + 1] = { set = "Other", key = "p_cry_code_normal_1", specific_vars = { 1, 2 } }
 		return { vars = {} }
 	end,
-	apply = function(tag, context)
+	apply = function(self, tag, context)
 		if context.type == "new_blind_choice" then
 			tag:yep("+", G.C.SECONDARY_SET.Code, function()
 				local key = "p_cry_code_normal_" .. math.random(1, 2)
@@ -158,6 +158,12 @@ local console = {
 				card.cost = 0
 				card.from_tag = true
 				G.FUNCS.use_card({ config = { ref_table = card } })
+				if G.GAME.modifiers.cry_force_edition and not G.GAME.modifiers.cry_force_random_edition then
+					card:set_edition(nil, true, true)
+				elseif G.GAME.modifiers.cry_force_random_edition then
+					local edition = cry_poll_random_edition()
+					card:set_edition(edition, true, true)
+				end
 				card:start_materialize()
 				return true
 			end)
@@ -594,9 +600,7 @@ local commit = {
 		elseif rarity == 4 then
 			rarity = nil
 			legendary = true
-		elseif rarity == "cry_epic" then
-			rarity = 1
-		end
+		end -- Deleted check for "cry epic" it was giving rare jokers by setting rarity to 1
 		local _first_dissolve = nil
 		G.E_MANAGER:add_event(Event({
 			trigger = "before",
@@ -869,7 +873,7 @@ local spaghetti = {
 			nil,
 			nil,
 			nil,
-			pseudorandom_element(Cryptid.food, pseudoseed("cry_spaghetti"))
+			Cryptid.get_food("cry_spaghetti")
 		)
 		card:set_edition({
 			cry_glitched = true,
@@ -988,6 +992,9 @@ local oboe = {
 	cost = 4,
 	can_bulk_use = true,
 	loc_vars = function(self, info_queue, card)
+		if not card then
+			return { vars = { self.config.extra.choices, (G.GAME and G.GAME.cry_oboe or 0) } }
+		end
 		return { vars = { card.ability.extra.choices, (G.GAME and G.GAME.cry_oboe or 0) } }
 	end,
 	can_use = function(self, card)
@@ -1067,7 +1074,7 @@ local rework_tag = {
 	config = { type = "store_joker_create" },
 	key = "rework",
 	ability = { rework_edition = nil, rework_key = nil },
-	apply = function(tag, context)
+	apply = function(self, tag, context)
 		if context.type == "store_joker_create" then
 			local card = create_card("Joker", context.area, nil, nil, nil, nil, (tag.ability.rework_key or "j_scholar"))
 			create_shop_card_ui(card, "Joker", context.area)
@@ -1091,6 +1098,287 @@ local rework_tag = {
 	end,
 	in_pool = function()
 		return false
+	end,
+}
+
+local patch = {
+	object_type = "Consumable",
+	set = "Code",
+	key = "patch",
+	name = "cry-patch",
+	atlas = "code",
+	order = 26,
+	config = {  },
+	pos = {
+		x = 1,
+		y = 4,
+	},
+	cost = 4,
+	can_bulk_use = true,
+	loc_vars = function(self, info_queue, card)
+		return { }
+	end,
+	can_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		for i = 1, #G.hand.cards do
+			local CARD = G.hand.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					CARD:flip()
+					return true
+				end,
+			}))
+		end
+		for i = 1, #G.jokers.cards do
+			local CARD = G.jokers.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					CARD:flip()
+					return true
+				end,
+			}))
+		end
+		for i = 1, #G.consumeables.cards do
+			local CARD = G.consumeables.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					CARD:flip()
+					return true
+				end,
+			}))
+		end
+		delay(0.2)
+		for i = 1, #G.hand.cards do
+			local CARD = G.hand.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					if CARD.facing == "back" then
+						CARD:flip()
+					end
+					CARD.debuff = false
+					CARD.cry_debuff_immune = true
+					CARD.ability.perishable = nil
+					CARD.pinned = nil
+					CARD:set_rental(nil)
+					if not CARD.sob then
+						CARD:set_eternal(nil)
+					end
+					CARD.ability.banana = nil
+					if Cryptid.enabled["Spooky"] then
+						CARD.ability.cry_possessed = nil
+						SMODS.Stickers.cry_flickering:apply(CARD, nil)
+					end
+					play_sound("tarot2", percent)
+					CARD:juice_up(0.3, 0.3)
+					return true
+				end,
+			}))
+		end
+		for i = 1, #G.jokers.cards do
+			local CARD = G.jokers.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					if CARD.facing == "back" then
+						CARD:flip()
+					end
+					CARD.debuff = false
+					CARD.ability.perishable = nil
+					CARD.pinned = nil
+					CARD:set_rental(nil)
+					if not CARD.sob then
+						CARD:set_eternal(nil)
+					end
+					CARD.ability.banana = nil
+					if Cryptid.enabled["Spooky"] then
+						CARD.ability.cry_possessed = nil
+						SMODS.Stickers.cry_flickering:apply(CARD, nil)
+					end
+					play_sound("card1", percent)
+					CARD:juice_up(0.3, 0.3)
+					return true
+				end,
+			}))
+		end
+		for i = 1, #G.consumeables.cards do
+			local CARD = G.consumeables.cards[i]
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.15,
+				func = function()
+					if CARD.facing == "back" then
+						CARD:flip()
+					end
+					CARD.debuff = false
+					CARD.ability.perishable = nil
+					CARD.pinned = nil
+					CARD:set_rental(nil)
+					if not CARD.sob then
+						CARD:set_eternal(nil)
+					end
+					CARD.ability.banana = nil
+					if Cryptid.enabled["Spooky"] then
+						CARD.ability.cry_possessed = nil
+						SMODS.Stickers.cry_flickering:apply(CARD, nil)
+					end
+					play_sound("card1", percent)
+					CARD:juice_up(0.3, 0.3)
+					return true
+				end,
+			}))
+		end
+	end,
+}
+
+local ctrl_v = {
+	object_type = "Consumable",
+	set = "Code",
+	key = "ctrl_v",
+	name = "cry-Ctrl-V",
+	atlas = "code",
+	order = 27,
+	config = {  },
+	pos = {
+		x = 2,
+		y = 4,
+	},
+	cost = 4,
+	can_bulk_use = true,
+	loc_vars = function(self, info_queue, card)
+		return { }
+	end,
+	can_use = function(self, card)
+		return #G.hand.highlighted
+				+ #G.consumeables.highlighted
+			== 2
+	end,
+	use = function(self, card, area, copier)
+		if area then
+			area:remove_from_highlighted(card)
+		end
+		if G.hand.highlighted[1] then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local card = copy_card(G.hand.highlighted[1])
+					card:add_to_deck()
+					table.insert(G.playing_cards, card)
+					G.hand:emplace(card)
+					return true
+				end,
+			}))
+		end
+		if G.consumeables.highlighted[1] then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local card = copy_card(G.consumeables.highlighted[1])
+					card:add_to_deck()
+					if Incantation then
+						card:setQty(1)
+					end
+					G.consumeables:emplace(card)
+					return true
+				end,
+			}))
+		end
+	end,
+	bulk_use = function(self, card, area, copier, number)
+		for i = 1, number do
+			if area then
+				area:remove_from_highlighted(card)
+			end
+			if G.hand.highlighted[1] then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						local card = copy_card(G.hand.highlighted[1])
+						card:add_to_deck()
+						G.hand:emplace(card)
+						return true
+					end,
+				}))
+			end
+			if G.consumeables.highlighted[1] then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						local card = copy_card(G.consumeables.highlighted[1])
+						card:add_to_deck()
+						if Incantation then
+							card:setQty(1)
+						end
+						G.consumeables:emplace(card)
+						return true
+					end,
+				}))
+			end
+		end
+	end,
+}
+
+
+
+local inst = {
+	object_type = "Consumable",
+	set = "Code",
+	key = "inst",
+	name = "cry-Inst",
+	atlas = "code",
+	order = 28,
+	config = {  },
+	pos = {
+		x = 3,
+		y = 4,
+	},
+	cost = 4,
+	can_bulk_use = true,
+	loc_vars = function(self, info_queue, card)
+		return { }
+	end,
+	can_use = function(self, card)
+		local selected_cards = {}
+		for i = 1, #G.hand.highlighted do
+			if G.hand.highlighted[i] ~= card then selected_cards[#selected_cards+1] = G.hand.highlighted[i] end
+		end
+		return #selected_cards == 1
+	end,
+	use = function(self, card, area, copier)
+		for i = 1, #G.deck.cards do
+			if G.deck.cards[i].base.value == G.hand.highlighted[1].base.value then
+				draw_card(G.deck,G.hand,nil,nil,false,G.deck.cards[i])
+				break
+			end
+		end
+		for i = 1, #G.deck.cards do
+			if G.deck.cards[i].base.suit == G.hand.highlighted[1].base.suit then
+				draw_card(G.deck,G.hand,nil,nil,false,G.deck.cards[i])
+				break
+			end
+		end
+	end,
+	bulk_use = function(self, card, area, copier, number)
+		for i = 1, number do
+			for i = 1, #G.deck.cards do
+				if G.deck.cards[i].base.value == G.hand.highlighted[1].base.value then
+					draw_card(G.deck,G.hand,nil,nil,false,G.deck.cards[i])
+					break
+				end
+			end
+			for i = 1, #G.deck.cards do
+				if G.deck.cards[i].base.suit == G.hand.highlighted[1].base.suit then
+					draw_card(G.deck,G.hand,nil,nil,false,G.deck.cards[i])
+					break
+				end
+			end
+		end
 	end,
 }
 
@@ -1135,8 +1423,8 @@ local green_seal = {
 	name = "cry-Green-Seal",
 	key = "green",
 	badge_colour = HEX("12f254"), --same as code cards
-	atlas = "green_atlas",
-	pos = { x = 0, y = 0 },
+	atlas = "cry_misc",
+	pos = { x = 1, y = 2 },
 
 	calculate = function(self, card, context)
 		if context.unscoring then
@@ -1157,13 +1445,6 @@ local green_seal = {
 	end,
 }
 
-local green_seal_sprite = {
-	object_type = "Atlas",
-	key = "green_atlas",
-	path = "s_cry_green_seal.png",
-	px = 71,
-	py = 95,
-}
 local source = {
 	object_type = "Consumable",
 	set = "Spectral",
@@ -1305,6 +1586,17 @@ local CodeJoker = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Kailen"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Kailen"
+		}
+	},
 }
 
 local copypaste = {
@@ -1352,6 +1644,17 @@ local copypaste = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Auto Watto"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Auto Watto"
+		}
+	},
 }
 local cut = {
 	object_type = "Joker",
@@ -1415,6 +1718,17 @@ local cut = {
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult } }
 	end,
+	cry_credits = {
+		idea = {
+			"Auto Watto"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Auto Watto"
+		}
+	},
 }
 local blender = {
 	object_type = "Joker",
@@ -1439,6 +1753,17 @@ local blender = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Kailen"
+		}
+	},
 }
 local python = {
 	object_type = "Joker",
@@ -1495,6 +1820,17 @@ local python = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Kailen"
+		}
+	},
 }
 
 function create_UIBox_variable(card)
@@ -2032,18 +2368,22 @@ G.FUNCS.exploit_apply_previous = function()
 end
 G.FUNCS.exploit_apply = function()
 	local hand_table = {
-		["High Card"] = { "high card", "high" },
-		["Pair"] = { "pair", "2oak" },
-		["Two Pair"] = { "two pair", "2 pair" },
-		["Three of a Kind"] = { "three of a kind", "3oak", "trips" },
-		["Straight"] = { "straight" },
-		["Flush"] = { "flush" },
-		["Full House"] = { "full house", "full" },
-		["Four of a Kind"] = { "four of a kind", "4oak" },
-		["Straight Flush"] = { "straight flush", "slush", "slushie", "slushy" },
-		["Five of a Kind"] = { "five of a kind", "5oak" },
-		["Flush House"] = { "flush house", "flouse" },
-		["Flush Five"] = { "flush five", "fish" },
+		["High Card"] = { "high card", "high", "1oak", "1 of a kind", "haha one" },
+		["Pair"] = { "pair", "2oak", "2 of a kind", "m" },
+		["Two Pair"] = { "two pair", "2 pair", "mm" },
+		["Three of a Kind"] = { "three of a kind", "3 of a kind", "3oak", "trips", "triangle" },
+		["Straight"] = { "straight", "lesbian", "gay", "bisexual", "asexual" },
+		["Flush"] = { "flush", "skibidi", "toilet", "floosh" },
+		["Full House"] = { "full house", "full", "that 70s show", "modern family", "family matters", "the middle" },
+		["Four of a Kind"] = { "four of a kind", "4 of a kind", "4oak", "22oakoak", "quads", "four to the floor" },
+		["Straight Flush"] = { "straight flush", "strush", "slush", "slushie", "slushy" },
+		["Five of a Kind"] = { "five of a kind", "5 of a kind", "5oak", "quints" },
+		["Flush House"] = { "flush house", "flouse", "outhouse" },
+		["Flush Five"] = { "flush five", "fish", "you know what that means", "five of a flush" },
+		["cry_Bulwark"] = { "bulwark", "flush rock", "stoned", "stone flush", "flush stone" },
+		["cry_Clusterfuck"] = { "clusterfuck", "fuck", "wtf" },
+		["cry_UltPair"] = { "ultimate pair", "ultpair", "ult pair", "pairpairpair" },
+		["cry_WholeDeck"] = { "the entire fucking deck", "deck", "tefd", "fifty-two", "you are fuck deck" },
 	}
 	local current_hand = nil
 	for k, v in pairs(SMODS.PokerHands) do
@@ -2073,12 +2413,6 @@ G.FUNCS.exploit_cancel = function()
 	G.GAME.USING_CODE = false
 end
 
-G.FUNCS.exploit_info = function()
-	local text = G.GAME.cry_exploit_override
-	local disp_text = text
-	local loc_disp_text = localize(disp_text, "poker_hands")
-	return text, loc_disp_text, disp_text
-end
 G.FUNCS.class_apply_previous = function()
 	if G.PREVIOUS_ENTERED_ENH then
 		G.ENTERED_ENH = G.PREVIOUS_ENTERED_ENH or ""
@@ -2154,15 +2488,24 @@ G.FUNCS.class_apply = function()
 				}))
 			end
 		elseif enh_suffix == "null" then
+			local destroyed_cards = {}
 			check_for_unlock({ type = "cheat_used" })
 			for i = #G.hand.highlighted, 1, -1 do
 				local card = G.hand.highlighted[i]
-				if card.ability.name == "Glass Card" then
-					card:shatter()
-				else
-					card:start_dissolve(nil, i == #G.hand.highlighted)
+				if not card.ability.eternal then
+					destroyed_cards[#destroyed_cards + 1] = G.hand.highlighted[i]
+					if card.ability.name == "Glass Card" then
+						card:shatter()
+					else
+						card:start_dissolve(nil, i == #G.hand.highlighted)
+					end
 				end
 			end
+			if destroyed_cards[1] then 
+            			for j=1, #G.jokers.cards do
+                			eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = destroyed_cards})
+            			end
+        		end
 			G.CHOOSE_ENH:remove()
 			return
 		else
@@ -2248,6 +2591,7 @@ end
 
 local aliases = {
 	jimbo = "joker",
+	["gary mccready"] = "joker",
 	greedy = "greedy joker",
 	lusty = "lusty joker",
 	wrathful = "wrathful joker",
@@ -2394,6 +2738,12 @@ local aliases = {
 	exploit = "://exploit",
 	offbyone = "://offbyone",
 	rework = "://rework",
+	patch = "://patch",
+	ctrlv = "://ctrl+v",
+	["ctrl+v"] = "://ctrl+v",
+	["ctrl v"] = "://ctrl+v",
+	instantiate = "://INSTANTIATE",
+	inst = "://INSTANTIATE",
 	spaghetti = "://spaghetti",
 	topuptag = "top-up tag",
 	gamblerstag = "gambler's tag",
@@ -2509,21 +2859,31 @@ G.FUNCS.pointer_apply = function()
 		local created = false
 		if
 			G.P_CENTERS[current_card].set == "Joker"
+			and G.P_CENTERS[current_card].unlocked
+			and not G.GAME.banned_keys[current_card]
 			and (G.P_CENTERS[current_card].rarity ~= "cry_exotic" or #SMODS.find_card("j_jen_p03") > 0)
-			and (type(G.P_CENTERS[current_card].rarity) ~= "number" or G.P_CENTERS[current_card].rarity < 5)
+			and not (Jen and Jen.overpowered(G.P_CENTERS[current_card].rarity))
 		then
 			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, current_card)
 			card:add_to_deck()
 			G.jokers:emplace(card)
 			created = true
 		end
-		if G.P_CENTERS[current_card].consumeable and G.P_CENTERS[current_card].set ~= "jen_omegaconsumable" then
+		if 
+			G.P_CENTERS[current_card].consumeable 
+			and G.P_CENTERS[current_card].set ~= "jen_omegaconsumable" 
+			and not G.GAME.banned_keys[current_card] 
+		then
 			local card = create_card("Consumeable", G.consumeables, nil, nil, nil, nil, current_card)
 			card:add_to_deck()
 			G.consumeables:emplace(card)
 			created = true
 		end
-		if G.P_CENTERS[current_card].set == "Voucher" then
+		if 
+			G.P_CENTERS[current_card].set == "Voucher"
+			and G.P_CENTERS[current_card].unlocked 
+			and not G.GAME.banned_keys[current_card]
+		then
 			local area
 			if G.STATE == G.STATES.HAND_PLAYED then
 				if not G.redeemed_vouchers_during_hand then
@@ -2554,6 +2914,8 @@ G.FUNCS.pointer_apply = function()
 		end
 		if
 			G.P_CENTERS[current_card].set == "Booster"
+			and not G.GAME.banned_keys[current_card]
+			and (G.P_CENTERS[current_card].name ~= "Exotic Buffoon Pack" or #SMODS.find_card("j_jen_p03") ~= 0)
 			and G.STATE ~= G.STATES.TAROT_PACK
 			and G.STATE ~= G.STATES.SPECTRAL_PACK
 			and G.STATE ~= G.STATES.STANDARD_PACK
@@ -2586,7 +2948,11 @@ G.FUNCS.pointer_apply = function()
 			current_card = i
 		end
 	end
-	if current_card and not G.P_CENTERS[current_card] then
+	if 
+		current_card 
+		and not G.P_CENTERS[current_card]
+		and not G.GAME.banned_keys[current_card]
+	then
 		local created = false
 		local t = Tag(current_card, nil, "Big")
 		add_tag(t)
@@ -2621,7 +2987,7 @@ G.FUNCS.pointer_apply = function()
 			current_card = i
 		end
 	end
-	if current_card and not G.P_CENTERS[current_card] and not G.P_TAGS[current_card] then
+	if current_card and not G.P_CENTERS[current_card] and not G.P_TAGS[current_card] and not G.GAME.banned_keys[current_card] then
 		local created = false
 		if not G.GAME.blind or (G.GAME.blind.name == "" or not G.GAME.blind.blind_set) then
 			--from debugplus
@@ -3165,7 +3531,6 @@ local code_cards = {
 	console,
 	automaton,
 	green_seal,
-	green_seal_sprite,
 	source,
 	pointer,
 	cut,
@@ -3194,6 +3559,10 @@ local code_cards = {
 	oboe,
 	rework,
 	rework_tag,
+	--patch,
+	ctrl_v,
+	inst,
+	encoded,
 }
 if Cryptid.enabled["Misc."] then
 	code_cards[#code_cards + 1] = spaghetti
@@ -3202,7 +3571,6 @@ if Cryptid.enabled["Enhanced Decks"] then
 	code_cards[#code_cards + 1] = source_deck
 end
 if Cryptid.enabled["Epic Jokers"] then
-	code_cards[#code_cards + 1] = encoded
 	code_cards[#code_cards + 1] = CodeJoker
 	code_cards[#code_cards + 1] = copypaste
 end
@@ -3797,6 +4165,16 @@ return {
 			end
 			return ret, trig
 		end
+		local evaluate_poker_hand_ref = evaluate_poker_hand
+		function evaluate_poker_hand(hand)
+			local results = evaluate_poker_hand_ref(hand)
+			if G.GAME.cry_exploit_override then
+				if not results[G.GAME.cry_exploit_override][1] then
+					results[G.GAME.cry_exploit_override] = results["High Card"]	-- i would do results.top here but it just doesn't work, if someone could get that working that would be great
+				end
+			end
+			return results
+		end
 		--Encoded Deck patches
 		local Backapply_to_runRef = Back.apply_to_run
 		function Back.apply_to_run(self)
@@ -3805,14 +4183,19 @@ return {
 				G.E_MANAGER:add_event(Event({
 					func = function()
 						if G.jokers then
-							local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_cry_CodeJoker")
-							card:add_to_deck()
-							card:start_materialize()
-							G.jokers:emplace(card)
-							local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_cry_copypaste")
-							card:add_to_deck()
-							card:start_materialize()
-							G.jokers:emplace(card)
+							-- Adding a before spawning becuase jen banned copy_paste
+							if G.P_CENTERS["j_cry_CodeJoker"] and (G.GAME.banned_keys and not G.GAME.banned_keys["j_cry_CodeJoker"]) then  
+								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_cry_CodeJoker")
+								card:add_to_deck()
+								card:start_materialize()
+								G.jokers:emplace(card)
+							end
+							if G.P_CENTERS["j_cry_copypaste"] and (G.GAME.banned_keys and not G.GAME.banned_keys["j_cry_copypaste"]) then
+								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_cry_copypaste")
+								card:add_to_deck()
+								card:start_materialize()
+								G.jokers:emplace(card)
+							end
 							return true
 						end
 					end,
@@ -3823,6 +4206,18 @@ return {
 				G.GAME.planet_rate = 0
 				G.GAME.tarot_rate = 0
 				G.GAME.code_rate = 1e100
+			end
+		end
+		local Cardstart_dissolveRef = Card.start_dissolve
+		function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
+			Cardstart_dissolveRef(self,dissolve_colours, silent, dissolve_time_fac, no_juice)
+			if G.jokers then
+				for i = 1, #G.jokers.cards do
+					if G.jokers.cards[i].hook_id == self.sort_id then
+						G.jokers.cards[i].ability.cry_hooked = false
+						G.jokers.cards[i].hook_id = nil
+					end
+				end
 			end
 		end
 	end,

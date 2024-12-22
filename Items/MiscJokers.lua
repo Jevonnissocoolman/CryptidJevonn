@@ -70,6 +70,17 @@ local dropshot = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local happyhouse = {
 	object_type = "Joker",
@@ -78,7 +89,7 @@ local happyhouse = {
 	pos = { x = 2, y = 4 },
 	order = 2,
 	config = { extra = { mult = 4, check = 0 } },
-	immune_to_chemach = true,
+	immutable = true,
     pools = {["Meme"] = true},
 	rarity = 2,
 	cost = 2,
@@ -129,6 +140,17 @@ local happyhouse = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local maximized = {
 	object_type = "Joker",
@@ -138,7 +160,19 @@ local maximized = {
 	rarity = 3,
 	order = 13,
 	cost = 11,
+	immutable = true,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"Gold"
+		},
+		art = {
+			"Gold"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local potofjokes = {
 	object_type = "Joker",
@@ -146,7 +180,7 @@ local potofjokes = {
 	key = "pot_of_jokes",
 	config = { extra = { h_size = -2, h_mod = 1 } },
 	pos = { x = 5, y = 0 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 3,
 	order = 104,
 	cost = 10,
@@ -177,6 +211,17 @@ local potofjokes = {
 	remove_from_deck = function(self, card, from_debuff)
 		G.hand:change_size(-card.ability.extra.h_size)
 	end,
+	cry_credits = {
+		idea = {
+			"Mjiojio"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local queensgambit = {
 	object_type = "Joker",
@@ -186,6 +231,7 @@ local queensgambit = {
 	rarity = 1,
 	order = 7,
 	cost = 7,
+	immutable = true,
 	loc_vars = function(self, info_queue, center)
 		if not center.edition or (center.edition and not center.edition.negative) then
 			info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
@@ -222,6 +268,18 @@ local queensgambit = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Project666"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			--wonder what happened to this guy
+			"Thedrunkenbrick"
+		}
+	},
 }
 local wee_fib = {
 	object_type = "Joker",
@@ -263,6 +321,17 @@ local wee_fib = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"LocalThunk"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local whip = {
 	object_type = "Joker",
@@ -327,6 +396,17 @@ local whip = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Gold"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local lucky_joker = {
 	object_type = "Joker",
@@ -357,6 +437,17 @@ local lucky_joker = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Ein13"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"WilsontheWolf"
+		}
+	},
 }
 local cursor = {
 	object_type = "Joker",
@@ -401,6 +492,17 @@ local cursor = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Math"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local pickle = {
 	object_type = "Joker",
@@ -408,7 +510,7 @@ local pickle = {
 	key = "pickle",
 	config = { extra = { tags = 3, tags_mod = 1 } },
 	pos = { x = 3, y = 3 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 2,
 	order = 45,
 	cost = 6,
@@ -494,6 +596,17 @@ local pickle = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"5381"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local cube = {
 	object_type = "Joker",
@@ -519,6 +632,17 @@ local cube = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Ein13", "Math"
+		},
+		art = {
+			"Ein13"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local triplet_rhythm = {
 	object_type = "Joker",
@@ -550,6 +674,17 @@ local triplet_rhythm = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local booster = {
 	object_type = "Joker",
@@ -558,7 +693,7 @@ local booster = {
 	config = { extra = { booster_slots = 1 } },
 	pos = { x = 2, y = 0 },
 	order = 34,
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 2,
 	cost = 6,
 	blueprint_compat = false,
@@ -578,6 +713,17 @@ local booster = {
 		end
 		G.GAME.modifiers.cry_booster_packs = G.GAME.modifiers.cry_booster_packs - card.ability.extra.booster_slots
 	end,
+	cry_credits = {
+		idea = {
+			"Ein13"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local chili_pepper = {
 	object_type = "Joker",
@@ -652,6 +798,17 @@ local chili_pepper = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local compound_interest = {
 	object_type = "Joker",
@@ -676,6 +833,17 @@ local compound_interest = {
 			return bonus
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mjiojio"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local big_cube = {
 	object_type = "Joker",
@@ -701,6 +869,17 @@ local big_cube = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystick Myclick"
+		},
+		art = {
+			"AlexZGreat"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local eternalflame = {
 	object_type = "Joker",
@@ -742,6 +921,17 @@ local eternalflame = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Dovahkiin1307"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local nice = {
 	object_type = "Joker",
@@ -778,20 +968,32 @@ local nice = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"AlexZGreat"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"AlexZGreat"
+		}
+	},
 }
 local seal_the_deal = {
 	object_type = "Joker",
 	name = "cry-Seal The Deal",
 	key = "seal_the_deal",
-	config = { extra = { x_chips = 6 } },
+	config = { extra = nil },
 	pos = { x = 2, y = 4 },
 	rarity = 2,
 	cost = 5,
 	order = 101,
+	immutable = true,
 	atlas = "atlasone",
 	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play then
-			if G.GAME.current_round.hands_left == 0 then
+		if context.individual and context.cardarea == G.play and not context.blueprint and not context.retrigger_joker then
+			if G.GAME.current_round.hands_left == 0 and not context.other_card.seal then
 				G.E_MANAGER:add_event(Event({
 					func = function()
 						local seal_type = pseudorandom(pseudoseed("seal_the_deal"))
@@ -815,6 +1017,36 @@ local seal_the_deal = {
 			end
 		end
 	end,
+	set_ability = function(self, card, initial, delay_sprites)
+		local sealtable = { "blue", "red", "purple" }
+		if Cryptid.enabled["Misc."] then sealtable[#sealtable + 1] = "azure" end
+		if Cryptid.enabled["Code Cards"] then sealtable[#sealtable + 1] = "green" end
+		card.ability.extra = pseudorandom_element(sealtable, pseudoseed('abc'))
+		--Gold (ULTRA RARE!!!!!!!!)
+		if pseudorandom('xyz') <= 0.000001 and not (card.area and card.area.config.collection) then
+			card.children.center:set_sprite_pos({x = 6, y = 4})
+		--Others
+		elseif card.ability.extra == "red" then
+			card.children.center:set_sprite_pos({x = 6, y = 0})
+		elseif card.ability.extra == "azure" then
+			card.children.center:set_sprite_pos({x = 6, y = 2})
+		elseif card.ability.extra == "purple" then
+			card.children.center:set_sprite_pos({x = 6, y = 3})
+		elseif card.ability.extra == "green" then
+			card.children.center:set_sprite_pos({x = 6, y = 1})
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Zak"
+		},
+		art = {
+			"5381"
+		},
+		code = {
+			"AlexZGreat"
+		}
+	},
 }
 local chad = {
 	object_type = "Joker",
@@ -823,7 +1055,7 @@ local chad = {
 	pos = { x = 0, y = 3 },
 	order = 71,
 	config = { extra = { retriggers = 2 } },
-	immune_to_chemach = true,
+	immutable = true,
     pools = {["Meme"] = true},
 	rarity = 3,
 	cost = 10,
@@ -845,6 +1077,17 @@ local chad = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"SDM_0"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local jimball = {
 	object_type = "Joker",
@@ -890,6 +1133,17 @@ local jimball = {
 		end
 	end,
 	atlas = "jimball",
+	cry_credits = {
+		idea = {
+			"Math"
+		},
+		art = {
+			"Grazzy", "Zakosek Artworks"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 G.FUNCS.notif_jimball = function()
 	Cryptid_config.Cryptid.jimball_music = false
@@ -970,7 +1224,7 @@ local sus = {
 							return true
 						end,
 					}))
-					
+
 				end
 			end
 			if card.ability.chosen_card ~= nil then
@@ -994,6 +1248,17 @@ local sus = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Math"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local fspinner = {
 	object_type = "Joker",
@@ -1036,6 +1301,17 @@ local fspinner = {
 		end
 	end,
 	atlas = "atlasone",
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local luigi = {
 	object_type = "Joker",
@@ -1069,6 +1345,17 @@ local luigi = {
 		end
 	end,
 	atlas = "atlasthree",
+	cry_credits = {
+		idea = {
+			"Auto Watto"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Auto Watto"
+		}
+	},
 }
 local waluigi = {
 	object_type = "Joker",
@@ -1101,6 +1388,17 @@ local waluigi = {
 		end
 	end,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local mario = {
 	object_type = "Joker",
@@ -1113,7 +1411,7 @@ local mario = {
 	order = 85,
 	cost = 20,
 	blueprint_compat = true,
-	immune_to_chemach = true,
+	immutable = true,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra.retriggers } }
 	end,
@@ -1127,6 +1425,17 @@ local mario = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Auto Watto"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Auto Watto"
+		}
+	},
 }
 local wario = {
 	object_type = "Joker",
@@ -1166,6 +1475,17 @@ local wario = {
 	cost = 20,
 	blueprint_compat = true,
 	atlas = "atlasthree",
+	cry_credits = {
+		idea = {
+			"Auto Watto"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Auto Watto"
+		}
+	},
 }
 local krustytheclown = {
 	object_type = "Joker",
@@ -1204,6 +1524,17 @@ local krustytheclown = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Izumi"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local blurred = {
 	object_type = "Joker",
@@ -1229,12 +1560,23 @@ local blurred = {
 					'extra',
 					nil,
 					nil,
-					nil, 
+					nil,
 					{message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra}}}
 				)
 			return true end }))
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local gardenfork = {
 	object_type = "Joker",
@@ -1264,6 +1606,17 @@ local gardenfork = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local lightupthenight = {
 	object_type = "Joker",
@@ -1291,6 +1644,17 @@ local lightupthenight = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local nosound = {
 	object_type = "Joker",
@@ -1320,6 +1684,17 @@ local nosound = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local antennastoheaven = {
 	object_type = "Joker",
@@ -1361,6 +1736,17 @@ local antennastoheaven = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local hunger = {
 	object_type = "Joker",
@@ -1389,6 +1775,17 @@ local hunger = {
 			)
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mjiojio"
+		},
+		art = {
+			"AlexZGreat"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local weegaming = {
 	object_type = "Joker",
@@ -1418,6 +1815,17 @@ local weegaming = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Gold"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local redbloon = {
 	object_type = "Joker",
@@ -1425,7 +1833,7 @@ local redbloon = {
 	key = "redbloon",
 	config = { extra = { money = 20, rounds_remaining = 2 } },
 	pos = { x = 5, y = 1 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 1,
 	cost = 4,
 	order = 97,
@@ -1480,6 +1888,17 @@ local redbloon = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Roguefort Cookie"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local apjoker = {
 	object_type = "Joker",
@@ -1504,6 +1923,17 @@ local apjoker = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local maze = {
 	object_type = "Joker",
@@ -1513,6 +1943,7 @@ local maze = {
 	rarity = 1,
 	cost = 1,
 	order = 61,
+	immutable = true,
 	atlas = "atlastwo",
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint and not context.retrigger_joker then
@@ -1546,6 +1977,17 @@ local maze = {
 		G.GAME.current_round.hands_played = 0
 		G.GAME.current_round.discards_used = 0
 	end,
+	cry_credits = {
+		idea = {
+			"zy-b-org"
+		},
+		art = {
+			"Math"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 --Fixed Jank for the most part. Other modded jokers may still be jank depending on how they are implemented
 --funny side effect of this fix causes trading card and dna to juice up like craaazy lol
@@ -1560,6 +2002,7 @@ local panopticon = {
 	rarity = 1,
 	order = 47,
 	cost = 1,
+	immutable = true,
 	atlas = "atlastwo",
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint and not context.retrigger_joker then
@@ -1575,6 +2018,17 @@ local panopticon = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Samario"
+		},
+		art = {
+			"Samario"
+		},
+		code = {
+			"Samario", "Toneblock"
+		}
+	},
 }
 local magnet = {
 	object_type = "Joker",
@@ -1597,6 +2051,17 @@ local magnet = {
 			return card.ability.extra.money
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local unjust_dagger = {
 	object_type = "Joker",
@@ -1675,6 +2140,17 @@ local unjust_dagger = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Mystic Misclick"
+		}
+	},
 }
 local monkey_dagger = {
 	object_type = "Joker",
@@ -1753,6 +2229,17 @@ local monkey_dagger = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Mystic Misclick"
+		}
+	},
 }
 local pirate_dagger = {
 	object_type = "Joker",
@@ -1831,6 +2318,17 @@ local pirate_dagger = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Mystic Misclick"
+		},
+		code = {
+			"Mystic Misclick"
+		}
+	},
 }
 local mondrian = {
 	object_type = "Joker",
@@ -1873,6 +2371,17 @@ local mondrian = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local sapling = {
 	object_type = "Joker",
@@ -1880,7 +2389,7 @@ local sapling = {
 	key = "sapling",
 	pos = { x = 3, y = 2 },
 	config = { extra = { score = 0, req = 18, check = nil } },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 2,
 	cost = 6,
 	order = 42,
@@ -1899,7 +2408,7 @@ local sapling = {
 		then
 			if context.other_card.ability.effect ~= "Base" then
 				card.ability.extra.score = card.ability.extra.score + 1
-				if card.ability.extra.score >= card.ability.extra.req and not card.ability.extra.check then 
+				if card.ability.extra.score >= card.ability.extra.req and not card.ability.extra.check then
 					card.ability.extra.check = true --Prevents violent juice up spam when playing enchanced cards while already active
                         		local eval = function(card) return not card.REMOVED end
                         		juice_card_until(card, eval, true)
@@ -1922,6 +2431,17 @@ local sapling = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mjiojio"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local spaceglobe = {
 	object_type = "Joker",
@@ -1958,7 +2478,7 @@ local spaceglobe = {
 					func = function()
 						local _type = {}
 						for k, v in pairs(G.GAME.hands) do
-							if v.visible and k ~= card.ability.to_do_type then
+							if v.visible and k ~= card.ability.extra.type then
 								_type[#_type + 1] = k
 							end
 						end
@@ -1987,6 +2507,17 @@ local spaceglobe = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local happy = {
 	object_type = "Joker",
@@ -1996,6 +2527,7 @@ local happy = {
 	rarity = 1,
 	cost = 2,
 	order = 63,
+	immutable = true,
 	blueprint_compat = true,
 	eternal_compat = false,
 	atlas = "atlastwo",
@@ -2061,6 +2593,17 @@ local happy = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local meteor = {
 	object_type = "Joker",
@@ -2129,6 +2672,17 @@ local meteor = {
 		end
 	end,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local exoplanet = {
 	object_type = "Joker",
@@ -2197,6 +2751,17 @@ local exoplanet = {
 		end
 	end,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local stardust = {
 	object_type = "Joker",
@@ -2265,6 +2830,17 @@ local stardust = {
 		end
 	end,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"Mystic Misclick"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 function rnjoker_randomize(card)
 	card.ability.abilities = {}
@@ -3504,6 +4080,17 @@ local rnjoker = {
 		end
 	end,
 	atlas = "atlastwo",
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local duos = {
 	object_type = "Joker",
@@ -3535,6 +4122,17 @@ local duos = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local home = {
 	object_type = "Joker",
@@ -3566,6 +4164,17 @@ local home = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local nuts = {
 	object_type = "Joker",
@@ -3597,6 +4206,17 @@ local nuts = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local quintet = {
 	object_type = "Joker",
@@ -3634,6 +4254,17 @@ local quintet = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local unity = {
 	object_type = "Joker",
@@ -3671,6 +4302,17 @@ local unity = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local swarm = {
 	object_type = "Joker",
@@ -3708,6 +4350,128 @@ local swarm = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
+}
+local stronghold = {
+	object_type = "Joker",
+	name = "cry-stronghold",
+	key = "stronghold",
+	order = 119,
+	pos = { x = 8, y = 4 },
+	config = { Xmult = 5, type = "cry_Bulwark" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.x_mult, localize("cry_hand_bulwark") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 3,
+	cost = 8,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if
+			context.cardarea == G.jokers
+			and (to_big(card.ability.x_mult) > to_big(1))
+			and not context.before
+			and not context.after
+		then
+			if context.poker_hands~= nil and next(context.poker_hands["cry_Bulwark"]) then
+				return {
+					message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.x_mult } }),
+					colour = G.C.RED,
+					Xmult_mod = card.ability.x_mult,
+				}
+			end
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Bulwark"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+local wtf = {
+	object_type = "Joker",
+	name = "cry-wtf",
+	key = "wtf",
+	order = 120,
+	pos = { x = 7, y = 1 },
+	config = { Xmult = 10, type = "cry_Clusterfuck" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.x_mult, localize("cry_hand_clusterfuck") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 3,
+	cost = 8,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if
+			context.cardarea == G.jokers
+			and (to_big(card.ability.x_mult) > to_big(1))
+			and not context.before
+			and not context.after
+		then
+			if context.poker_hands~= nil and next(context.poker_hands["cry_Clusterfuck"]) then
+				return {
+					message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.x_mult } }),
+					colour = G.C.RED,
+					Xmult_mod = card.ability.x_mult,
+				}
+			end
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Clusterfuck"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+local clash = {
+	object_type = "Joker",
+	name = "cry-clash",
+	key = "clash",
+	order = 121,
+	pos = { x = 8, y = 1 },
+	config = { Xmult = 12, type = "cry_UltPair" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.x_mult, localize("cry_hand_ultpair") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 3,
+	cost = 8,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if
+			context.cardarea == G.jokers
+			and (to_big(card.ability.x_mult) > to_big(1))
+			and not context.before
+			and not context.after
+		then
+			if context.poker_hands~= nil and next(context.poker_hands["cry_UltPair"]) then
+				return {
+					message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.x_mult } }),
+					colour = G.C.RED,
+					Xmult_mod = card.ability.x_mult,
+				}
+			end
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_UltPair"].played > 0 then
+			return true
+		end
+		return false
+	end,
 }
 local filler = {
 	object_type = "Joker",
@@ -3733,6 +4497,17 @@ local filler = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Mathguy"
+		},
+		art = {
+			"Mathguy"
+		},
+		code = {
+			"Mathguy"
+		}
+	},
 }
 local giggly = {
 	object_type = "Joker",
@@ -3758,6 +4533,17 @@ local giggly = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local nutty = {
 	object_type = "Joker",
@@ -3783,6 +4569,17 @@ local nutty = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local manic = {
 	object_type = "Joker",
@@ -3808,6 +4605,17 @@ local manic = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local silly = {
 	object_type = "Joker",
@@ -3833,6 +4641,17 @@ local silly = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local delirious = {
 	object_type = "Joker",
@@ -3864,6 +4683,17 @@ local delirious = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local wacky = {
 	object_type = "Joker",
@@ -3895,6 +4725,17 @@ local wacky = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local kooky = {
 	object_type = "Joker",
@@ -3926,7 +4767,115 @@ local kooky = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
+
+local bonkers = {
+	object_type = "Joker",
+	name = "cry-Bonkers Joker",
+	key = "bonkers",
+	pos = { x = 8, y = 5 },
+	order = 113,
+	config = { t_mult = 20, type = "cry_Bulwark" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_mult, localize("cry_hand_bulwark") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	effect = "Cry Type Mult",
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_Bulwark"]) then
+			return {
+				message = localize({ type = "variable", key = "a_mult", vars = { card.ability.t_mult } }),
+				colour = G.C.RED,
+				mult_mod = card.ability.t_mult,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Bulwark"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+
+local fuckedup = {
+	object_type = "Joker",
+	name = "cry-Fucked-Up Joker",
+	key = "fuckedup",
+	pos = { x = 7, y = 2 },
+	order = 114,
+	config = { t_mult = 37, type = "cry_Clusterfuck" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_mult, localize("cry_hand_clusterfuck") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	effect = "Cry Type Mult",
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_Clusterfuck"]) then
+			return {
+				message = localize({ type = "variable", key = "a_mult", vars = { card.ability.t_mult } }),
+				colour = G.C.RED,
+				mult_mod = card.ability.t_mult,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Clusterfuck"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+
+local foolhardy = {
+	object_type = "Joker",
+	name = "cry-Foolhardy Joker",
+	key = "foolhardy",
+	pos = { x = 8, y = 2 },
+	order = 115,
+	config = { t_mult = 42, type = "cry_UltPair" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_mult, localize("cry_hand_ultpair") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	effect = "Cry Type Mult",
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_UltPair"]) then
+			return {
+				message = localize({ type = "variable", key = "a_mult", vars = { card.ability.t_mult } }),
+				colour = G.C.RED,
+				mult_mod = card.ability.t_mult,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_UltPair"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+
 local dubious = {
 	object_type = "Joker",
 	name = "cry-Dubious Joker",
@@ -3951,6 +4900,17 @@ local dubious = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local shrewd = {
 	object_type = "Joker",
@@ -3976,6 +4936,17 @@ local shrewd = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local tricksy = {
 	object_type = "Joker",
@@ -4001,6 +4972,17 @@ local tricksy = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local foxy = {
 	object_type = "Joker",
@@ -4026,6 +5008,17 @@ local foxy = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local savvy = {
 	object_type = "Joker",
@@ -4057,6 +5050,17 @@ local savvy = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local subtle = {
 	object_type = "Joker",
@@ -4088,6 +5092,17 @@ local subtle = {
 		end
 		return false
 	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local discreet = {
 	object_type = "Joker",
@@ -4115,6 +5130,110 @@ local discreet = {
 	end,
 	in_pool = function(self)
 		if G.GAME.hands["Flush Five"].played > 0 then
+			return true
+		end
+		return false
+	end,
+	cry_credits = {
+		idea = {
+			"Luigicat11"
+		},
+		art = {
+			"Luigicat11"
+		},
+		code = {
+			"Math"
+		}
+	},
+}
+local adroit = {
+	object_type = "Joker",
+	name = "cry-Adroit Joker",
+	key = "adroit",
+	pos = { x = 7, y = 4 },
+	effect = "Cry Type Chips",
+	order = 116,
+	config = { t_chips = 170, type = "cry_Bulwark" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_chips, localize("cry_hand_bulwark") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_Bulwark"]) then
+			return {
+				message = localize({ type = "variable", key = "a_chips", vars = { card.ability.t_chips } }),
+				colour = G.C.BLUE,
+				chip_mod = card.ability.t_chips,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Bulwark"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+local penetrating = {
+	object_type = "Joker",
+	name = "cry-Penetrating Joker",
+	key = "penetrating",
+	pos = { x = 7, y = 3 },
+	effect = "Cry Type Chips",
+	order = 117,
+	config = { t_chips = 270, type = "cry_Clusterfuck" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_chips, localize("cry_hand_clusterfuck") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_Clusterfuck"]) then
+			return {
+				message = localize({ type = "variable", key = "a_chips", vars = { card.ability.t_chips } }),
+				colour = G.C.BLUE,
+				chip_mod = card.ability.t_chips,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_Clusterfuck"].played > 0 then
+			return true
+		end
+		return false
+	end,
+}
+local treacherous = {
+	object_type = "Joker",
+	name = "cry-Treacherous Joker",
+	key = "treacherous",
+	pos = { x = 8, y = 3 },
+	effect = "Cry Type Chips",
+	order = 118,
+	config = { t_chips = 300, type = "cry_UltPair" },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.t_chips, localize("cry_hand_ultpair") } }
+	end,
+	atlas = "atlasthree",
+	rarity = 1,
+	cost = 4,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if context.cardarea == G.jokers and not context.before and not context.after and context.poker_hands and next(context.poker_hands["cry_UltPair"]) then
+			return {
+				message = localize({ type = "variable", key = "a_chips", vars = { card.ability.t_chips } }),
+				colour = G.C.BLUE,
+				chip_mod = card.ability.t_chips,
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.GAME.hands["cry_UltPair"].played > 0 then
 			return true
 		end
 		return false
@@ -4149,6 +5268,17 @@ local coin = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Squiddy"
+		},
+		art = {
+			"Timetoexplode"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local wheelhope = {
 	object_type = "Joker",
@@ -4196,6 +5326,17 @@ local wheelhope = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Linus Goof Balls"
+		},
+		art = {
+			"Linus Good Balls"
+		},
+		code = {
+			"Toneblock"
+		}
+	},
 }
 local oldblueprint = {
 	object_type = "Joker",
@@ -4204,7 +5345,7 @@ local oldblueprint = {
 	pos = { x = 2, y = 1 },
 	config = { extra = { odds = 4 } },
 	rarity = 1,
-	cost = 5,
+	cost = 6,
 	order = 83,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { "" .. (G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds } }
@@ -4214,7 +5355,7 @@ local oldblueprint = {
 	atlas = "atlasthree",
 	calculate = function(self, card, context)
 		if
-			context.end_of_round
+			context.end_of_round2
 			and not context.individual
 			and not context.repetition
 			and not context.blueprint
@@ -4236,21 +5377,30 @@ local oldblueprint = {
 								G.jokers:remove_card(card)
 								card:remove()
 								card = nil
+								if G.P_CENTERS["j_blueprint"].unlocked then G.GAME.oldbpfactor = (G.GAME.oldbpfactor or 1)*3 end
 								return true
 							end,
 						}))
 						return true
 					end,
 				}))
-				return {
-					message = { localize("k_extinct_ex") },
-					colour = G.C.FILTER,
-				}
+				card_eval_status_text(
+					card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_extinct_ex"), colour = G.C.FILTER }
+				)
 			else
-				return {
-					message = { localize("k_safe_ex") },
-					colour = G.C.FILTER,
-				}
+				card_eval_status_text(
+					card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_safe_ex"), colour = G.C.FILTER }
+				)
 			end
 		end
 		local other_joker = nil
@@ -4279,6 +5429,17 @@ local oldblueprint = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Linus Goof Balls"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local night = {
 	object_type = "Joker",
@@ -4347,6 +5508,17 @@ local night = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Linus Goof Balls"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local busdriver = {
 	object_type = "Joker",
@@ -4354,7 +5526,7 @@ local busdriver = {
 	key = "busdriver",
 	config = { extra = { mult = 50, odds = 4 } },
 	pos = { x = 5, y = 1 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 2,
 	cost = 7,
 	order = 46,
@@ -4391,6 +5563,17 @@ local busdriver = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Linus Goof Balls"
+		},
+		art = {
+			"Linus Goof Balls"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local translucent = {
 	object_type = "Joker",
@@ -4400,6 +5583,7 @@ local translucent = {
 	rarity = 1,
 	cost = 4,
 	order = 52,
+	immutable = true,
 	eternal_compat = false,
 	atlas = "atlasthree",
 	calculate = function(self, card, context)
@@ -4430,6 +5614,17 @@ local translucent = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"SDM_0"
+		},
+		art = {
+			"SDM_0"
+		},
+		code = {
+			"SDM_0"
+		}
+	},
 }
 local morse = {
 	object_type = "Joker",
@@ -4462,6 +5657,17 @@ local morse = {
 			return card.ability.extra.money
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local membershipcard = {
 	object_type = "Joker",
@@ -4495,6 +5701,17 @@ local membershipcard = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Toneblock"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"Toneblock"
+		}
+	},
 }
 local kscope = {
 	object_type = "Joker",
@@ -4505,6 +5722,7 @@ local kscope = {
 	cost = 7,
 	order = 55,
 	atlas = "atlasthree",
+	immutable = true,
 	calculate = function(self, card, context)
 		if context.end_of_round and G.GAME.blind.boss and not context.individual and not context.repetition then
 			local eligiblejokers = {}
@@ -4523,6 +5741,17 @@ local kscope = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local cryptidmoment = {
 	object_type = "Joker",
@@ -4550,6 +5779,17 @@ local cryptidmoment = {
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_val_up"), colour = G.C.MONEY })
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Yamper"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local flipside = {
 	object_type = "Joker",
@@ -4582,16 +5822,9 @@ local flipside = {
 			end
 		end
 	end,
-	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
-			"Jolly Open Winner",
-			"Axolotolus",
-		},
-	},
 	calculate = function(self, card, context)
 		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= self then
-			if context.other_context.dbl_side then
+			if context.other_context and context.other_context.dbl_side then
 				return {
 					message = localize("k_again_ex"),
 					repetitions = 1,
@@ -4602,7 +5835,17 @@ local flipside = {
 			end
 		end
 	end,
-
+	cry_credits = {
+		idea = {
+			"Axolotus"
+		},
+		art = {
+			":("
+		},
+		code = {
+			"Math"
+		}
+	},
 }
 local oldinvisible = {
 	object_type = "Joker",
@@ -4614,13 +5857,14 @@ local oldinvisible = {
 	cost = 20,
 	order = 78,
 	atlas = "atlasthree",
+	immutable = true,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { center.ability.extra } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_card and context.card.ability.set == "Joker"
 		and not context.blueprint and not context.retrigger_joker then
-			if card.ability.extra == 3 then
+			if card.ability.extra >= 3 then
 				card.ability.extra = 0
 				local eligibleJokers = {}
 				for i = 1, #G.jokers.cards do
@@ -4665,6 +5909,17 @@ local oldinvisible = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"LocalThunk"
+		},
+		art = {
+			"LocalThunk"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local fractal = {
 	object_type = "Joker",
@@ -4687,6 +5942,133 @@ local fractal = {
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit - card.ability.extra
 		if G.hand.config.highlighted_limit < 5 then G.hand.config.highlighted_limit = 5 end
 		G.hand:unhighlight_all()
+	end,
+	cry_credits = {
+		idea = {
+			"HexaCryonic"
+		},
+		art = {
+			"HexaCryonic"
+		},
+		code = {
+			"HexaCryonic"
+		}
+	},
+}
+local universe = {
+	cry_credits = {
+		idea = {"Mystic Misclick"},
+		art = {"spire_winder"},
+		code = {"spire_winder"}
+	},
+	object_type = "Joker",
+	name = "cry-universe",
+	key = "universe",
+	pos = { x = 8, y = 0 },
+	atlas = "atlasthree",
+	config = { extra = { emult = 1.2 } },
+	loc_vars = function(self, info_queue, center)
+		if not center.edition or (center.edition and not center.edition.cry_astral) then
+			info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_astral
+		end
+		return { vars = { center.ability.extra.emult } }
+	end,
+	rarity = 3,
+	cost = 6,
+	order = 121,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+		if
+			context.other_joker
+			and context.other_joker.edition
+			and context.other_joker.edition.cry_astral == true
+			and card ~= context.other_joker
+		then
+			if not Talisman.config_file.disable_anims then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						context.other_joker:juice_up(0.5, 0.5)
+						return true
+					end,
+				}))
+			end
+			return {
+				message = localize({ type = "variable", key = "a_powmult", vars = { card.ability.extra.emult } }),
+				Emult_mod = card.ability.extra.emult,
+				colour = G.C.DARK_EDITION
+			}
+		end
+		if context.individual and context.cardarea == G.play then
+			if context.other_card.edition and context.other_card.edition.cry_astral == true then
+				return {
+					e_mult = card.ability.extra.emult,
+					colour = G.C.DARK_EDITION,
+					card = card
+				}
+			end
+		end
+		if
+			context.individual
+			and context.cardarea == G.hand
+			and context.other_card.edition
+			and context.other_card.edition.cry_astral == true
+			and not context.end_of_round
+		then
+			if context.other_card.debuff then
+				return {
+					message = localize("k_debuffed"),
+					colour = G.C.RED,
+					card = card,
+				}
+			else
+				return {
+					e_mult = card.ability.extra.emult,
+					colour = G.C.DARK_EDITION,
+					card = card
+				}
+			end
+		end
+	end,
+}
+local astral_bottle = {
+	cry_credits = {
+		idea = {"AlexZGreat"},
+		art = {"spire_winder"},
+		code = {"spire_winder"}
+	},
+	object_type = "Joker",
+	name = "cry-astral_bottle",
+	key = "astral_bottle",
+	pos = { x = 7, y = 0 },
+	atlas = "atlasthree",
+	rarity = 2,
+	cost = 6,
+	order = 122,
+	blueprint_compat = false,
+	loc_vars = function(self, info_queue, center)
+		if not center.edition or (center.edition and not center.edition.cry_astral) then
+			info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_astral
+		end
+	end,
+	calculate = function(self, card, context)
+		if context.selling_self and not context.retrigger_joker and not context.blueprint then
+			local jokers = {}
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= card and not G.jokers.cards[i].debuff and not G.jokers.cards[i].edition then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			if #jokers > 0 then
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_duplicated_ex") })
+				local chosen_joker = pseudorandom_element(jokers, pseudoseed("trans"))
+				chosen_joker:set_edition{cry_astral = true}
+				chosen_joker.ability.perishable = true -- Done manually to bypass perish compat
+				chosen_joker.ability.perish_tally = G.GAME.perishable_rounds
+				return nil, true
+			else
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_no_other_jokers") })
+			end
+		end
 	end,
 }
 local kidnap = {
@@ -4760,7 +6142,7 @@ local kidnap = {
 		return { vars = { center.ability.extra.money_mod, center.ability.extra.money } }
 	end,
 	atlas = "atlasone",
-	calculate = function(self, card, context) 
+	calculate = function(self, card, context)
 		if
 			context.selling_card
 			and (
@@ -4797,8 +6179,295 @@ local kidnap = {
 			return card.ability.extra.money
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
-
+local exposed = {
+	object_type = "Joker",
+	name = "cry-Exposed",
+	key = "exposed",
+	pos = { x = 0, y = 5 },
+	config = { extra = 2 },
+	rarity = 3,
+	cost = 8,
+	order = 123,
+	atlas = "atlastwo",
+	blueprint_compat = true,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra } }
+	end,
+	update = function(self, card, dt)
+		if G.deck and not (card.area and card.area.config.collection) then
+			for i, v in pairs (G.deck.cards) do
+				if v:is_face() then
+					v:set_debuff(true)
+				end
+			end
+		end
+		if G.hand and not (card.area and card.area.config.collection) then
+			for i, v in pairs (G.hand.cards) do
+				if v:is_face() then
+					v:set_debuff(true)
+				end
+			end
+		end
+	end,
+	calculate = function(self, card, context)
+		if context.repetition and context.cardarea == G.play then
+			if not context.other_card:is_face() then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra,
+                    card = card
+                }
+            end
+		end
+	end,
+}
+local mask = {
+	object_type = "Joker",
+	name = "cry-Mask",
+	key = "mask",
+	pos = { x = 1, y = 5 },
+	config = { extra = 3 },
+	rarity = 3,
+	cost = 7,
+	atlas = "atlastwo",
+	order = 124,
+	blueprint_compat = true,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra } }
+	end,
+	update = function(self, card, dt)
+		if G.deck and not (card.area and card.area.config.collection) then
+			for i, v in pairs (G.deck.cards) do
+				if not v:is_face() then
+					v:set_debuff(true)
+				end
+			end
+		end
+		if G.hand and not (card.area and card.area.config.collection) then
+			for i, v in pairs (G.hand.cards) do
+				if not v:is_face() then
+					v:set_debuff(true)
+				end
+			end
+		end
+	end,
+	calculate = function(self, card, context)
+		if context.repetition and context.cardarea == G.play then
+			if context.other_card:is_face() then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra,
+                    card = card
+                }
+            end
+		end
+	end,
+}
+local tropical_smoothie = {
+	object_type = "Joker",
+	name = "cry-Tropical Smoothie",
+	key = "tropical_smoothie",
+	pos = { x = 2, y = 5 },
+	config = {},
+	rarity = 3,
+	cost = 5,
+	order = 125,
+	atlas = "atlastwo",
+	immutable = true,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra } }
+	end,
+	calculate = function(self, card, context)
+		if context.selling_self then
+			local check = false
+			for i, v in pairs (G.jokers.cards) do
+				if not Card.no(v, "immutable", true) then
+					cry_with_deck_effects(G.jokers.cards[1], function(card)
+						cry_misprintize(v, { min = 1.5, max = 1.5}, nil, true)
+					end)
+					check = true
+				end
+			end
+			if check then
+				card_eval_status_text(
+					card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex"), colour = G.C.GREEN }
+				)
+			end
+		end
+	end,
+}
+local necromancer = {
+	object_type = "Joker",
+	name = "cry-Necromancer",
+	key = "necromancer",
+	pos = { x = 3, y = 5 },
+	config = {},
+	rarity = 2,
+	cost = 5,
+	atlas = "atlastwo",
+	order = 126,
+	immutable = true,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra } }
+	end,
+	calculate = function(self, card, context)
+		if context.selling_card and context.card.sell_cost > 0 and context.card.config.center.set == 'Joker' and G.GAME.jokers_sold then
+			local card = create_card('Joker', G.jokers, nil, nil, nil, nil, G.GAME.jokers_sold[pseudorandom('cry_necromancer', 1, #G.GAME.jokers_sold)])
+			card.sell_cost = 0
+			card:add_to_deck()
+			G.jokers:emplace(card)
+			card:start_materialize()
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Pyrocreep"
+		},
+		art = {
+			"Pyrocreep"
+		},
+		code = {
+			"Foegro"
+		}
+	},
+}
+local oil_lamp = { --You want it? It's yours my friend
+	object_type = "Joker",
+	name = "cry-Oil-Lamp",
+	key = "oil_lamp",
+	pos = { x = 4, y = 5 },
+	config = { extra = { increase = 1.2 } },
+	rarity = 3,
+	cost = 10,
+	order = 127,
+	atlas = "atlastwo",
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra.increase } }
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and not context.repetition and not context.individual then
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					if i < #G.jokers.cards then
+						if not Card.no(G.jokers.cards[i+1], "immutable", true) then
+							cry_with_deck_effects(G.jokers.cards[i+1], function(cards)
+								cry_misprintize(cards, { min = card.ability.extra.increase, max = card.ability.extra.increase }, nil, true)
+							end)
+						end
+					end
+				end
+			end
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"AlexZGreat"
+		},
+		art = {
+			"AlexZGreat"
+		},
+		code = {
+			"Foegro"
+		}
+	},
+}
+local tax_fraud = {
+	object_type = "Joker",
+	name = "cry-Tax-Fraud",
+	key = "tax_fraud",
+	pos = { x = 2, y = 0 },
+	config = { extra = { money = 6 } },
+	rarity = 3,
+	cost = 10,
+	order = 128,
+	atlas = "placeholders",
+	in_pool = function(self)
+		if G.jokers then
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i].ability.rental then return true end
+			end
+		end
+		return false
+	end,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { center.ability.extra.money } }
+	end,
+	calc_dollar_bonus = function(self, card)
+		local rentals = 0
+		for i = 1, #G.jokers.cards do
+			if G.jokers.cards[i].ability.rental then rentals = rentals+1 end
+		end
+		return rentals*card.ability.extra.money
+	end,
+	cry_credits = {
+		idea = {
+			"DoNotSus"
+		},
+		code = {
+			"Foegro"
+		}
+	},
+}
+local pity_prize = {
+	object_type = "Joker",
+	name = "cry-Pity-Prize",
+	key = "pity_prize",
+	pos = { x = 5, y = 5 },
+	config = { },
+	rarity = 1,
+	cost = 4,
+	atlas = "atlastwo",
+	order = 129,
+	loc_vars = function(self, info_queue, center)
+		return { vars = { } }
+	end,
+	calculate = function(self, card, context)
+		if context.skipping_booster then
+			local tag
+			repeat
+				tag = Tag(get_next_tag_key("cry_pity_prize"))
+			until tag.name ~= "Boss Tag" and tag.name ~= "Gambler's Tag" and tag.name ~= "Empowered Tag" --I saw pickle not generating boss tags because it apparently causes issues, so I did the same here
+			if tag.name == "Orbital Tag" then
+				local _poker_hands = {}
+				for k, v in pairs(G.GAME.hands) do
+					if v.visible then
+						_poker_hands[#_poker_hands + 1] = k
+					end
+				end
+				tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed("cry_pity_prize"))
+			end
+			add_tag(tag)
+		end
+	end,
+	cry_credits = {
+		idea = {
+			"Pyrocreep"
+		},
+		art = {
+			"Pyrocreep"
+		},
+		code = {
+			"Foegro"
+		}
+	},
+}
 local miscitems =  {
 	jimball_sprite,
 	dropshot,
@@ -4865,7 +6534,6 @@ local miscitems =  {
 	busdriver,
 	oldblueprint,
 	morse,
-	translucent,
 	membershipcard,
 	kscope,
 	cryptidmoment,
@@ -4886,9 +6554,30 @@ local miscitems =  {
 	subtle,
 	discreet,
 	kidnap,
+	exposed,
+	mask,
+	tropical_smoothie,
+	necromancer,
+	oil_lamp,
+	tax_fraud,
+	pity_prize,
 }
 if Cryptid.enabled["Misc."] then
 	miscitems[#miscitems+1] = flipside
+	miscitems[#miscitems+1] = universe
+	miscitems[#miscitems+1] = astral_bottle
+	miscitems[#miscitems+1] = stronghold
+	miscitems[#miscitems+1] = wtf
+	miscitems[#miscitems+1] = clash
+	miscitems[#miscitems+1] = adroit
+	miscitems[#miscitems+1] = penetrating
+	miscitems[#miscitems+1] = treacherous
+	miscitems[#miscitems+1] = bonkers
+	miscitems[#miscitems+1] = fuckedup
+	miscitems[#miscitems+1] = foolhardy
+end
+if Cryptid.enabled["More Stakes"] then
+	miscitems[#miscitems+1] = translucent
 end
 return {
 	name = "Misc. Jokers",

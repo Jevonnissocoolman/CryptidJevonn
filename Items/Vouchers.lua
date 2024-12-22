@@ -98,8 +98,7 @@ local pairing = { --Retrigger all M Jokers if played hand is a Pair
 	order = 5,
 	pos = { x = 4, y = 5 },
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Xaltios",
 		},
@@ -120,8 +119,7 @@ local repair_man = { --Retrigger all M Jokers if played hand contains a pair
 	pos = { x = 5, y = 5 },
 	requires = { "v_cry_pairing" },
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Xaltios",
 		},
@@ -142,8 +140,7 @@ local pairamount_plus = { --Retrigger all M Jokers once for every pair contained
 	pos = { x = 6, y = 5 },
 	requires = { "v_cry_repair_man" },
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Xaltios",
 		},
@@ -166,8 +163,7 @@ local double_vision = { --Double-Sided cards appear 4x more frequently
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_double_sided
 	end,
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Axolotolus",
 		},
@@ -184,8 +180,7 @@ local double_slit = { --Meld can appear in the shop and Arcana Packs
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_meld
 	end,
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Axolotolus",
 		},
@@ -202,8 +197,7 @@ local double_down = { --After every round, X1.5 to all values on the back of Dou
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_double_sided
 	end,
 	cry_credits = {
-		colour = G.C.CRY_JOLLY,
-		text = {
+		jolly = {
 			"Jolly Open Winner",
 			"Axolotolus",
 		},
@@ -582,7 +576,7 @@ local stickyhand = { --+1 card selection limit
 local grapplinghook = { --+1 card selection limit (replace me when "extra functionality" is added later)
 	object_type = "Voucher",
 	key = "grapplinghook",
-	config = { extra = 1 },
+	config = { extra = 2 },
 	atlas = "atlasvoucher",
 	order = 10,
 	pos = { x = 1, y = 5 },
@@ -637,7 +631,7 @@ local triple = { --Copies voucher triple tag
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.num } }
 	end,
-	apply = function(tag, context)
+	apply = function(self, tag, context)
 		if
 			context.type == "tag_add"
 			and context.tag.key ~= "tag_double"
@@ -665,8 +659,8 @@ local triple = { --Copies voucher triple tag
 				return true
 			end)
 			tag.triggered = true
+			return true
 		end
-		return true
 	end,
 	in_pool = function()
 		return G.GAME.used_vouchers.v_cry_copies
@@ -683,7 +677,7 @@ local quadruple = { --Tag printer voucher quadruple tag
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.num } }
 	end,
-	apply = function(tag, context)
+	apply = function(self, tag, context)
 		if
 			context.type == "tag_add"
 			and context.tag.key ~= "tag_double"
@@ -711,8 +705,8 @@ local quadruple = { --Tag printer voucher quadruple tag
 				return true
 			end)
 			tag.triggered = true
+			return true
 		end
-		return true
 	end,
 	in_pool = function()
 		return G.GAME.used_vouchers.v_cry_tag_printer
@@ -729,7 +723,7 @@ local quintuple = { --Clone machine voucher quintuple tag
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.num } }
 	end,
-	apply = function(tag, context)
+	apply = function(self, tag, context)
 		if
 			context.type == "tag_add"
 			and context.tag.key ~= "tag_double"
@@ -757,8 +751,8 @@ local quintuple = { --Clone machine voucher quintuple tag
 				return true
 			end)
 			tag.triggered = true
+			return true
 		end
-		return true
 	end,
 	in_pool = function()
 		return G.GAME.used_vouchers.v_cry_clone_machine

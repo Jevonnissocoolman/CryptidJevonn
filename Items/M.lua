@@ -10,6 +10,7 @@ local jollysus = {
 	order = 267,
 	blueprint_compat = true,
 	eternal_compat = false,
+	immutable = true,
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_m
 		return { vars = { center.ability.extra.active } }
@@ -62,6 +63,17 @@ local jollysus = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 --TODO
 --Fix Incompatiblity with Brainstorm (the joker not the mod)
@@ -77,6 +89,7 @@ local bubblem = {
 	rarity = 1,
 	cost = 2,
 	eternal_compat = false,
+	immutable = true,
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = {
 			set = "Joker",
@@ -132,6 +145,17 @@ local bubblem = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local foodm = {
 	object_type = "Joker",
@@ -231,6 +255,17 @@ local foodm = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local mstack = {
 	object_type = "Joker",
@@ -299,6 +334,17 @@ local mstack = {
 			card.ability.extra.retriggers = 1
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local mneon = {
 	object_type = "Joker",
@@ -341,6 +387,17 @@ local mneon = {
 			return card.ability.extra.money
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local notebook = {
 	object_type = "Joker",
@@ -353,7 +410,7 @@ local notebook = {
 		extra = { odds = 7, slot = 0, jollies = 4, check = true, active = "Active", inactive = "" },
 		jolly = { t_mult = 8, type = "Pair" },
 	},
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 3,
 	cost = 9,
 	perishable_compat = false,
@@ -422,6 +479,17 @@ local notebook = {
 	remove_from_deck = function(self, card, from_debuff)
 		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slot
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local bonk = {
 	object_type = "Joker",
@@ -502,8 +570,19 @@ local bonk = {
 	add_to_deck = function(self, card, from_debuff)
 		card.ability.extra.xchips = math.floor(card.ability.extra.xchips + 0.5) --lua moment
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
-local loopy = { 
+local loopy = {
 	object_type = "Joker",
 	name = "cry-loopy",
 	key = "loopy",
@@ -512,7 +591,7 @@ local loopy = {
 	pos = { x = 4, y = 1 },
 	order = 257,
 	atlas = "atlastwo",
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 1,
 	cost = 4,
 	joker_gate = "Jolly Joker",
@@ -541,22 +620,6 @@ local loopy = {
 			}
 		end
 		if
-			context.end_of_round
-			and card.ability.extra.retrigger ~= 0
-			and not context.blueprint
-			and not context.retrigger_joker
-			and not context.individual
-			and not context.repetition
-		then
-			card.ability.extra.retrigger = 0
-			return {
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("k_reset"),
-					colour = G.C.GREEN,
-				}),
-			}
-		end
-		if
 			context.retrigger_joker_check
 			and not context.retrigger_joker
 			and context.other_card ~= self
@@ -570,6 +633,17 @@ local loopy = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local scrabble = {
 	object_type = "Joker",
@@ -579,7 +653,6 @@ local scrabble = {
 	config = { extra = { odds = 4 } },
 	pos = { x = 0, y = 2 },
 	order = 258,
-	immune_to_chemach = true,
 	rarity = 2,
 	cost = 8,
 	blueprint_compat = true,
@@ -610,6 +683,17 @@ local scrabble = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local sacrifice = {
 	object_type = "Joker",
@@ -619,7 +703,7 @@ local sacrifice = {
 	config = { extra = { text = localize("k_active_ex"), spawn = true }, jolly = { t_mult = 8, type = "Pair" } },
 	pos = { x = 5, y = 2 },
 	order = 259,
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = 1,
 	cost = 4,
 	blueprint_compat = true,
@@ -665,6 +749,17 @@ local sacrifice = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 --TODO: Fix Brainstorm incompatibility (the joker not the mod)
 local reverse = {
@@ -679,6 +774,7 @@ local reverse = {
 	order = 260,
 	cost = 4,
 	eternal_compat = false,
+	immutable = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = {
@@ -739,6 +835,17 @@ local reverse = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local doodlem = {
 	object_type = "Joker",
@@ -748,7 +855,7 @@ local doodlem = {
 	effect = "M Joker",
 	config = { jolly = { t_mult = 8, type = "Pair" } },
 	pos = { x = 2, y = 0 },
-	immune_to_chemach = true,
+	immutable = true,
 	rarity = "cry_epic",
 	cost = 13,
 	order = 266,
@@ -791,6 +898,17 @@ local doodlem = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local virgo = {
 	object_type = "Joker",
@@ -857,6 +975,17 @@ local virgo = {
 			return nil, true
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local smallestm = {
 	object_type = "Joker",
@@ -892,6 +1021,17 @@ local smallestm = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local biggestm = {
 	object_type = "Joker",
@@ -948,6 +1088,17 @@ local biggestm = {
 			}
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Kailen"
+		},
+		art = {
+			"Kailen"
+		},
+		code = {
+			"Kailen"
+		}
+	},
 }
 local mprime = {
 	object_type = "Joker",
@@ -999,11 +1150,11 @@ local mprime = {
 					if mjoker > 0 then
 						local card = create_card(
 							"Joker",
-							G.jokers, 
-							nil, 
-							nil, 
-							nil, 
-							nil, 
+							G.jokers,
+							nil,
+							nil,
+							nil,
+							nil,
 							pseudorandom_element(loyalservants, pseudoseed("mprime"))
 						)
 						card:add_to_deck()
@@ -1039,6 +1190,17 @@ local mprime = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Jevonn"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local macabre = {
 	object_type = "Joker",
@@ -1047,6 +1209,7 @@ local macabre = {
 	effect = "M Joker",
 	order = 263,
 	pos = { x = 1, y = 2 },
+	immutable = true,
 	config = { jolly = { t_mult = 8, type = "Pair" } },
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = {
@@ -1098,6 +1261,17 @@ local macabre = {
 			}))
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"SDM_0"
+		},
+		art = {
+			"SDM_0"
+		},
+		code = {
+			"SDM_0"
+		}
+	},
 }
 local megg = {
 	object_type = "Joker",
@@ -1151,6 +1325,17 @@ local megg = {
 			end
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Watermelon Lover"
+		},
+		art = {
+			"Watermelon Lover"
+		},
+		code = {
+			"SDM_0"
+		}
+	},
 }
 local longboi = {
 	object_type = "Joker",
@@ -1162,6 +1347,7 @@ local longboi = {
 	cost = 5,
 	order = 261,
 	effect = "M Joker",
+	no_dbl = true,
 	blueprint_compat = true,
 	eternal_compat = false,
 	loc_vars = function(self, info_queue, center)
@@ -1200,10 +1386,21 @@ local longboi = {
 		if (not from_debuff and card.ability.extra.mult == nil) or card.checkmonster then
 			--Stops Things like Gemini from updating mult when it isn't supposed to
 			if card.checkmonster then card.checkmonster = nil end
-			
+
 			card.ability.extra.mult = G.GAME.monstermult or 1
 		end
 	end,
+	cry_credits = {
+		idea = {
+			"Jevonn"
+		},
+		art = {
+			"Watermelon Lover"
+		},
+		code = {
+			"Jevonn"
+		}
+	},
 }
 local ret_items = {
 	bubblem,
@@ -1264,13 +1461,13 @@ return {
 			end
 		end
 		--there must be a better way than this
-		if Cryptid.enabled["Misc."] and Cryptid.enabled["Epic Jokers"] and Cryptid.enabled["Tags"] then 
+		if Cryptid.enabled["Misc."] and Cryptid.enabled["Epic Jokers"] and Cryptid.enabled["Tags"] then
 			for _, jkr in pairs({ smallestm }) do
 				ret_items[#ret_items + 1] = jkr
 			end
 		end
 		--end of cryptid config loading
-		
+
 		for i = 1, #ret_items do
 			Cryptid.M_jokers["j_cry_" .. ret_items[i].key] = true
 			local vc = ret_items[i].calculate

@@ -5,18 +5,24 @@
 --- MOD_AUTHOR: [MathIsFun_, Cryptid and Balatro Discords]
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
---- DEPENDENCIES: [Talisman>=2.0.0-beta8, Steamodded>=1.0.0~ALPHA-0917a]
---- VERSION: 0.5.2~1101a
+--- DEPENDENCIES: [Talisman>=2.0.0-beta8, Steamodded>=1.0.0~ALPHA-1216c]
+--- VERSION: 0.5.3a
 --- PRIORITY: 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
+-- Currently there's no rhyme or reason to how the contents of this file are organized. It's kind of just an "anything goes" sort of file.
+-- If you're learning about Cryptid's codebase, the files in the Items folder are generally much more organized.
+
+-- Enables debug features (I think this is currently useless.)
 --Cryptid.debug = true
 
+-- Save the mod path permanently.
 local mod_path = "" .. SMODS.current_mod.path
 -- Load Options
 Cryptid_config = SMODS.current_mod.config
+-- This will save the current state even when settings are modified
 Cryptid.enabled = copy_table(Cryptid_config)
 --backwards compat moment
 cry_enable_jokers = Cryptid.enabled["Misc. Jokers"]
@@ -38,6 +44,7 @@ SMODS.Rarity{
     default_weight = 0.003,
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
+        -- The game shouldn't try generating Epic Jokers when they are disabled
         if Cryptid_config["Epic Jokers"] then
             return 0.003
         else
@@ -69,19 +76,23 @@ SMODS.Event = SMODS.GameObject:extend{
 	inject = function() end,
 	set = "Event",
 	class_prefix = "ev",
+    -- This should be called to start an event.
 	start = function(self)
 		G.GAME.events[self.key] = true
 	end,
+    -- This should be called to finish an event.
 	finish = function(self)
 		G.GAME.events[self.key] = nil
 	end,
+    -- Runs once before and after jokers, as well as a few special cases
 	calculate = function(self, context)
 	end,
+    -- used for Chocolate Die tooltips, can maybe be repurposed later
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = { set = "Other", key = self.key }
 	end,
 }
---Calculate on cash out
+--Calculate events on cash out
 local gfco = G.FUNCS.cash_out
 G.FUNCS.cash_out = function(e)
 	local ret = gfco(e)
@@ -92,6 +103,7 @@ G.FUNCS.cash_out = function(e)
 	end
 	return ret
 end
+-- Calculate events on start of shop
 local guis = G.UIDEF.shop
 G.UIDEF.shop = function(e)
 	local ret = guis(e)
@@ -102,10 +114,11 @@ G.UIDEF.shop = function(e)
 	end
 	return ret
 end
+-- Calculations for Please Take One. Incredibly scuffed and should get moved to Spooky file later
 local gure = Game.update_round_eval
 function Game:update_round_eval(dt)
-	if G.GAME.events.ev_cry_choco6 and not pack_opened and not G.STATE_COMPLETE then 
-		G.STATE_COMPLETE = true 
+	if G.GAME.events.ev_cry_choco6 and not pack_opened and not G.STATE_COMPLETE then
+		G.STATE_COMPLETE = true
 		for k, v in pairs(SMODS.Events) do
 			if G.GAME.events[k] then
 				v:calculate({pre_cash = true})
@@ -115,18 +128,19 @@ function Game:update_round_eval(dt)
 	if G.GAME.events.ev_cry_choco6 and pack_opened and G.STATE_COMPLETE and not G.round_eval then G.STATE_COMPLETE = false; return end
 	gure(self, dt)
 end
---Add Unique consumable set - used for unique consumables that aren't normally obtained
+--Add Unique consumable set - used for unique consumables that aren't normally obtained (e.g. Potion)
 SMODS.ConsumableType{
 	key = "Unique",
 	primary_colour = G.C.MONEY,
 	secondary_colour = G.C.MONEY,
-	collection_rows = { 4, 4 }, 
+	collection_rows = { 4, 4 },
 	shop_rate = 0.0,
 	loc_txt = {},
 	default = "c_cry_potion",
 	can_stack = false,
 	can_divide = false,
 }
+-- Create G.GAME.events when starting a run, so there's no errors
 local gigo = Game.init_game_object
 function Game:init_game_object()
 	local g = gigo(self)
@@ -139,14 +153,18 @@ if Cryptid.enabled["Menu"] then
 	local oldfunc = Game.main_menu
 	Game.main_menu = function(change_context)
 		local ret = oldfunc(change_context)
+        -- adds a Cryptid spectral to the main menu
 		local newcard = create_card('Spectral',G.title_top, nil, nil, nil, nil, 'c_cryptid', 'elial1')
-		G.title_top.T.w = G.title_top.T.w*1.7675
+		-- recenter the title
+        G.title_top.T.w = G.title_top.T.w*1.7675
 		G.title_top.T.x = G.title_top.T.x - 0.8
 		G.title_top:emplace(newcard)
+        -- make the card look the same way as the title screen Ace of Spades
 		newcard.T.w = newcard.T.w * 1.1*1.2
 		newcard.T.h = newcard.T.h *1.1*1.2
 		newcard.no_ui = true
 
+        -- make the title screen use different background colors
 		G.SPLASH_BACK:define_draw_steps({{
 			shader = 'splash',
 			send = {
@@ -165,18 +183,21 @@ function loc_colour(_c, _default)
 	if not G.ARGS.LOC_COLOURS then
 		lc()
 	end
-	G.ARGS.LOC_COLOURS.cry_azure = HEX("1d4fd7")
 	G.ARGS.LOC_COLOURS.cry_code = G.C.SET.Code
 	G.ARGS.LOC_COLOURS.heart = G.C.SUITS.Hearts
 	G.ARGS.LOC_COLOURS.diamond = G.C.SUITS.Diamonds
 	G.ARGS.LOC_COLOURS.spade = G.C.SUITS.Spades
 	G.ARGS.LOC_COLOURS.club = G.C.SUITS.Clubs
-	G.ARGS.LOC_COLOURS.cry_ascendant = G.C.CRY_ASCENDANT
-	G.ARGS.LOC_COLOURS.cry_jolly = G.C.CRY_JOLLY
+	for k, v in pairs(G.C) do
+		if string.len(k) > 4 and string.sub(k, 1, 4) == 'CRY_' then
+			G.ARGS.LOC_COLOURS[string.lower(k)] = v
+		end
+	end
 	return lc(_c, _default)
 end
 
--- Midground sprites
+-- Midground sprites - used for Exotic Jokers and Gateway
+-- don't really feel like explaining this deeply, it's based on code for The Soul and Legendary Jokers
 local set_spritesref = Card.set_sprites
 function Card:set_sprites(_center, _front)
 	set_spritesref(self, _center, _front)
@@ -218,7 +239,8 @@ function Card:set_sprites(_center, _front)
 		self.children.floating_sprite2.states.click.can = false
 	end
 end
-
+--this is where the code starts to get really scuffed... I'd recommend closing your eyes
+--anyway this function basically hardcodes unredeeming a voucher
 function cry_debuff_voucher(center) -- sorry for all the mess here...
 	local new_center = G.GAME.cry_voucher_centers[center]
 	local center_table = {
@@ -367,6 +389,7 @@ function cry_edition_to_table(edition) -- look mom i figured it out (this does N
 	end
 end
 
+-- check if Director's Cut or Retcon offers a cheaper reroll price
 function cry_cheapest_boss_reroll()
 	local dcut = G.GAME.cry_voucher_centers["v_directors_cut"].config.extra or 1e308
 	local retc = G.GAME.cry_voucher_centers["v_retcon"].config.extra or 1e308
@@ -377,6 +400,7 @@ function cry_cheapest_boss_reroll()
 	end
 end
 
+-- generate a random edition (e.g. Antimatter Deck)
 function cry_poll_random_edition()
 	local random_edition = pseudorandom_element(G.P_CENTER_POOLS.Edition, pseudoseed("cry_ant_edition"))
 	while random_edition.key == "e_base" do
@@ -404,23 +428,38 @@ function cry_voucher_pinned(name)
 	return false
 end
 
-function get_random_consumable(seed, excluded_flags, unbalanced)
-	excluded_flags = excluded_flags or unbalanced and { "no_doe", "no_grc" } or { "hidden", "no_doe", "no_grc" }
+-- gets a random, valid consumeable (used for Hammerspace, CCD Deck, Blessing, etc.)
+function get_random_consumable(seed, excluded_flags, banned_card, pool, no_undiscovered)
+    -- set up excluded flags - these are the kinds of consumables we DON'T want to have generating
+	excluded_flags = excluded_flags or { "hidden", "no_doe", "no_grc" }
 	local selection = "n/a"
 	local passes = 0
 	local tries = 500
 	while true do
 		tries = tries - 1
 		passes = 0
-		local key = pseudorandom_element(G.P_CENTER_POOLS.Consumeables, pseudoseed(seed or "grc")).key
+        -- create a random consumable naively
+		local key = pseudorandom_element(pool or G.P_CENTER_POOLS.Consumeables, pseudoseed(seed or "grc")).key
 		selection = G.P_CENTERS[key]
-		for k, v in pairs(excluded_flags) do
-			if not center_no(selection, v, key, true) then
-				passes = passes + 1
+        -- check if it is valid
+		if selection.discovered or not no_undiscovered then
+			for k, v in pairs(excluded_flags) do
+				if not center_no(selection, v, key, true) then
+					--Makes the consumable invalid if it's a specific card unless it's set to 
+					--I use this so cards don't create copies of themselves (eg potential inf Blessing chain, Hammerspace from Hammerspace...)
+					if not banned_card or (banned_card and banned_card ~= key) then
+						passes = passes + 1
+					end
+				end
 			end
 		end
+        -- use it if it's valid or we've run out of attempts
 		if passes >= #excluded_flags or tries <= 0 then
-			return selection
+			if tries <= 0 and no_undiscovered then
+				return G.P_CENTERS["c_strength"]
+			else
+				return selection
+			end
 		end
 	end
 end
@@ -432,6 +471,7 @@ function cry_get_next_voucher_edition() -- currently only for editions + sticker
 		return cry_poll_random_edition()
 	end
 end
+-- code to generate Stickers for Vouchers, based on that for Jokers
 function cry_get_next_voucher_stickers()
 	local eternal_perishable_poll = pseudorandom("cry_vet" .. (key_append or "") .. G.GAME.round_resets.ante)
 	local ret = { eternal = false, perishable = false, rental = false, pinned = false, banana = false }
@@ -511,6 +551,7 @@ function cry_get_next_voucher_stickers()
 	return ret
 end
 
+-- Calculates Rental sticker for Consumables
 function Card:cry_calculate_consumeable_rental()
 	if self.ability.rental then
 		ease_dollars(-G.GAME.cry_consumeable_rental_rate)
@@ -518,6 +559,7 @@ function Card:cry_calculate_consumeable_rental()
 	end
 end
 
+-- Calculates Perishable sticker for Consumables
 function Card:cry_calculate_consumeable_perishable()
 	if not self.ability.perish_tally then
 		self.ability.perish_tally = 1
@@ -536,35 +578,41 @@ function Card:cry_calculate_consumeable_perishable()
 	end
 end
 
+-- Update the Cryptid member count using HTTPS
 function update_cry_member_count()
 	if Cryptid.enabled["HTTPS Module"] == true then
 		if not GLOBAL_cry_member_update_thread then
+            -- start up the HTTPS thread if needed
 			local file_data = assert(NFS.newFileData(mod_path .. "https/thread.lua"))
 			GLOBAL_cry_member_update_thread = love.thread.newThread(file_data)
 			GLOBAL_cry_member_update_thread:start()
 		end
-		local old = GLOBAL_cry_member_count or 5328
-		local ret = love.thread.getChannel("member_count"):pop()
+		local old = GLOBAL_cry_member_count or 5624
+        -- get the HTTPS thread's value for Cryptid members
+        local ret = love.thread.getChannel("member_count"):pop()
 		if ret then
 			GLOBAL_cry_member_count = string.match(ret, '"approximate_member_count"%s*:%s*(%d+)') -- string matching a json is odd but should be fine?
 		end
 		if not GLOBAL_cry_member_count then
 			GLOBAL_cry_member_count = old
+            -- Something failed, print the error
 			local error = love.thread.getChannel("member_error"):pop()
 			if error then
 				sendDebugMessage(error)
 			end
 		end
 	else
-		GLOBAL_cry_member_count = 5328
+        -- Use a fallback value if HTTPS is disabled (you all are awesome)
+		GLOBAL_cry_member_count = 5624
 	end
 end
-
+-- deal with Rigged and Fragile when scoring a playing card
 local ec = eval_card
 function eval_card(card, context)
-	if card.will_shatter then
+	if not card or card.will_shatter then
 		return
 	end
+    -- Store old probability for later reference
 	local ggpn = G.GAME.probabilities.normal
 	if card.ability.cry_rigged then
 		G.GAME.probabilities.normal = 1e9
@@ -575,6 +623,7 @@ function eval_card(card, context)
 	end
 	return ret
 end
+-- deal wirh Rigged on Consumables
 local uc = Card.use_consumeable
 function Card:use_consumeable(area, copier)
 	local ggpn = G.GAME.probabilities.normal
@@ -612,10 +661,12 @@ local cj = Card.calculate_joker
 function Card:cry_double_scale_calc(orig_ability, in_context_scaling)
 	if
 		self.ability.name ~= "cry-happyhouse"
+		and self.ability.name ~= "Acrobat"
 		and self.ability.name ~= "cry-sapling"
 		and self.ability.name ~= "cry-mstack"
 		and self.ability.name ~= "cry-notebook"
 		and self.ability.name ~= "Invisible Joker"
+		and self.ability.name ~= "cry-Old Invisible Joker"
 	then
 		local jkr = self
 		if jkr.ability and type(jkr.ability) == "table" then
@@ -1428,7 +1479,7 @@ function Card:is_jolly()
 		check = true
 	end
 	]]--
-	return check	
+	return check
 end
 
 function cry_with_deck_effects(card, func)
@@ -1684,63 +1735,141 @@ function SMODS.create_mod_badges(obj, badges)
 			local scale_fac = calced_text_width > max_text_width and max_text_width / calced_text_width or 1
 			return scale_fac
 		end
-		local scale_fac = {}
-		if obj.cry_credits and obj.cry_credits.text then
-			for i = 1, #obj.cry_credits.text do
-				scale_fac[i] = calc_scale_fac(obj.cry_credits.text[i])
+		if obj.cry_credits.art or obj.cry_credits.code or obj.cry_credits.idea then
+			local scale_fac = {}
+			local min_scale_fac = 1
+			local strings = {"Cryptid"}
+			for _, v in ipairs({"idea", "art", "code"}) do
+				if obj.cry_credits[v] then
+					for i = 1, #obj.cry_credits[v] do
+						strings[#strings+1] = localize{type='variable',key='cry_'..v,vars={obj.cry_credits[v][i]}}[1]
+					end
+				end
 			end
-		end
-		local ct = {}
-		for i = 1, #obj.cry_credits.text do
-			ct[i] = {
-				string = obj.cry_credits.text[i],
-				scale = scale_fac[i],
-				spacing = scale_fac[i],
-			}
-		end
-		badges[#badges + 1] = {
-			n = G.UIT.R,
-			config = { align = "cm" },
-			nodes = {
-				{
-					n = G.UIT.R,
-					config = {
-						align = "cm",
-						colour = obj.cry_credits and obj.cry_credits.colour or G.C.RED,
-						r = 0.1,
-						minw = 2,
-						minh = 0.36,
-						emboss = 0.05,
-						padding = 0.03 * 0.9,
-					},
-					nodes = {
-						{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
-						{
-							n = G.UIT.O,
-							config = {
-								object = DynaText({
-									string = ct or "ERROR",
-									colours = { obj.cry_credits and obj.cry_credits.text_colour or G.C.WHITE },
-									silent = true,
-									float = true,
-									shadow = true,
-									offset_y = -0.03,
-									spacing = 1,
-									scale = 0.33 * 0.9,
-								}),
-							},
+			for i = 1, #strings do
+				scale_fac[i] = calc_scale_fac(strings[i])
+				min_scale_fac = math.min(min_scale_fac, scale_fac[i])
+			end
+			local ct = {}
+			for i = 1, #strings do
+				ct[i] = {
+					string = strings[i],
+				}
+			end
+			local cry_badge = {
+				n = G.UIT.R,
+				config = { align = "cm" },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = {
+							align = "cm",
+							colour = G.C.CRY_EXOTIC,
+							r = 0.1,
+							minw = 2/min_scale_fac,
+							minh = 0.36,
+							emboss = 0.05,
+							padding = 0.03 * 0.9,
 						},
-						{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+						nodes = {
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+							{
+								n = G.UIT.O,
+								config = {
+									object = DynaText({
+										string = ct or "ERROR",
+										colours = { obj.cry_credits and obj.cry_credits.text_colour or G.C.WHITE },
+										silent = true,
+										float = true,
+										shadow = true,
+										offset_y = -0.03,
+										spacing = 1,
+										scale = 0.33 * 0.9,
+									}),
+								},
+							},
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+						},
 					},
 				},
-			},
-		}
+			}
+			local function eq_col(x, y)
+				for i = 1, 4 do
+					if x[1] ~= y[1] then
+						return false
+					end
+				end
+				return true
+			end
+			for i = 1, #badges do
+				if eq_col(badges[i].nodes[1].config.colour,HEX("708b91")) then
+					badges[i].nodes[1].nodes[2].config.object:remove()
+					badges[i] = cry_badge
+					break
+				end
+			end
+		end
+		if obj.cry_credits.jolly then
+			local scale_fac = {}
+			local min_scale_fac = 1
+			for i = 1, #obj.cry_credits.jolly do
+				scale_fac[i] = calc_scale_fac(obj.cry_credits.jolly[i])
+				min_scale_fac = math.min(min_scale_fac, scale_fac[i])
+			end
+			local ct = {}
+			for i = 1, #obj.cry_credits.jolly do
+				ct[i] = {
+					string = obj.cry_credits.jolly[i],
+				}
+			end
+			badges[#badges + 1] = {
+				n = G.UIT.R,
+				config = { align = "cm" },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = {
+							align = "cm",
+							colour = G.C.CRY_JOLLY,
+							r = 0.1,
+							minw = 2,
+							minh = 0.36,
+							emboss = 0.05,
+							padding = 0.03 * 0.9,
+						},
+						nodes = {
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+							{
+								n = G.UIT.O,
+								config = {
+									object = DynaText({
+										string = ct or "ERROR",
+										colours = { obj.cry_credits and obj.cry_credits.text_colour_jolly or G.C.WHITE },
+										silent = true,
+										float = true,
+										shadow = true,
+										offset_y = -0.03,
+										spacing = 1,
+										scale = 0.33 * 0.9,
+									}),
+								},
+							},
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+						},
+					},
+				},
+			}
+		end
 	end
 end
 
 -- This is short enough that I'm fine overriding it
 function calculate_reroll_cost(skip_increment)
-	if next(find_joker("cry-crustulum")) then
+	if G.GAME.current_round.free_rerolls < 0 then
+		G.GAME.current_round.free_rerolls = 0
+	end
+	if next(find_joker("cry-crustulum"))
+	or G.GAME.current_round.free_rerolls > 0 then
 		G.GAME.current_round.reroll_cost = 0
 		return
 	end
@@ -1750,13 +1879,6 @@ function calculate_reroll_cost(skip_increment)
 	end
 	if G.GAME.used_vouchers.v_cry_rerollexchange then
 		G.GAME.current_round.reroll_cost = 2
-		return
-	end
-	if G.GAME.current_round.free_rerolls < 0 then
-		G.GAME.current_round.free_rerolls = 0
-	end
-	if G.GAME.current_round.free_rerolls > 0 then
-		G.GAME.current_round.reroll_cost = 0
 		return
 	end
 	G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase or 0
@@ -1775,6 +1897,8 @@ end
 --Unrelated but kind of related side note: this prevents top gear from showing up in collection, not sure what's up with that
 --Is it due to how TWEWJ is Coded? Is it an issue with Steamodded itself? Might be worth looking into, just sayin
 
+--Ok it's definitely something with steamodded
+
 if (SMODS.Mods["TWEWY"] or {}).can_load then
 	SMODS.Joker:take_ownership('twewy_topGear', {
 		name = "Cry-topGear",
@@ -1786,7 +1910,7 @@ if (SMODS.Mods["TWEWY"] or {}).can_load then
 		rarity = 3,
 		loc_txt = {
         		name = 'Top Gear',
-        		text = { 
+        		text = {
 				"All {C:blue}Common{C:attention} Jokers{}",
         			"are {C:dark_edition}Polychrome{}",
 			}
@@ -1808,11 +1932,11 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 		ps = predict_pseudoseed
 	end
 	local center = G.P_CENTERS.b_red
-	if (_type == "Joker") and not forced_key and G.GAME and G.GAME.modifiers and G.GAME.modifiers.all_rnj then
+	if (_type == "Joker") and G.GAME and G.GAME.modifiers and G.GAME.modifiers.all_rnj then
 		forced_key = "j_cry_rnjoker"
 	end
 	local function aeqviable(center)
-		return not center_no(center, "doe") and not center_no(center, "aeq") and not (center.rarity == 6 or center.rarity == "cry_exotic")
+		return center.unlocked and not center_no(center, "doe") and not center_no(center, "aeq") and not (center.rarity == 6 or center.rarity == "cry_exotic")
 	end
 	if _type == "Joker" and not _rarity then
 		if not G.GAME.aequilibriumkey then G.GAME.aequilibriumkey = 1 end
@@ -2122,12 +2246,13 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 		cry_misprintize(card)
 	end
 	if card.ability.consumeable and card.pinned then -- counterpart is in Sticker.toml
-		G.GAME.cry_pinned_consumeables = G.GAME.cry_pinned_consumeables + 1
+		G.GAME.cry_pinned_consumeables = G.GAME.cry_pinned_consumeables + 0
 	end
 	if next(find_joker("Cry-topGear")) and card.config.center.rarity == 1 then
 		if card.ability.name ~= "cry-meteor"
 		and card.ability.name ~= "cry-exoplanet"
-		and card.ability.name ~= "cry-stardust" then
+		and card.ability.name ~= "cry-stardust"
+		and card.ability.name ~= "cry-universe" then
 			card:set_edition("e_polychrome", true, nil, true)
 		end
 	end
@@ -2140,10 +2265,55 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 	if card.ability.name == "cry-stardust" then
 		card:set_edition("e_polychrome", true, nil, true)
 	end
-	-- Certain jokers such as Steel Joker and Driver's License depend on values set 
+	if card.ability.name == "cry-universe" then
+		card:set_edition("e_cry_astral", true, nil, true)
+	end
+	-- Certain jokers such as Steel Joker and Driver's License depend on values set
 	-- during the update function. Cryptid can create jokers mid-scoring, meaning
 	-- those values will be unset during scoring unless update() is manually called.
 	card:update(0.016) -- dt is unused in the base game, but we're providing a realistic value anyway
+
+	--Debuff jokers if certain boss blinds are active
+	if G.GAME and G.GAME.blind and not G.GAME.blind.disabled then
+		if G.GAME.blind.name == "cry-box"
+		or (G.GAME.blind.name == "cry-Obsidian Orb" and G.GAME.defeated_blinds["bl_cry_box"] == true) then
+			if card.config.center.rarity == 1 and not card.debuff then
+				card.debuff = true
+				card.debuffed_by_blind = true
+			end
+		end
+		if G.GAME.blind.name == "cry-windmill"
+		or (G.GAME.blind.name == "cry-Obsidian Orb" and G.GAME.defeated_blinds["bl_cry_windmill"] == true) then
+			if card.config.center.rarity == 2 and not card.debuff then
+				card.debuff = true
+				card.debuffed_by_blind = true
+			end
+		end
+		if G.GAME.blind.name == "cry-striker"
+		or (G.GAME.blind.name == "cry-Obsidian Orb" and G.GAME.defeated_blinds["bl_cry_striker"] == true) then
+			if card.config.center.rarity == 3 and not card.debuff then
+				card.debuff = true
+				card.debuffed_by_blind = true
+			end
+		end
+		if G.GAME.blind.name == "cry-shackle"
+		or (G.GAME.blind.name == "cry-Obsidian Orb" and G.GAME.defeated_blinds["bl_cry_shackle"] == true) then
+			if (card.edition and card.edition.negative == true) and not card.debuff then
+				card.debuff = true
+				card.debuffed_by_blind = true
+			end
+		end
+		if G.GAME.blind.name == "cry-pin"
+		or (G.GAME.blind.name == "cry-Obsidian Orb" and G.GAME.defeated_blinds["bl_cry_pin"] == true) then
+			if (card.config.center.rarity ~= 3
+			and card.config.center.rarity ~= 2
+			and card.config.center.rarity ~= 1
+			and card.config.center.rarity ~= 5) then
+				card.debuff = true
+				card.debuffed_by_blind = true
+			end
+		end
+	end
 	return card
 end
 
@@ -2176,7 +2346,10 @@ function add_tag(tag, from_skip, no_copy)
 		at2(tag)
 	end
 	for i = 2, added_tags do
-		at2(Tag(tag.key))
+		local tag_table = tag:save()
+		local new_tag = Tag(tag.key)
+		new_tag:load(tag_table)
+		at2(new_tag)
 	end
 end
 
@@ -2199,7 +2372,7 @@ end
 local gfcfbs = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
   if (card.ability.name == "cry-Negative Joker" and card.ability.extra >= 1) or
-	(card.ability.name == "cry-soccer" and card.ability.extra.holygrail >= 1) or 
+	(card.ability.name == "cry-soccer" and card.ability.extra.holygrail >= 1) or
 	(card.ability.name == "cry-Tenebris" and card.ability.extra.slots >= 1) then
     return true
   end
@@ -2209,8 +2382,8 @@ end
 local gfcsc = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
   if (e.config.ref_table.ability.name == "cry-Negative Joker" and e.config.ref_table.ability.extra >= 1) or
-	(e.config.ref_table.ability.name == "cry-soccer" and e.config.ref_table.ability.extra.holygrail >= 1) or 
-	(e.config.ref_table.ability.name == "cry-Tenebris" and e.config.ref_table.ability.extra.slots >= 1) then 
+	(e.config.ref_table.ability.name == "cry-soccer" and e.config.ref_table.ability.extra.holygrail >= 1) or
+	(e.config.ref_table.ability.name == "cry-Tenebris" and e.config.ref_table.ability.extra.slots >= 1) then
     e.config.colour = G.C.GREEN
     e.config.button = 'use_card'
   else
@@ -2228,6 +2401,7 @@ function cry_misprintize_tbl(name, ref_tbl, ref_value, clear, override, stack)
 				if
 					is_number(tbl[k])
 					and not (k == "id")
+					and not (k == "perish_tally")
 					and not (k == "colour")
 					and not (k == "suit_nominal")
 					and not (k == "base_nominal")
@@ -2260,6 +2434,7 @@ function cry_misprintize_tbl(name, ref_tbl, ref_value, clear, override, stack)
 					if
 						is_number(tbl[k][_k])
 						and not (_k == "id")
+						and not (k == "perish_tally")
 						and not (k == "colour")
 						and not (_k == "suit_nominal")
 						and not (_k == "base_nominal")
@@ -2332,7 +2507,6 @@ function cry_misprintize(card, override, force_reset, stack)
 		and (G.GAME.modifiers.cry_misprint_min or override or card.ability.set == "Joker")
 		and not stack or (not Card.no(card, "immune_to_chemach", true) and not Card.no(card, "immutable", true))
 	then
-		if card.ability.name == "Ace Aequilibrium" then return end
 		if G.GAME.modifiers.cry_jkr_misprint_mod and card.ability.set == "Joker" then
 			if not override then
 				override = {}
@@ -2453,6 +2627,100 @@ function init_localization()
 			end
 		end
 	end
+end
+
+G.FUNCS.cry_asc_UI_set = function(e)
+end
+
+-- this is a hook to make funny "x of a kind"/"flush x" display text
+local pokerhandinforef = G.FUNCS.get_poker_hand_info
+function G.FUNCS.get_poker_hand_info(_cards)
+	local text, loc_disp_text, poker_hands, scoring_hand, disp_text = pokerhandinforef(_cards)
+	if G.SETTINGS.language == "en-us" then
+		if #scoring_hand > 5 and (text == 'Flush Five' or text == 'Five of a Kind') then
+			local rank_array = {}
+			local county = 0
+			for i = 1, #scoring_hand do
+				local val = scoring_hand[i]:get_id()
+				rank_array[val] = (rank_array[val] or 0) + 1
+				if rank_array[val] > county then county = rank_array[val] end
+			end
+			local function create_num_chunk(int)	-- maybe useful enough to not be local? but tbh this function is probably some common coding exercise
+				if int >= 1000 then int = 999 end
+				local ones = {["1"] = "One", ["2"] = "Two", ["3"] = "Three", ["4"] = "Four", ["5"] = "Five", ["6"] = "Six", ["7"] = "Seven", ["8"] = "Eight", ["9"] = "Nine"}
+				local tens = {["1"] = "Ten", ["2"] = "Twenty", ["3"] = "Thirty", ["4"] = "Forty", ["5"] = "Fifty", ["6"] = "Sixty", ["7"] = "Seventy", ["8"] = "Eighty", ["9"] = "Ninety"}
+				local str_int = string.reverse(int.."")	-- ehhhh whatever
+				local str_ret = ""
+				for i = 1, string.len(str_int) do
+					local place = str_int:sub(i, i)
+					if place ~= "0" then
+						if i == 1 then str_ret = ones[place]
+						elseif i == 2 then
+							if place == "1" and str_ret ~= "" then -- admittedly not my smartest moment, i dug myself into a hole here...
+								if str_ret == "One" then str_ret = "Eleven"
+								elseif str_ret == "Two" then str_ret = "Twelve"
+								elseif str_ret == "Three" then str_ret = "Thirteen"
+								elseif str_ret == "Five" then str_ret = "Fifteen"
+								elseif str_ret == "Eight" then str_ret = "Eighteen"
+								else str_ret = str_ret.."teen" end
+							else
+								str_ret = tens[place]..((string.len(str_ret) > 0 and " " or "")..str_ret)
+							end
+						elseif i == 3 then str_ret = ones[place]..(" Hundred"..((string.len(str_ret) > 0 and " and " or "")..str_ret)) end -- this line is wild
+					end
+				end
+				return str_ret
+			end
+			-- text gets stupid small at 100+ anyway
+			loc_disp_text = (text == 'Flush Five' and "Flush " or "")..((county < 1000 and create_num_chunk(county) or "Thousand")..(text == 'Five of a Kind' and " of a Kind" or ""))
+		end
+	end
+
+
+
+
+
+
+	local hand_table = {
+		['High Card'] = G.GAME.used_vouchers.v_cry_hyperspacetether and 1 or nil,
+		['Pair'] = G.GAME.used_vouchers.v_cry_hyperspacetether and 2 or nil,
+		['Two Pair'] = 4,
+		['Three of a Kind'] = G.GAME.used_vouchers.v_cry_hyperspacetether and 3 or nil,
+		['Straight'] = 5,
+		['Flush'] = 5,
+		['Full House'] = 5,
+		['Four of a Kind'] = G.GAME.used_vouchers.v_cry_hyperspacetether and 4 or nil,
+		['Straight Flush'] = 5,
+		['cry_Bulwark'] = 5,
+		['Five of a Kind'] = 5,
+		['Flush House'] = 5,
+		['Flush Five'] = 5,
+		['cry_Clusterfuck'] = 8,
+		['cry_UltPair'] = 8,
+		['cry_WholeDeck'] = 52,
+	}
+
+	-- this is where all the logic for asc hands is. currently it's very simple but if you want more complex logic, here's the place to do it
+	if hand_table[text] then
+		G.GAME.current_round.current_hand.cry_asc_num = G.GAME.used_vouchers.v_cry_hyperspacetether and #_cards - hand_table[text] or #scoring_hand - hand_table[text]
+	else
+		G.GAME.current_round.current_hand.cry_asc_num = 0
+	end
+
+
+
+	G.GAME.current_round.current_hand.cry_asc_num_text = (G.GAME.current_round.current_hand.cry_asc_num and G.GAME.current_round.current_hand.cry_asc_num > 0) and " (+"..G.GAME.current_round.current_hand.cry_asc_num..")" or ""
+	return text, loc_disp_text, poker_hands, scoring_hand, disp_text
+end
+
+function cry_ascend(num)	-- edit this function at your leisure
+	return num*((1.25 + (0.05 * (G.GAME.sunnumber or 0)))^G.GAME.current_round.current_hand.cry_asc_num or 0)
+end
+
+function cry_pulse_flame(duration, intensity)	-- duration is in seconds, intensity is in idfk honestly, but it increases pretty quickly
+	G.cry_flame_override = G.cry_flame_override or {}
+	G.cry_flame_override["duration"] = duration or 0.01
+	G.cry_flame_override["intensity"] = intensity or 2
 end
 
 --Will be moved to D20 file when that gets added
@@ -2730,7 +2998,19 @@ end
 for i = 1, #jokers do
 	Cryptid.food[#Cryptid.food+1] = jokers[i]
 end
-
+function Cryptid.get_food(seed)
+    local food_keys = {}  
+    for k, v in pairs(Cryptid.food) do  
+        if not G.GAME.banned_keys[v] and G.P_CENTERS[v] then
+            table.insert(food_keys, v)  
+        end
+    end
+    if #food_keys <= 0 then
+	return "j_reserved_parking"
+    else
+    	return pseudorandom_element(food_keys, pseudoseed(seed))
+    end
+end
 SMODS.Sound({
 	key = "meow1",
 	path = "meow1.ogg",
@@ -2900,6 +3180,16 @@ if (SMODS.Mods["malverk"] or {}).can_load then
     		}
 	}
 end
+--Make Ortalab's Locked jokers not show up on Deck of Equilibrium and Antimatter Deck
+if (SMODS.Mods["ortalab"] or {}).can_load then
+	for i = 1, 150 do
+		print(i)
+		SMODS.Joker:take_ownership('ortalab_temp_' .. i, {
+			name = "Cry-skibidi",
+			no_doe = true
+		})
+	end
+end
 SMODS.Atlas({
 	key = "modicon",
 	path = "cry_icon.png",
@@ -2959,6 +3249,13 @@ SMODS.Atlas({
 	path = "tag_cry.png",
 	px = 34,
 	py = 34,
+}):register()
+--Enchancements, seals, other misc things etc
+SMODS.Atlas({
+	key = "cry_misc",
+	path = "cry_misc.png",
+	px = 71,
+	py = 95,
 }):register()
 SMODS.Sticker:take_ownership("perishable", {
 	atlas = "sticker",
@@ -3023,7 +3320,7 @@ SMODS.Sticker:take_ownership("rental", {
 local ec = eval_card
 function eval_card(card, context)
 	local ret = ec(card, context)
-	if card.area == G.hand or card.area == G.play or card.area == G.discard or card.area == G.deck then
+	if card and card.area == G.hand or card.area == G.play or card.area == G.discard or card.area == G.deck then
 		for k, v in pairs(SMODS.Stickers) do
 			if card.ability[k] and v.calculate and type(v.calculate) == "function" then
 				context.from_playing_card = true
@@ -3043,7 +3340,7 @@ function create_cryptid_notif_overlay(key)
 			trigger = 'immediate',
 			no_delete = true,
 			func = (function()
-				if not G.OVERLAY_MENU then 
+				if not G.OVERLAY_MENU then
 					G.SETTINGS.paused = true
 					G.FUNCS.overlay_menu{
 						definition = create_UIBox_cryptid_notif(key),
