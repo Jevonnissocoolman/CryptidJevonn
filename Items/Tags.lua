@@ -143,28 +143,27 @@ local empowered = {
 	end,
 	apply = function(self, tag, context)
 		if context.type == "new_blind_choice" then
-			if G.STATE ~= G.STATES.SPECTRAL_PACK then
-				G.GAME.PACK_INTERRUPT = G.STATE
-			end
-			tag:yep("+", G.C.SECONDARY_SET.Spectral, function()
-				local key = "p_cry_empowered"
-				local card = Card(
-					G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-					G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
-					G.CARD_W * 1.27,
-					G.CARD_H * 1.27,
-					G.P_CARDS.empty,
-					G.P_CENTERS[key],
-					{ bypass_discovery_center = true, bypass_discovery_ui = true }
-				)
-				card.cost = 0
-				card.from_tag = true
-				G.FUNCS.use_card({ config = { ref_table = card } })
-				card:start_materialize()
-				return true
-			end)
-			tag.triggered = true
-			return true
+			local lock = tag.ID
+            		G.CONTROLLER.locks[lock] = true
+			tag:yep('+', G.C.SECONDARY_SET.Spectral,function() 
+                    		local key = "p_cry_empowered"
+                    		local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                    		G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    		card.cost = 0
+                    		card.from_tag = true
+                    		G.FUNCS.use_card({config = {ref_table = card}})
+				if G.GAME.modifiers.cry_force_edition and not G.GAME.modifiers.cry_force_random_edition then
+					card:set_edition(nil, true, true)
+				elseif G.GAME.modifiers.cry_force_random_edition then
+					local edition = cry_poll_random_edition()
+					card:set_edition(edition, true, true)
+				end
+                    		card:start_materialize()
+                    		G.CONTROLLER.locks[lock] = nil
+                    		return true
+                	end)
+                	tag.triggered = true
+                	return true
 		end
 	end,
 	in_pool = function()
@@ -563,8 +562,6 @@ local m_tag = {
 		end
 	end,
 }
---This is fully funcional but unobtainable without pointer at the moment
---I have plans for this soon, very soon...
 local double_m_tag = {
 	object_type = "Tag",
 	atlas = "tag_cry",
