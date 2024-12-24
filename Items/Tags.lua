@@ -176,7 +176,7 @@ local gambler = {
 	order = 13,
 	atlas = "tag_cry",
 	pos = { x = 2, y = 0 },
-	config = { type = "immediate", odds = 4 },
+	config = { type = "new_blind_choice", odds = 4 },
 	min_ante = 2,
 	key = "gambler",
 	loc_vars = function(self, info_queue)
@@ -184,30 +184,32 @@ local gambler = {
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.odds } }
 	end,
 	apply = function(self, tag, context)
-		if context.type == "immediate" then
+		if context.type == "new_blind_choice" then
 			if pseudorandom("cry_gambler_tag") < G.GAME.probabilities.normal / tag.config.odds then
 				local lock = tag.ID
-				G.CONTROLLER.locks[lock] = true
-				tag:yep("+", G.C.RARITY.cry_exotic, function()
-					add_tag(Tag("tag_cry_empowered"))
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						delay = 0.3,
-						func = function()
-							if not G.GAME.PACK_INTERRUPT then
-								G.GAME.tags[#G.GAME.tags]:apply_to_run({ type = "new_blind_choice" })
-							end
-							G.CONTROLLER.locks[lock] = nil
-							return true
-						end,
-					}))
-					return true
-				end)
+            			G.CONTROLLER.locks[lock] = true
+				tag:yep('+', G.C.SECONDARY_SET.Spectral,function() 
+                    			local key = "p_cry_empowered"
+                    			local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                    			G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    			card.cost = 0
+                    			card.from_tag = true
+                    			G.FUNCS.use_card({config = {ref_table = card}})
+					if G.GAME.modifiers.cry_force_edition and not G.GAME.modifiers.cry_force_random_edition then
+						card:set_edition(nil, true, true)
+					elseif G.GAME.modifiers.cry_force_random_edition then
+						local edition = cry_poll_random_edition()
+						card:set_edition(edition, true, true)
+					end
+                    			card:start_materialize()
+                    			G.CONTROLLER.locks[lock] = nil
+                    			return true
+                		end)
 			else
 				tag:nope()
 			end
-			tag.triggered = true
-			return true
+                	tag.triggered = true
+                	return true
 		end
 	end,
 }
