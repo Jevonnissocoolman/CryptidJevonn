@@ -185,6 +185,7 @@ local gambler = {
 	end,
 	apply = function(self, tag, context)
 		if context.type == "new_blind_choice" then
+			local a
 			if pseudorandom("cry_gambler_tag") < G.GAME.probabilities.normal / tag.config.odds then
 				local lock = tag.ID
             			G.CONTROLLER.locks[lock] = true
@@ -203,16 +204,23 @@ local gambler = {
 					end
                     			card:start_materialize()
                     			G.CONTROLLER.locks[lock] = nil
+					a = true
                     			return true
                 		end)
 			else
+				a = call_tag_apply_to_run()
 				tag:nope()
 			end
                 	tag.triggered = true
-                	return true
+                	return a
 		end
 	end,
 }
+function call_tag_apply_to_run()
+	for i = 1, #G.GAME.tags do
+        	if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+        end
+end
 local bundle = {
 	object_type = "Tag",
 	name = "cry-Bundle Tag",
