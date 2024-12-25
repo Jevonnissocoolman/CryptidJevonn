@@ -176,7 +176,7 @@ local gambler = {
 	order = 13,
 	atlas = "tag_cry",
 	pos = { x = 2, y = 0 },
-	config = { type = "immediate", odds = 4 },
+	config = { type = "new_blind_choice", odds = 4 },
 	min_ante = 2,
 	key = "gambler",
 	loc_vars = function(self, info_queue)
@@ -184,7 +184,7 @@ local gambler = {
 		return { vars = { G.GAME.probabilities.normal or 1, self.config.odds } }
 	end,
 	apply = function(self, tag, context)
-		if context.type == "immediate" then
+		if context.type == "new_blind_choice" then
 			if pseudorandom("cry_gambler_tag") < G.GAME.probabilities.normal / tag.config.odds then
 				local lock = tag.ID
             			G.CONTROLLER.locks[lock] = true
@@ -207,6 +207,9 @@ local gambler = {
                 		end)
 			else
 				tag:nope()
+				for i = 1, #G.GAME.tags do
+            				if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+         	 		end
 			end
                 	tag.triggered = true
                 	return true
