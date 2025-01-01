@@ -4,6 +4,9 @@ local dropshot = {
 	key = "dropshot",
 	order = 3,
 	config = { extra = { Xmult_mod = 0.2, x_mult = 1 } },
+	gameset_config = {
+       		modest = {extra = {Xmult_mod = 0.1, x_mult = 1}},
+ 	},
 	pos = { x = 5, y = 0 },
 	rarity = 3,
 	cost = 8,
@@ -90,7 +93,7 @@ local happyhouse = {
 	order = 2,
 	config = { extra = { mult = 4, check = 0 } },
 	immutable = true,
-    pools = {["Meme"] = true},
+    	pools = {["Meme"] = true},
 	rarity = 2,
 	cost = 2,
 	blueprint_compat = true,
@@ -160,6 +163,9 @@ local maximized = {
 	rarity = 3,
 	order = 13,
 	cost = 11,
+	gameset_config = {
+       		modest = {cost = 16, center = {rarity = "cry_epic"}},
+ 	},
 	immutable = true,
 	atlas = "atlastwo",
 	cry_credits = {
