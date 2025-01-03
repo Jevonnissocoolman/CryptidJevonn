@@ -6823,8 +6823,8 @@ local lmao = {
 	loc_txt = {
         	name = 'test',
        		text = {
-        		"{X:mult,C:white} X#1# {} Mult",
-			"for each {C:attention}Steamodded Mod",
+        		"{X:mult,C:white} X#1# {} Mult for each",
+			"{C:attention}Steamodded Mod",
 			"that failed to load",
         		"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
         	}
@@ -6836,7 +6836,7 @@ local lmao = {
 	update = function(self, card, front)
 		local value = 0
 		for _, v in ipairs(SMODS.mod_list) do
-			if not v.can_load then 
+			if not v.can_load and not v.disabled then 
 				value = value + 1
 			end
 		end
