@@ -6812,16 +6812,16 @@ local lmao = {
 	object_type = "Joker",
 	name = "cry-lmao",
 	key = "lmao",
-	pos = { x = 1, y = 0 },
+	pos = { x = 2, y = 0 },
 	blueprint_compat = true,
-	config = { extra = { Emult_mod = 1, Emult = 1 } },
-	loc_vars = function(self, info_queue, center)
+	config = { extra = { mod = 1, mult = 1 } },
+	loc_vars = function(self, info_queue, card)
 		return {
-			vars = { center.ability.extra.Emult_mod, center.ability.extra.Emult },
+			vars = { card.ability.extra.mod, card.ability.extra.mult },
 		}
 	end,
 	loc_txt = {
-        	name = 'test',
+        	name = 'lmao',
        		text = {
         		"{X:mult,C:white} X#1# {} Mult for each",
 			"{C:attention}Steamodded Mod",
@@ -6831,8 +6831,6 @@ local lmao = {
     	},
 	rarity = 2,
 	cost = 6,
-	order = 999,
-	atlas = "placeholders",
 	update = function(self, card, front)
 		local value = 0
 		for _, v in ipairs(SMODS.mod_list) do
@@ -6840,26 +6838,22 @@ local lmao = {
 				value = value + 1
 			end
 		end
-		card.ability.extra.Emult = 1 + (card.ability.extra.Emult_mod * value)
+		card.ability.extra.mult = 1 + (card.ability.extra.mod * value)
 	end,
 	calculate = function(self, card, context)
 		if
 			context.cardarea == G.jokers
-			and (to_big(card.ability.extra.Emult) > to_big(1))
+			and card.ability.extra.mult > 1
 			and not context.before
 			and not context.after
 		then
 			return {
-				message = localize{type='variable',key='a_powmult',vars={number_format(card.ability.extra.Emult)}},
-				Xmult_mod = card.ability.extra.Emult,
+				message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.extra.mult } }),
+				Xmult_mod = card.ability.extra.mult,
 				colour = G.C.MULT,
 			}
 		end
 	end,
-	cry_credits = {
-		idea = {"Jevonn"},
-		code = {"Jevonn"}
-	},
 }
 local miscitems =  {
 	jimball_sprite,
