@@ -6808,53 +6808,6 @@ local digitalhallucinations = {
 		}
 	},
 }
-local lmao = {
-	object_type = "Joker",
-	name = "cry-lmao",
-	key = "lmao",
-	pos = { x = 2, y = 0 },
-	blueprint_compat = true,
-	config = { extra = { mod = 1, mult = 1 } },
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = { card.ability.extra.mod, card.ability.extra.mult },
-		}
-	end,
-	loc_txt = {
-        	name = 'lmao',
-       		text = {
-        		"{X:mult,C:white} X#1# {} Mult for each",
-			"{C:attention}Steamodded Mod",
-			"that failed to load",
-        		"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
-        	}
-    	},
-	rarity = 2,
-	cost = 6,
-	update = function(self, card, front)
-		local value = 0
-		for _, v in ipairs(SMODS.mod_list) do
-			if not v.can_load and not v.disabled then 
-				value = value + 1
-			end
-		end
-		card.ability.extra.mult = 1 + (card.ability.extra.mod * value)
-	end,
-	calculate = function(self, card, context)
-		if
-			context.cardarea == G.jokers
-			and card.ability.extra.mult > 1
-			and not context.before
-			and not context.after
-		then
-			return {
-				message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.extra.mult } }),
-				Xmult_mod = card.ability.extra.mult,
-				colour = G.C.MULT,
-			}
-		end
-	end,
-}
 local miscitems =  {
 	jimball_sprite,
 	dropshot,
@@ -6952,7 +6905,6 @@ local miscitems =  {
 	tax_fraud,
 	pity_prize,
 	digitalhallucinations,
-	lmao
 }
 if Cryptid.enabled["Misc."] then
 	miscitems[#miscitems+1] = flipside
