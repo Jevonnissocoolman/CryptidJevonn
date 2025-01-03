@@ -6808,6 +6808,59 @@ local digitalhallucinations = {
 		}
 	},
 }
+local lmao = {
+	object_type = "Joker",
+	name = "cry-lmao",
+	key = "lmao",
+	pos = { x = 1, y = 0 },
+	blueprint_compat = true,
+	config = { extra = { Emult_mod = 1, Emult = 1 } },
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { center.ability.extra.Emult_mod, center.ability.extra.Emult },
+		}
+	end,
+	loc_txt = {
+        	name = 'test',
+       		text = {
+        		"{X:mult,C:white} X#1# {} Mult",
+			"for each {C:attention}Steamodded Mod",
+			"that failed to load",
+        		"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+        	}
+    	},
+	rarity = 2,
+	cost = 6,
+	order = 999,
+	atlas = "placeholders",
+	update = function(self, card, front)
+		local value = 0
+		for _, v in ipairs(SMODS.mod_list) do
+			if not v.can_load then 
+				value = value + 1
+			end
+		end
+		card.ability.extra.Emult = 1 + (card.ability.extra.Emult_mod * value)
+	end,
+	calculate = function(self, card, context)
+		if
+			context.cardarea == G.jokers
+			and (to_big(card.ability.extra.Emult) > to_big(1))
+			and not context.before
+			and not context.after
+		then
+			return {
+				message = localize{type='variable',key='a_powmult',vars={number_format(card.ability.extra.Emult)}},
+				Xmult_mod = card.ability.extra.Emult,
+				colour = G.C.MULT,
+			}
+		end
+	end,
+	cry_credits = {
+		idea = {"Jevonn"},
+		code = {"Jevonn"}
+	},
+}
 local miscitems =  {
 	jimball_sprite,
 	dropshot,
@@ -6905,6 +6958,7 @@ local miscitems =  {
 	tax_fraud,
 	pity_prize,
 	digitalhallucinations,
+	lmao
 }
 if Cryptid.enabled["Misc."] then
 	miscitems[#miscitems+1] = flipside
