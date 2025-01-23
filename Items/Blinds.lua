@@ -182,9 +182,9 @@ local oldserpent = {
 	order = 9,
 	boss_colour = HEX("4f6367"),
 	modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-		if G.GAME.hands[text].level > 1 then
+		if to_big(G.GAME.hands[text].level) > to_big(1) then
 			G.GAME.blind.triggered = true
-			return math.floor(mult / G.GAME.hands[text].level), hand_chips, true
+			return math.floor( mult / to_big(G.GAME.hands[text].level) ), hand_chips, true
 		end
 		return mult, hand_chips, false
 	end,
@@ -270,6 +270,12 @@ local tax = {
 	atlas = "blinds",
 	order = 2,
 	boss_colour = HEX("40ff40"),
+	loc_vars = function(self, info_queue, card)
+		return { vars = { 0.4 * get_blind_amount(G.GAME.round_resets.ante)*2*G.GAME.starting_params.ante_scaling } }	-- no bignum?
+	end,
+        collection_loc_vars = function(self)
+            return { vars = { localize("cry_tax_placeholder") }}
+        end,
 	cry_cap_score = function(self, score)
 		return math.floor(math.min(0.4 * G.GAME.blind.chips, score) + 0.5)
 	end,
@@ -369,9 +375,12 @@ local joke = {
 	atlas = "blinds",
 	order = 15,
 	boss_colour = HEX("00ffaa"),
-	loc_vars = function(self, info_queue, card)
-		return { vars = { G.GAME.win_ante or 8 } }
+	loc_vars = function(self)
+		return { vars = { G.GAME.win_ante or 8, (G.GAME.win_ante and G.GAME.round_resets.ante) and math.floor(G.GAME.round_resets.ante + (G.GAME.win_ante - G.GAME.round_resets.ante % G.GAME.win_ante)) or 8 } }
 	end,
+        collection_loc_vars = function(self)
+            return { vars = { '8', localize('cry_joke_placeholder') }}
+        end,
 	cry_calc_ante_gain = function(self)
 		if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) * 2 then
 			if G.GAME.round_resets.ante == 1 then
@@ -493,6 +502,7 @@ local shackle = {
 	order = 18,
 	boss_colour = HEX("010466"),
 	in_pool = function()
+		if G.GAME.modifiers.cry_force_edition and G.GAME.modifiers.cry_force_edition == "negative" then return false end
 		if not G.jokers then
 			return false
 		end
@@ -1415,6 +1425,7 @@ return {
 			end
 			if
 				self.name ~= "cry-Obsidian Orb"
+				and self.name ~= "The Sink"
 				and (self.name ~= "cry-oldarm" or not G.GAME.defeated_blinds["bl_psychic"])
 				and (self.name ~= "The Psychic" or not G.GAME.defeated_blinds["bl_cry_oldarm"])
 				and (self.name ~= "The Eye" or not G.GAME.defeated_blinds["bl_mouth"])
