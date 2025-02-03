@@ -1,6 +1,6 @@
 -- Update the Cryptid member count using HTTPS
 function update_cry_member_count()
-	if true then
+	if false then
 		if not GLOBAL_cry_member_update_thread then
 			-- start up the HTTPS thread if needed
 			local file_data = assert(NFS.read(SMODS.Mods['Cryptid'].path.."https/thread.lua"))
@@ -28,7 +28,7 @@ function update_cry_member_count()
 end
 
 function update_cry_misc_counts()
-	if true then
+	if false then
 		local join_ret = love.thread.getChannel("join_count"):pop()
 		local m_ret = love.thread.getChannel("m_count"):pop()
 		love.thread.getChannel("join_count"):clear()
