@@ -1,11 +1,5 @@
---bruh
-local atlasenhanced = {
-	object_type = "Atlas",
-	key = "atlasenhanced",
-	path = "atlasdeck.png",
-	px = 71,
-	py = 95,
-}
+--Move all the stuff in here into atlasdeck.png later
+--Also a lot of the edition decks have wrong proportions so those also need to get fixed
 local atlasedition = {
 	object_type = "Atlas",
 	key = "atlaseditiondeck",
@@ -436,5 +430,5 @@ return {
 			})
 		end
 	end,
-	items = { e_deck, et_deck, sk_deck, st_deck, sl_deck, atlasenhanced, atlasedition },
+	items = { e_deck, et_deck, sk_deck, st_deck, sl_deck, atlasedition },
 }
