@@ -1,4 +1,15 @@
 local white_hole = {
+	cry_credits = {
+		idea = {
+			"y_not_tony",
+		},
+		art = {
+			"5381",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Consumable",
 	dependencies = {
 		items = {
