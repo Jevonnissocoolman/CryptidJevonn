@@ -54,9 +54,9 @@ Cryptid.edeck_sprites = {
 		pinned = { atlas = "cry_atlasdeck", pos = { x = 7, y = 1 } },
 		banana = { atlas = "cry_atlasdeck", pos = { x = 6, y = 1 } },
 		cry_rigged = { atlas = "cry_atlasdeck", pos = { x = 8, y = 1 } },
-		cry_absolute = { atlas = "cry_atlasdeck", pos = { x = 8, y = 1 } },
-		cry_possesed = { atlas = "cry_atlasdeck", pos = { x = 7, y = 1 } },
-		cry_flickering = { atlas = "cry_atlasdeck", pos = { x = 6, y = 1 } },
+		cry_absolute = { atlas = "cry_atlasdeck", pos = { x = 8, y = 2 } },
+		cry_possesed = { atlas = "cry_atlasdeck", pos = { x = 7, y = 2 } },
+		cry_flickering = { atlas = "cry_atlasdeck", pos = { x = 6, y = 2 } },
 	},
 	suit = {
 		order = 4,
