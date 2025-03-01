@@ -1144,7 +1144,7 @@ local spectrals = {
 	chambered,
 	conduit,
 	summoning,
-	ritual,
+	ritual
 }
 return {
 	name = "Spectrals",
