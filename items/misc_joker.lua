@@ -7669,10 +7669,10 @@ local lebaron_james = {
 	end,
 	calculate = function(self, card, context)
 		if context.cardarea == G.play and context.individual then
-			if SMODS.Ranks[context.other_card.base.value].key == "King" then
+			if context.other_card:get_id() == 13 then
 				local h_size = math.max(0, math.min(1000 - card.ability.extra.h_size, card.ability.extra.h_mod))
 				G.hand:change_size(h_size)
-				card.ability.extra.h_size = card.ability.extra.h_size + h_size
+                		G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + h_size
 				if h_size > 0 then
 					return {
 						message = localize({ type = "variable", key = "a_handsize", vars = { h_size } }),
@@ -7682,17 +7682,6 @@ local lebaron_james = {
 				end
 			end
 		end
-		if context.end_of_round and not context.individual and not context.repetition then
-			G.hand:change_size(-1 * math.min(1000, card.ability.extra.h_size))
-			card.ability.extra.h_size = 0
-			return {
-				card = card,
-				message = localize("k_reset"),
-			}
-		end
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		G.hand:change_size(-1 * math.min(1000, card.ability.extra.h_size))
 	end,
 	cry_credits = {
 		idea = {
