@@ -10,6 +10,17 @@ local meme_digital_hallucinations_compat = {
 	end,
 }
 local meme1 = {
+	cry_credits = {
+		idea = {
+			"Jevonn",
+		},
+		art = {
+			"Jevonn",
+		},
+		code = {
+			"Jevonn",
+		},
+	},
 	object_type = "Booster",
 	dependencies = {
 		items = {
@@ -56,11 +67,21 @@ local meme1 = {
 	cry_digital_hallucinations = meme_digital_hallucinations_compat,
 }
 local meme2 = {
+	cry_credits = {
+		idea = {
+			"Jevonn",
+		},
+		art = {
+			"Jevonn",
+		},
+		code = {
+			"Jevonn",
+		},
+	},
 	object_type = "Booster",
 	dependencies = {
 		items = {
 			"set_cry_misc",
-			"p_cry_meme_1",
 		},
 	},
 	key = "meme_two",
@@ -103,12 +124,21 @@ local meme2 = {
 	cry_digital_hallucinations = meme_digital_hallucinations_compat,
 }
 local meme3 = {
+	cry_credits = {
+		idea = {
+			"Jevonn",
+		},
+		art = {
+			"Jevonn",
+		},
+		code = {
+			"Jevonn",
+		},
+	},
 	object_type = "Booster",
 	dependencies = {
 		items = {
 			"set_cry_misc",
-			"p_cry_meme_1",
-			"p_cry_meme_two",
 		},
 	},
 	key = "meme_three",
@@ -162,6 +192,18 @@ local mosaic_shader = {
 	path = "mosaic.fs",
 }
 local mosaic = {
+	cry_credits = {
+		idea = {
+			"Mystic Misclick",
+		},
+		--Replace with Shader later
+		art = {
+			"Math",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -215,6 +257,17 @@ local oversat_shader = {
 	path = "oversat.fs",
 }
 local oversat = {
+	cry_credits = {
+		idea = {
+			"Math",
+		},
+		art = {
+			"Math",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -313,6 +366,14 @@ local glitched_shader = {
 	path = "glitched.fs",
 }
 local glitched = {
+	cry_credits = {
+		art = {
+			"Samario",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -538,6 +599,15 @@ local astral_shader = {
 	path = "astral.fs",
 }
 local astral = {
+	cry_credits = {
+		--Don't remember who came up with this idea
+		art = {
+			"AlexZGreat",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -591,6 +661,17 @@ local blurred_shader = {
 	path = "blur.fs",
 }
 local blurred = {
+	cry_credits = {
+		idea = {
+			"stupid",
+		},
+		art = {
+			"stupid",
+		},
+		code = {
+			"stupid",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -654,6 +735,17 @@ local noisy_stats = {
 	},
 }
 local noisy = {
+	cry_credits = {
+		idea = {
+			"Math",
+		},
+		art = {
+			"jenwalter666",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -915,6 +1007,17 @@ local jollyeditionshader = {
 	path = "m.fs",
 }
 local jollyedition = {
+	cry_credits = {
+		idea = {
+			"Jevonn",
+		},
+		art = {
+			"stupid","Math",
+		},
+		code = {
+			"Jevonn",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -1047,6 +1150,17 @@ local glass_shader = {
 	end,
 }
 local glass_edition = {
+	cry_credits = {
+		idea = {
+			"Math",
+		},
+		art = {
+			"stupid",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -1176,6 +1290,17 @@ local gold_shader = {
 	end,
 }
 local gold_edition = {
+	cry_credits = {
+		idea = {
+			"Math",
+		},
+		art = {
+			"stupid",
+		},
+		code = {
+			"Math",
+		},
+	},
 	object_type = "Edition",
 	dependencies = {
 		items = {
@@ -1248,6 +1373,9 @@ local double_sided = {
 		vol = 0.3,
 	},
 	cry_credits = {
+		code = {
+			"Math",
+		},
 		jolly = {
 			"Jolly Open Winner",
 			"Axolotolus",
@@ -1639,6 +1767,12 @@ local meld = {
 		end
 	end,
 	cry_credits = {
+		art = {
+			"Linus Goof Balls",
+		},
+		code = {
+			"Math",
+		},
 		jolly = {
 			"Jolly Open Winner",
 			"Axolotolus",
@@ -1665,6 +1799,17 @@ local meld = {
 
 -- Enhancements/Tarots
 local echo = {
+	cry_credits = {
+		idea = {
+			"Mystic Misclick",
+		},
+		art = {
+			"Coronacht",
+		},
+		code = {
+			"AlexZGreat",
+		},
+	},
 	object_type = "Enhancement",
 	dependencies = {
 		items = {
@@ -1699,6 +1844,17 @@ local echo = {
 	end,
 }
 local eclipse = {
+	cry_credits = {
+		idea = {
+			"Mystick Misclick",
+		},
+		art = {
+			"AlexZGreat",
+		},
+		code = {
+			"AlexZGreat",
+		},
+	},
 	object_type = "Consumable",
 	dependencies = {
 		items = {
