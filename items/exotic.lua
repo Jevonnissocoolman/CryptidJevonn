@@ -498,8 +498,6 @@ local effarcire = {
 			if context.first_hand_drawn then
 				G.FUNCS.draw_from_deck_to_hand(#G.deck.cards)
 				return nil, true
-			elseif G.hand.config.card_limit < 1 then
-				G.hand.config.card_limit = 1
 			end
 		end
 	end,
