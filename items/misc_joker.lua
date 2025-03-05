@@ -7700,13 +7700,13 @@ local huntingseason = { -- If played hand contains three cards, destroy the midd
 	},
 	name = "cry-huntingseason",
 	key = "huntingseason",
-	pos = { x = 4, y = 0 },
+	pos = { x = 4, y = 5 },
 	order = 134,
 	immutable = true,
 	rarity = 2,
 	cost = 7,
 	blueprint_compat = false,
-	atlas = "placeholders",
+	atlas = "atlasone",
 	calculate = function(self, card, context)
 		if
 			(context.cardarea == G.play or context.cardarea == "unscored")
