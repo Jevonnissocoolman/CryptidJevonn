@@ -7719,7 +7719,7 @@ local huntingseason = { -- If played hand contains three cards, destroy the midd
 		end
 	end,
 	cry_credits = {
-		art =  {
+		art = {
 			"Unexian",
 		},
 		idea = {
