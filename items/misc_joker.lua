@@ -2045,7 +2045,7 @@ local redbloon = {
 			"Roguefort Cookie",
 		},
 		art = {
-			"Jevonn",
+			"Darren_The_Frog",
 		},
 		code = {
 			"Jevonn",
@@ -2681,7 +2681,7 @@ local spaceglobe = {
 			"Jevonn",
 		},
 		art = {
-			"Jevonn",
+			"Selicre",
 		},
 		code = {
 			"Jevonn",
@@ -7715,10 +7715,13 @@ local huntingseason = { -- If played hand contains three cards, destroy the midd
 			and not context.blueprint
 			and not context.retrigger_joker
 		then
-			return { remove = true }
+			return { remove = not context.destroy_card.ability.eternal }
 		end
 	end,
 	cry_credits = {
+		art =  {
+			"Unexian",
+		},
 		idea = {
 			"Nova",
 		},
