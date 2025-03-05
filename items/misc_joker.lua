@@ -302,7 +302,8 @@ local queensgambit = {
 		if context.destroying_card and not context.blueprint then
 			if
 				G.GAME.current_round.current_hand.handname == "Royal Flush"
-				and SMODS.Ranks[context.destroying_card.base.value].key == "Queen"
+				and context.destroying_card:get_id() == 12
+				and not context.destroying_card.ability.eternal
 			then
 				card_eval_status_text(
 					card,
@@ -7543,7 +7544,7 @@ local arsonist = {
 		if context.destroying_card then
 			local eval = evaluate_poker_hand(context.full_hand)
 			if next(eval["Full House"]) then
-				return true
+				return not context.destroying_card.ability.eternal
 			end
 		end
 	end,
