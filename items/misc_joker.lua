@@ -7093,19 +7093,24 @@ local necromancer = {
 			and context.card.config.center.set == "Joker"
 			and G.GAME.jokers_sold
 		then
-			local card = create_card(
-				"Joker",
-				G.jokers,
-				nil,
-				nil,
-				nil,
-				nil,
-				G.GAME.jokers_sold[pseudorandom("cry_necromancer", 1, #G.GAME.jokers_sold)]
-			)
-			card.sell_cost = 0
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			card:start_materialize()
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local card = create_card(
+						"Joker",
+						G.jokers,
+						nil,
+						nil,
+						nil,
+						nil,
+						G.GAME.jokers_sold[pseudorandom("cry_necromancer", 1, #G.GAME.jokers_sold)]
+					)
+					card.sell_cost = 0
+					card:add_to_deck()
+					G.jokers:emplace(card)
+					card:start_materialize()
+					return true
+				end,
+			}))
 		end
 	end,
 	cry_credits = {
