@@ -12,7 +12,7 @@ keep_on_use = function(self, card)
 		return false
 	end
 	return card.ability.cry_multiuse > 1
-end
+end,
 
 ]]
 
@@ -1032,6 +1032,19 @@ local payload = {
 	demicoloncompat = true,
 	force_use = function(self, card, area)
 		self:use(card, area)
+	end,
+	keep_on_use = function(self, card)
+		if SMODS.pseudorandom_probability(self, "oops_it_banana", 1, G.GAME.cry_consumeable_banana_odds, "Banana Sticker") then
+			card.ability.skip_banana_check = true
+			return false
+		end
+		if not Cryptid.safe_get(card, "ability", "cry_multiuse") then
+			return false
+		end
+		if card.ability.cry_multiuse <= 1 then
+			return false
+		end
+		return card.ability.cry_multiuse > 1
 	end,
 }
 -- ://Exploit

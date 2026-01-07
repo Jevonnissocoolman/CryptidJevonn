@@ -124,20 +124,20 @@ position = "after"
 payload = '''if G.GAME.cry_banished_keys[v.key] then add = nil end'''
 match_indent = true
 
-# Delete - multiuse 1
-[[patches]]
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = '''if card.area and (not nc or card.area == G.pack_cards) then card.area:remove_card(card) end'''
-position = "before"
-payload = '''
-local cry_muse = false
-if card.ability.cry_multiuse and not (card.ability.cry_multiuse <= 1) then
-	cry_muse = true
-	dont_dissolve = true
-end
-'''
-match_indent = true
+# Delete - multiuse 1 OLD MULTIUSE DISABLED
+# [[patches]]
+# [patches.pattern]
+# target = "functions/button_callbacks.lua"
+# pattern = '''if card.area and (not nc or card.area == G.pack_cards) then card.area:remove_card(card) end'''
+# position = "before"
+# payload = '''
+# local cry_muse = false
+# if card.ability.cry_multiuse and not (card.ability.cry_multiuse <= 1) then
+#	cry_muse = true
+#	dont_dissolve = true
+# end
+# '''
+# match_indent = true
 
 # Multiuse + Function:// code 
 [[patches]]
