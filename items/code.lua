@@ -16,7 +16,6 @@ end,
 
 ]]
 
-
 local code = {
 	object_type = "ConsumableType",
 	key = "Code",
@@ -1034,7 +1033,15 @@ local payload = {
 		self:use(card, area)
 	end,
 	keep_on_use = function(self, card)
-		if SMODS.pseudorandom_probability(self, "oops_it_banana", 1, G.GAME.cry_consumeable_banana_odds, "Banana Sticker") then
+		if
+			SMODS.pseudorandom_probability(
+				self,
+				"oops_it_banana",
+				1,
+				G.GAME.cry_consumeable_banana_odds,
+				"Banana Sticker"
+			)
+		then
 			card.ability.skip_banana_check = true
 			return false
 		end
