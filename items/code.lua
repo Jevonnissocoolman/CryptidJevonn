@@ -1,3 +1,22 @@
+--[[
+
+keep_on_use = function(self, card)
+	if SMODS.pseudorandom_probability(self, "oops_it_banana", 1, G.GAME.cry_consumeable_banana_odds, "Banana Sticker") then
+		card.ability.skip_banana_check = true
+		return false
+	end
+	if not Cryptid.safe_get(card, "ability", "cry_multiuse") then
+		return false
+	end
+	if card.ability.cry_multiuse <= 1 then
+		return false
+	end
+	return card.ability.cry_multiuse > 1
+end
+
+]]
+
+
 local code = {
 	object_type = "ConsumableType",
 	key = "Code",
@@ -297,6 +316,9 @@ local crash = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		if not G.PROFILES[G.SETTINGS.profile].consumeable_usage["c_cry_crash"] then
 			set_consumeable_usage(card)
 		end
@@ -883,6 +905,9 @@ local keygen = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local area
 		if G.STATE == G.STATES.HAND_PLAYED then
 			if not G.redeemed_vouchers_during_hand then
@@ -993,9 +1018,15 @@ local payload = {
 	end,
 	can_bulk_use = true,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult)
 	end,
 	bulk_use = function(self, card, area, copier, number)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult) ^ to_big(number)
 	end,
 	demicoloncompat = true,
@@ -1108,6 +1139,9 @@ local malware = {
 		return #G.hand.cards > 0
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.4,
@@ -1186,6 +1220,9 @@ local crynperror = {
 		return G.GAME.last_hand_played_cards and (Cryptid.safe_get(G.GAME, "blind", "in_blind")) -- TODO: work in boosters
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		for i = 1, #G.GAME.last_hand_played_cards do
 			for _, v in pairs(G.discard.cards) do
 				if v.sort_id == G.GAME.last_hand_played_cards[i] then
@@ -1254,6 +1291,9 @@ local rework = {
 				) == "madness"))
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local cards = Cryptid.get_highlighted_cards({ G.jokers }, card, 1, 1, function(card)
 			return card.ability.set == "Joker"
 		end)
@@ -1417,6 +1457,9 @@ local merge = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local hand = Cryptid.get_highlighted_cards({ G.hand }, card, 1, 1)
 		local consumeables = Cryptid.get_highlighted_cards({ G.consumeables }, card, 1, 1, function(card)
 			return card.ability.consumeable
@@ -1516,6 +1559,9 @@ local commit = {
 			and not (type(jokers[1].config.center.rarity) == "number" and jokers[1].config.center.rarity >= 5)
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local jokers = Cryptid.get_highlighted_cards({ G.jokers }, card, 1, 1, function(card)
 			return card.ability.set == "Joker" and not card.getting_sliced
 		end)
@@ -1609,6 +1655,9 @@ local machinecode = {
 		}
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local card = create_card(
 			"Consumeables",
 			G.consumeables,
@@ -1624,6 +1673,9 @@ local machinecode = {
 		G.consumeables:emplace(card)
 	end,
 	bulk_use = function(self, card, area, copier, number)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local a = {}
 		local b
 		for i = 1, number do
@@ -1875,6 +1927,9 @@ local spaghetti = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local card = create_card("Food", G.jokers, nil, nil, nil, nil, nil, "cry_spaghetti")
 		card:set_edition({
 			cry_glitched = true,
@@ -1924,6 +1979,9 @@ local seed = {
 		info_queue[#info_queue + 1] = { key = "cry_rigged", set = "Other", vars = {} }
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local cards = Cryptid.get_highlighted_cards({ G.jokers, G.hand, G.consumeables, G.pack_cards }, card, 1, 1)
 		if cards[1] then
 			cards[1].ability.cry_rigged = true
@@ -2018,6 +2076,9 @@ local patch = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		for i = 1, #G.hand.cards do
 			local CARD = G.hand.cards[i]
 			G.E_MANAGER:add_event(Event({
@@ -2185,6 +2246,9 @@ local hook = {
 		info_queue[#info_queue + 1] = { key = "cry_hooked", set = "Other", vars = { "hooked Joker" } }
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local jokers = Cryptid.get_highlighted_cards({ G.jokers }, card, 2, 2)
 		local card1 = jokers[1]
 		local card2 = jokers[2]
@@ -2333,9 +2397,15 @@ local oboe = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.cry_oboe = G.GAME.cry_oboe + math.floor(card.ability.extra.choices)
 	end,
 	bulk_use = function(self, card, area, copier, number)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.cry_oboe = G.GAME.cry_oboe + (math.floor(card.ability.extra.choices) * number)
 	end,
 	demicoloncompat = true,
@@ -2379,6 +2449,9 @@ local assemble = {
 		return (#cards > aaa and #G.jokers.cards > 1)
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local upgrade_hand
 		local num = 0
 		if G.PROFILES[G.SETTINGS.profile].cry_none then
@@ -2461,6 +2534,9 @@ local inst = {
 		return #cards == 1
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local same = 0
 		local cards = Cryptid.get_highlighted_cards({ G.hand }, card, 1, 1)
 		for i = 1, #G.deck.cards do
@@ -2535,6 +2611,9 @@ local revert = {
 	use = function(self, card, area, copier)
 		if not G.GAME.cry_revert then
 			return
+		end
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
 		end
 		G.E_MANAGER:add_event(
 			Event({
@@ -2630,6 +2709,9 @@ local cryfunction = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		if #G.consumeables.cards < G.consumeables.config.card_limit then
 			if not G.GAME.cry_function_cards and #G.GAME.cry_last_used_consumeables == 0 then
 				G.E_MANAGER:add_event(Event({
@@ -2777,6 +2859,9 @@ local run = {
 	end,
 	can_bulk_use = true,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.cry_runarea = CardArea(
 			G.discard.T.x,
 			G.discard.T.y,
@@ -2913,6 +2998,9 @@ local declare = {
 		return (G.GAME.DECLARE_USED or 0) < 3
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.USING_CODE = true
 		G.GAME.USING_DECLARE = true
 		G.ENTERED_CARD = ""
@@ -3303,6 +3391,9 @@ local global = {
 		info_queue[#info_queue + 1] = { key = "cry_global_sticker", set = "Other", vars = {} }
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		if area then
 			area:remove_from_highlighted(card)
 		end
@@ -3536,6 +3627,9 @@ local log = {
 		return true
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.GAME.USING_LOG = true
 
 		G.GAME.USING_CODE = true
@@ -3864,6 +3958,9 @@ local quantify = {
 		return t > 0 and t <= card.ability.extra
 	end,
 	use = function(self, card)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		for i, v in pairs(Cryptid.get_quantify(card)) do
 			Cryptid.handle_quantify(v)
 		end
@@ -4028,6 +4125,9 @@ local divide = {
 	end,
 	can_bulk_use = true,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		for i = 1, #G.shop_jokers.cards do
 			local c = G.shop_jokers.cards[i]
 			c.misprint_cost_fac = (c.misprint_cost_fac or 1) * 0.5
@@ -4045,6 +4145,9 @@ local divide = {
 		end
 	end,
 	bulk_use = function(self, card, area, copier, number)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		for i = 1, #G.shop_jokers.cards do
 			local c = G.shop_jokers.cards[i]
 			c.misprint_cost_fac = (c.misprint_cost_fac or 1) / (2 ^ number)
@@ -4096,6 +4199,9 @@ local multiply = {
 		return #cards == 1
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local cards = Cryptid.get_highlighted_cards({ G.jokers }, card, 1, 1, function(card)
 			return not Card.no(card, "immutable", true)
 		end)
@@ -4183,6 +4289,9 @@ local delete = {
 			)
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		if not G.GAME.cry_banned_pcards then
 			G.GAME.cry_banned_pcards = {}
 		end
@@ -4263,6 +4372,9 @@ local alttab = {
 		return Cryptid.safe_get(G.GAME, "blind", "in_blind")
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local used_consumable = copier or card
 		delay(0.4)
 		G.E_MANAGER:add_event(Event({
@@ -4359,6 +4471,9 @@ local ctrl_v = {
 		return #cards == 1
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local cards = Cryptid.get_highlighted_cards({ G.hand, G.consumeables, G.pack_cards }, card, 1, 1, function(card)
 			return card.area ~= G.pack_Cards or card.ability.set == "Default" or card.ability.set == "Enhanced"
 		end)
@@ -4416,6 +4531,9 @@ local ctrl_v = {
 		end
 	end,
 	bulk_use = function(self, card, area, copier, number)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		local cards = Cryptid.get_highlighted_cards({ G.hand, G.consumeables, G.pack_cards }, card, 1, 1, function(card)
 			return card.area ~= G.pack_Cards or card.ability.set == "Default" or card.ability.set == "Enhanced"
 		end)
@@ -4511,6 +4629,9 @@ local reboot = {
 		return G.STATE == G.STATES.SELECTING_HAND
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.FUNCS.draw_from_hand_to_discard()
 		G.FUNCS.draw_from_discard_to_deck()
 		ease_discard(
@@ -4570,6 +4691,9 @@ local semicolon = {
 		return G.STATE == G.STATES.SELECTING_HAND and not G.GAME.blind.boss
 	end,
 	use = function(self, card, area, copier)
+		if not copier and Cryptid.safe_get(card, "ability", "cry_multiuse") and card.area ~= G.jokers then
+			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
+		end
 		G.E_MANAGER:add_event(
 			Event({
 				trigger = "immediate",

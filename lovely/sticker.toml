@@ -65,7 +65,7 @@ end
 local gone = false
 if self.ability.banana and not copier then
     if not self.ability.extinct then
-        if SMODS.pseudorandom_probability(self, "oops_it_banana", 1, G.GAME.cry_consumeable_banana_odds, "Banana Sticker") then
+        if (SMODS.pseudorandom_probability(self, "oops_it_banana", 1, G.GAME.cry_consumeable_banana_odds, "Banana Sticker") and self.ability.set ~= "Code") or self.ability.skip_banana_check then
 	    local gone = true
             self.ability.extinct = true
             G.E_MANAGER:add_event(Event({
