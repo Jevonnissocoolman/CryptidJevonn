@@ -146,6 +146,7 @@ target = "functions/button_callbacks.lua"
 pattern = '''if (prev_state == G.STATES.TAROT_PACK or prev_state == G.STATES.PLANET_PACK or'''
 position = "before"
 payload = '''
+local cry_muse = false
 if cry_muse then
 	card.ability.cry_multiuse = card.ability.cry_multiuse - 1
 	card.ability.extra_value = -1 * math.max(1, math.floor(card.cost/2))
